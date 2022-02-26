@@ -79,3 +79,22 @@ CREATE TABLE `faq` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
+CREATE TABLE `announcements` (
+  `announcement_id` int(11) NOT NULL,
+  `announcement_subject` varchar(100) NOT NULL,
+  `announcement_message` varchar(100) NOT NULL,
+  `attached_file` varchar(500) NOT NULL,
+  `date` date
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+CREATE TABLE `shared_files` (
+  `file_id` int(11) NOT NULL,
+  `file_name` varchar(100) NOT NULL,
+  `file_desc` varchar(100) NOT NULL,
+  `file` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------

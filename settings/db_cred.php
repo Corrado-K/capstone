@@ -5,7 +5,7 @@
 
 define('SERVER', 'localhost');
 define('USER', 'root');
-define('DATABASE', 'sas_db');
+define('DATABASE', 'student_advising');
 define('PASSWORD', '');
 
 ?>

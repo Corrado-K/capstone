@@ -1,6 +1,6 @@
 <?php 
 
-require('db_cred.php');
+require_once('db_cred.php');
 
 class Connection{
 

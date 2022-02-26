@@ -55,7 +55,7 @@
                 
             </div>
             <div class="mt-10 text-center">
-                <a href="./view/student_view/home.php" class="rounded-full text-white bg-red-900 px-10 py-3">Get started</a>
+                <a href="./student_view/home.php" class="rounded-full text-white bg-red-900 px-10 py-3">Get started</a>
  
             </div>
         </div>
@@ -65,63 +65,3 @@
 </body>
 </html>
 
-
-<!-- 
-
-<div class="bg-black text-white pt-5">
-    <div class="container flex flex-col md:flex-row items-center">
-        
-        <div class="grid grid-rows-2 gap-2">
-            <div class="row">
-                <h1 class="text-4xl md:text-4xl md:ml-10 md:mt-5 text-white  mb-10">SaS</h1>
-                <div class="gap-1 px-1">
-                    <div class="flex justify-center items-center mt-5 mb-20">
-                        Student Advising System
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 px-10 gap-2 border">
-                <h1 class="text-4xl md:text-4xl text-white">SaS</h1>
-                    <div class="flex justify-center items-center">
-                        <a class="cursor-pointer" href="#">
-                            <div class="hover:scale-105 transform transition-all duration-500">
-                                <img class="h-30 rounded-lg"
-                                    src="https://cdn.pixabay.com/photo/2020/07/21/16/24/landscape-5426755_960_720.jpg" alt="image" />
-                            </div>
-                        </a>
-                    </div>
-                    <div class="flex justify-center items-center">
-                        <a class="cursor-pointer" href="#">
-                            <div class="hover:scale-105 transform transition-all duration-500">
-                                <img class="h-30 rounded-lg"
-                                    src="https://cdn.pixabay.com/photo/2020/07/21/16/24/landscape-5426755_960_720.jpg" alt="image" />
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-
-</div> -->
-
-<!-- <div class="block">
-            <h1 class="text-6xl ml-10 text-bold">
-                SaS
-            </h1>
-            <h3 class="text-4xl self-center font-normal">
-                Student Advising System
-
-            </h3>
-            <div class="row">
-                <div class="flex-col">
-                    Student
-                </div>
-                <div class="flex-col">
-                    Advisor/Faculty
-                </div>
-
-            
-            </div>
-        </div>
- -->
