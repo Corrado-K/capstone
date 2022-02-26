@@ -469,7 +469,7 @@
 
           <!-- General elements -->
           <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form action="../../action/announcement_action.php" method="post">
+            <form action="../action/announcement_action.php" method="post" enctype="multipart/form-data">
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Subject</span>
                 <input
@@ -485,9 +485,9 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full
                   file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
-                  
                   type="file"
-                  name="file"
+                  name="uploaded_file"
+                  id="uploaded_file"
                   placeholder="Jane Doe" />
               </label>
 
@@ -524,7 +524,7 @@
                   </thead>
                   <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     <?php 
-                      if (count($announcements) > 0) {
+                      if ($announcements) {
                         foreach ($announcements as $announcement) {
                             echo '
                           <tr class="text-gray-700 dark:text-gray-400">
@@ -540,11 +540,11 @@
                             </div>
                             </td>
                             <td class="px-4 py-3 text-sm">'.$announcement['announcement_message'].'</td>
-                            <td class="px-4 py-3 text-xs">
+                            <td class="px-4 py-3 text-xs">'.isset($a)
                             <span
                                 class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                 No file
-                            </span>
+                            </span>.'
                             </td>
                             <td class="px-4 py-3 text-sm">'.$announcement['date'].'</td>
                             <td class="px-4 py-3">
@@ -554,6 +554,17 @@
                           </tr>
                           ';
                         }
+                      }else{
+                        echo'<tr class="text-gray-700 dark:text-gray-400">
+                              <td></td>
+                              <td class="text-center">
+                                <div>
+                                  <p class="font-semibold">No announcement available</p>
+                                </div>
+                              </td>
+                              <td></td>
+                              <td></td>
+                            </tr>';
                       }
                     ?>
                       

@@ -471,7 +471,7 @@
             <h2 class="my-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-200">
               Add FAQ
             </h2>
-            <form action="../../action/faq_action.php" method="post">
+            <form action="../action/faq_action.php" method="post">
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Question</span>
                 <input
@@ -497,17 +497,23 @@
             FAQs
           </h2>
           <?php 
-          foreach ($faqs as $faq) {
-              echo '
-              <details class="mb-3">
-                <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
-                '.$faq['faq_question'].'
-                </summary>
+          if ($faqs) {
+              foreach ($faqs as $faq) {
+                  echo '
+                <details class="mb-3">
+                  <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
+                  '.$faq['faq_question'].'
+                  </summary>
 
-                <span>
-                '.$faq['faq_answer'].'
-                </span>
-              </details>';
+                  <span>
+                  '.$faq['faq_answer'].'
+                  </span>
+                </details>';
+              }
+          }else{
+            echo '<h2 class="my-3 text-xl font-base text-center text-gray-700 dark:text-gray-200">
+            No FAQs posted yet!
+          </h2>';
           }
           ?>
           </div>

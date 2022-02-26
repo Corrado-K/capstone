@@ -498,7 +498,7 @@
 
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form action="../../action/shared_files_action.php" method="post">
+                    <form action="../action/shared_files_action.php" method="post">
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Course code</span>
                         <input
@@ -539,7 +539,7 @@
 
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form action="../../action/shared_files_action.php" method="post">
+                    <form action="../action/shared_files_action.php" method="post">
                         
 
                         <label class="block text-sm">

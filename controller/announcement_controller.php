@@ -1,6 +1,6 @@
 <?php
 
-require ('../class/announcement_class.php');
+require_once '../class/announcement_class.php';
 
 // announcement
 function add_announcement_controller($subject,$message,$attached_file,$date){

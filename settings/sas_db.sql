@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shoppn`
+-- Database: `student_advising_system`
 --
 
 -- --------------------------------------------------------
@@ -49,18 +49,24 @@ CREATE TABLE `advisor` (
 
 -- --------------------------------------------------------
 
-CREATE TABLE `scheduled_meeting` (
-  `scheduled_meeting_id` int(11) NOT NULL
-  `student_id` int(11) NOT NULL,
-  `advisor_id` int(11) NOT NULL,
-  `meeting_date` date NOT NULL,
-  `meeting_time` timestamp` NOT NULL,
-  `zoom_link` varchar(150) NOT NULL
+CREATE TABLE `courses` (
+  `course_id` int(11) NOT NULL,
+  `course_code` varchar(120) NOT NULL,
+  `course_name` varchar(120) NOT NULL,
+  `course_passgrade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
-CREATE TABLE `meeting` (
+CREATE TABLE `course_prerequisite` (
+  `course_id` int(11) NOT NULL,
+  `course_prerequisite_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+
+/* CREATE TABLE `meeting` (
   `meeting_id` int(11) NOT NULL,
   `advisor_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
@@ -68,8 +74,7 @@ CREATE TABLE `meeting` (
   `meeting_duration` timestamp NOT NULL,
   `meeting_minutes` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+ */
 
 CREATE TABLE `faq` (
   `faq_id` int(11) NOT NULL,

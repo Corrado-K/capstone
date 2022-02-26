@@ -28,7 +28,7 @@ class Course extends Connection{
 
     public function set_prerequisite($course_id, $prerequisite_id){
         // return true or false
-		return $this->query("insert into course_prerequisite(course_id, prerequisite) values('$course_id','$prerequisite_id')");
+		return $this->query("insert into course_prerequisite(course_id, course_prerequisite_id) values('$course_id','$prerequisite_id')");
 	}
 
 

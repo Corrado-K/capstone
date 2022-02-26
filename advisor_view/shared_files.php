@@ -493,7 +493,7 @@
 
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form action="../../action/shared_files_action.php" method="post">
+                    <form action="../action/shared_files_action.php" method="post">
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">File name</span>
                         <input
@@ -517,7 +517,7 @@
                             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full
                             file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                             type="file"
-                            name="file"
+                            name="uploaded_file"
                             placeholder="Jane Doe" />
                         </label>
                         
@@ -545,29 +545,39 @@
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             <?php 
-                            foreach ($shared_files as $shared_file) {
-                                echo'<tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
-                                    <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                    <i class="fas fa-file fa-lg mr-3"></i>
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                    <!-- </div> -->
-                                    <div>
-                                    <p class="font-semibold">'.$shared_file['file_name'].'</p>
+                            if ($shared_files) {
+                                foreach ($shared_files as $shared_file) {
+                                    echo'<tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3">
+                                    <div class="flex items-center text-sm">
+                                        <!-- Avatar with inset shadow -->
+                                        <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                        <i class="fas fa-file fa-lg mr-3"></i>
+                                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                        <!-- </div> -->
+                                        <div>
+                                        <p class="font-semibold">'.$shared_file['file_name'].'</p>
+                                        </div>
                                     </div>
-                                </div>
-                                </td>
-                                <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                                <td class="px-4 py-3 text-xs">
-                                <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                                <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                                <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                                </td>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
+                                    <td class="px-4 py-3 text-xs">
+                                    <i class="ml-10 text-blue-400 fas fa-edit"></i>
+                                    <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
+                                    <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
+                                    </td>
+                                    
+                                </tr>';
+                                }
+                            }else{
+                                echo '<td class="text-right">
+                                        <div>
+                                            <p class="font-semibold">No file available</p>
+                                        </div>
+                                      </td>';
                                 
-                            </tr>';
-                            }   
+                            }
+                               
                             ?>
 
                             </tbody>

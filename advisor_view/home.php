@@ -153,7 +153,7 @@
           </li>
         </ul>
         <div class="px-6 my-6">
-          <button @click="openModal"
+          <button
             class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-gray-600 transition-colors duration-150 bg-red-100 border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
             Create account
             <span class="ml-2" aria-hidden="true">+</span>
@@ -500,7 +500,8 @@
           <div class="mb-8">
 
             <!-- Card -->
-            <div @click="openModal" class="flex items-center p-4 bg-white rounded-lg shadow-xs hover:bg-gray-100 dark:bg-gray-800">
+            <div  <?php if($announcement_count > 0){echo '@click="openModal"';}?> 
+              class="flex items-center p-4 bg-white rounded-lg shadow-xs <?php if($announcement_count > 0){echo 'hover:bg-gray-100';}?>  dark:bg-gray-800">
               <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
               <i class="fas fa-bullhorn fa-xl"></i>
               </div>
@@ -509,12 +510,16 @@
                   Announcements
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  You have <?php echo $announcement_count['count']; ?> new announcements. <button @click="openModal"><span class="text-sm text-blue-500 transition-colors duration-150 hover:text-blue-400">Click here</span></button>
+                  You have <?php if($announcement_count > 0){
+                      echo $announcement_count['count'];
+                  }else{echo 0;} ?> new announcements.  <?php if($announcement_count > 0){
+                    echo '<button @click="openModal"><span class="text-sm text-blue-500 transition-colors duration-150 hover:text-blue-400">Click here</span></button>';
+                }?>
 
                 </p>
               </div>
             </div>
-
+                
             
             <!-- Card -->
             <!-- <div @click="openModal2" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
@@ -550,8 +555,9 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <?php 
-                foreach ($shared_files as $shared_file) {
-                    echo'<tr class="text-gray-700 dark:text-gray-400">
+                if($shared_files){
+                  foreach ($shared_files as $shared_file) {
+                      echo'<tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">
                       <div class="flex items-center text-sm">
                         <!-- Avatar with inset shadow -->
@@ -572,6 +578,15 @@
                     </td>
                     
                   </tr>';
+                  }
+                }else{
+                  echo'<tr class="text-gray-700 dark:text-gray-400">
+                        <td class="text-right">
+                          <div>
+                            <p class="font-semibold">No file available</p>
+                          </div>
+                        </td>
+                      </tr>';
                 }
                 ?>
 
@@ -630,12 +645,6 @@
               }
           }
         ?>
-
-          <!-- <h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">'.$announcement['announcement_subject'].'</h2>
-          <p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
-          '.$announcement['announcement_message'].'
-          </p> -->
-
       
       </div>
       <footer
