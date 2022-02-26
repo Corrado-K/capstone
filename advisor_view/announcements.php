@@ -1,7 +1,7 @@
-<?php 
-  require '../controller/announcement_controller.php';
+<?php
+require '../controller/announcement_controller.php';
 
-  $announcements = select_all_announcements_controller();
+$announcements = select_all_announcements_controller();
 ?>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -523,8 +523,7 @@
                   </tr>
                   </thead>
                   <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    <?php 
-                      if ($announcements) {
+                    <?php if ($announcements) {
                         foreach ($announcements as $announcement) {
                             echo '
                           <tr class="text-gray-700 dark:text-gray-400">
@@ -535,18 +534,33 @@
                                     <i class="fas fa-bullhorn fa-lg mr-3"></i>
                                     <!-- </div> -->
                                 <div>
-                                <p class="font-semibold">'.$announcement['announcement_subject'].'</p>
+                                <p class="font-semibold">' .
+                                $announcement['announcement_subject'] .
+                                '</p>
                                 </div>
                             </div>
                             </td>
-                            <td class="px-4 py-3 text-sm">'.$announcement['announcement_message'].'</td>
-                            <td class="px-4 py-3 text-xs">'.isset($a)
-                            <span
-                                class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            <td class="px-4 py-3 text-sm">' .
+                                $announcement['announcement_message'] .
+                                '</td>
+                            <td class="px-4 py-3 text-xs">';
+                            if ($announcement['attached_file'] == null) {
+                              echo'
+                            <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
                                 No file
-                            </span>.'
+                            </span>';
+                            }else{
+                              echo'
+                              <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                  File attached
+                              </span>';
+                            }
+                            
+                            echo'
                             </td>
-                            <td class="px-4 py-3 text-sm">'.$announcement['date'].'</td>
+                            <td class="px-4 py-3 text-sm">' .
+                                $announcement['date'] .
+                                '</td>
                             <td class="px-4 py-3">
                                 <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
                                 <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
@@ -554,8 +568,8 @@
                           </tr>
                           ';
                         }
-                      }else{
-                        echo'<tr class="text-gray-700 dark:text-gray-400">
+                    } else {
+                        echo '<tr class="text-gray-700 dark:text-gray-400">
                               <td></td>
                               <td class="text-center">
                                 <div>
@@ -565,8 +579,7 @@
                               <td></td>
                               <td></td>
                             </tr>';
-                      }
-                    ?>
+                    } ?>
                       
                   </tbody>
               </table>
