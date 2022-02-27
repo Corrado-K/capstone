@@ -1,3 +1,16 @@
+<?php  
+
+  include '../controller/announcement_controller.php';
+  include '../controller/shared_files_controller.php';
+
+  $shared_files = select_all_shared_files_controller();
+
+  $announcements = select_all_announcements_controller();
+  $count_announcement = count_announcement_controller();
+  
+?>
+
+
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
@@ -12,8 +25,9 @@
   <script src="./assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="./assets/js/charts-lines.js" defer></script>
-  <script src="./assets/js/charts-pie.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <script src="./assets/js/charts-lines.js" defer></script>
+  <script src="./assets/js/charts-pie.js" defer></script> -->
 </head>
 
 <body>
@@ -488,30 +502,26 @@
             <span>View more &RightArrow;</span>
           </a> -->
           <!-- Cards -->
-          <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+          <div class="grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1">
 
             <!-- Card -->
             <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
               <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                  </path>
-                </svg>
+              <i class="fas fa-bullhorn fa-xl"></i>
               </div>
               <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                   Announcement
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  You have {} new announcements
+                  You have <?php echo $count_announcement['count'] ?> new announcements
                 </p>
               </div>
             </div>
 
             
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            <!-- <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
               <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd"
@@ -527,7 +537,7 @@
                 You have {} new announcements
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <!-- New Table -->
@@ -537,124 +547,47 @@
                 <thead>
                   <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">File</th>
-                    <th class="px-4 py-3">Size</th>
-                    <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3">Date</th>
+                    <th class="px-12 py-3">File name</th>
+                    <th class="px-4 py-3">Description</th>
+                    <th class="px-4 py-3"></th>
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  <tr class="text-gray-700 dark:text-gray-400">
+                <?php 
+                if($shared_files){
+                  foreach ($shared_files as $shared_file) {
+                      echo'<tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">
                       <div class="flex items-center text-sm">
                         <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
+                        <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                        <i class="fas fa-file fa-lg mr-3"></i>
                           <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
+                          <!-- </div> -->
                         <div>
-                          <p class="font-semibold">Hans Burger</p>
-                          <p class="text-xs text-gray-600 dark:text-gray-400">
-                            10x Developer
-                          </p>
+                          <p class="font-semibold">'.$shared_file['file_name'].'</p>
                         </div>
                       </div>
                     </td>
-                    <td class="px-4 py-3 text-sm">$ 863.45</td>
+                    <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
                     <td class="px-4 py-3 text-xs">
-                      <span
-                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                        Approved
-                      </span>
+                      <i class="ml-10 text-blue-400 fas fa-edit"></i>
+                      <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
+                      <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
                     </td>
-                    <td class="px-4 py-3 text-sm">6/10/2020</td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Jolina Angelie</p>
-                          <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Unemployed
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">$ 369.95</td>
-                    <td class="px-4 py-3 text-xs">
-                      <span
-                        class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
-                        Pending
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-sm">6/10/2020</td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Sarah Curry</p>
-                          <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Designer
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">$ 86.00</td>
-                    <td class="px-4 py-3 text-xs">
-                      <span
-                        class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
-                        Denied
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-sm">6/10/2020</td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Wenzel Dashington</p>
-                          <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Actor
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">$ 863.45</td>
-                    <td class="px-4 py-3 text-xs">
-                      <span
-                        class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                        Expired
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-sm">6/10/2020</td>
-                  </tr>
+                    
+                  </tr>';
+                  }
+                }else{
+                  echo'<tr class="text-gray-700 dark:text-gray-400">
+                        <td class="text-right">
+                          <div>
+                            <p class="font-semibold">No file available</p>
+                          </div>
+                        </td>
+                      </tr>';
+                }
+                ?>
 
                 </tbody>
               </table>

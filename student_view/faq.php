@@ -1,3 +1,11 @@
+<?php  
+
+  include '../controller/faq_controller.php';
+
+  $faqs = select_all_faqs_controller();
+  
+?>
+
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
@@ -469,8 +477,28 @@
           <!-- <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
             Big section FAQ
           </h4> -->
-          
-          <div class="px-4 py-2 mb-4 bg-white rounded-lg shadow-md dark:text-white dark:bg-gray-800">
+
+          <?php 
+          if ($faqs) {
+            foreach ($faqs as $faq) {
+                echo '
+        
+                  <div class="px-4 py-2 mb-4 bg-white rounded-lg shadow-md dark:text-white dark:bg-gray-800">
+                    <details class="mb-3">
+                      <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
+                        '.$faq['faq_question'].'
+                      </summary>
+
+                      <span>
+                        '.$faq['faq_answer'].'
+                      </span>
+                    </details>
+                  </div>';
+            }
+          }
+          ?>
+
+          <!-- <div class="px-4 py-2 mb-4 bg-white rounded-lg shadow-md dark:text-white dark:bg-gray-800">
             <details class="mb-3">
               <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
                 How can I migrate to another site?
@@ -482,7 +510,7 @@
                 minim velit nostrud pariatur culpa magna in aute.
               </span>
             </details>
-          </div>
+          </div> -->
 
           <!-- Responsive FAQ -->
           <!-- <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
