@@ -21,9 +21,9 @@ class Announcement extends Connection{
 	}
 
 	//create update and delete queries
-	public function update_announcement($announcement_id, $subject, $message){
+	public function update_announcement($announcement_id, $subject, $message, $date){
 		// return true or false
-		return $this->query("update announcements set announcement_subject = '$subject' and announcement_message = '$message' where announcement_id = '$announcement_id'");
+		return $this->query("update announcements set announcement_subject = '$subject' and announcement_message = '$message' and date = '$date' where announcement_id = '$announcement_id'");
 	}
 
 	//create update and delete queries

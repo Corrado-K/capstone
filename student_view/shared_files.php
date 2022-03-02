@@ -1,3 +1,12 @@
+<?php 
+    require '../controller/shared_files_controller.php';
+
+    $shared_files = select_all_shared_files_controller();
+    
+?>
+
+
+
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
@@ -10,6 +19,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
@@ -22,7 +33,7 @@
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             href="./home.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +47,7 @@
                 </ul>
                 <ul>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
                             href="./faq.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +59,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             href="./announcements.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +73,7 @@
                     <li class="relative px-6 py-3">
                     <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             href="./shared_files.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,7 +85,7 @@
                     </li>
                     <li class="relative px-6 py-3">
                         <button
-                            class="inline-flex items-center justify-between w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -310,7 +321,7 @@
                 <div
                     class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c] dark:text-red-300">
                     <!-- Mobile hamburger -->
-                    <button class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
+                    <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
                         @click="toggleSideMenu" aria-label="Menu">
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
@@ -465,31 +476,8 @@
                 </div>
             </header>
             <main class="h-full pb-16 overflow-y-auto">
-                <div class="container px-6 mx-auto grid">
-                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Shared files
-                </h2>
+                <div class="container grid px-6 mx-auto">
                 
-
-                <!-- General elements -->
-                <div class="px-4 py-3 h-full mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Subject</span>
-                    <input
-                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder="Jane Doe" />
-                    </label>
-
-                    <label class="block mt-4 text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">
-                        Files
-                    </span>
-                    <input
-                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        type="file"
-                        placeholder="Jane Doe" />
-                    </label>
-                </div>
                     
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         Shared files
@@ -502,123 +490,61 @@
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">File</th>
-                                <th class="px-4 py-3">Size</th>
-                                <th class="px-4 py-3">Status</th>
-                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Description</th>
+                                <th class="px-4 py-3"></th>
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
-                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full"
-                                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                        alt="" loading="lazy" />
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                    </div>
-                                    <div>
-                                    <p class="font-semibold">Hans Burger</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        10x Developer
-                                    </p>
-                                    </div>
-                                </div>
-                                </td>
-                                <td class="px-4 py-3 text-sm">$ 863.45</td>
-                                <td class="px-4 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                    Approved
-                                </span>
-                                </td>
-                                <td class="px-4 py-3 text-sm">6/10/2020</td>
-                            </tr>
+                            <?php 
 
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
-                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full"
-                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
-                                        alt="" loading="lazy" />
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                    </div>
-                                    <div>
-                                    <p class="font-semibold">Jolina Angelie</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        Unemployed
-                                    </p>
-                                    </div>
-                                </div>
-                                </td>
-                                <td class="px-4 py-3 text-sm">$ 369.95</td>
-                                <td class="px-4 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
-                                    Pending
-                                </span>
-                                </td>
-                                <td class="px-4 py-3 text-sm">6/10/2020</td>
-                            </tr>
+                                if($shared_files) {
+                                    foreach($shared_files as $shared_file) {
 
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
-                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full"
-                                        src="https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                        alt="" loading="lazy" />
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                    </div>
-                                    <div>
-                                    <p class="font-semibold">Sarah Curry</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        Designer
-                                    </p>
-                                    </div>
-                                </div>
-                                </td>
-                                <td class="px-4 py-3 text-sm">$ 86.00</td>
-                                <td class="px-4 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
-                                    Denied
-                                </span>
-                                </td>
-                                <td class="px-4 py-3 text-sm">6/10/2020</td>
-                            </tr>
+                                        echo '
+                                        <tr class="text-gray-700 dark:text-gray-400">
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center text-sm">
+                                                    <!-- Avatar with inset shadow -->
+                                                    <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                                        <i class="mr-3 fas fa-file fa-lg"></i>
+                                                    <!-- </div> -->
+                                                <div>
+                                                    <p class="font-semibold">' .
+                                                    $shared_file['file_name'] .
+                                                    '</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm">';
+                                            
+                                            if(strlen($shared_file['file_desc']) > 50){
+                                                echo substr($shared_file['file_desc'], 0, 50). '...';
+                                            }else {
+                                                echo $shared_file['file_desc'];
+                                            }
+                                            echo '</td>
+                                            
+                                            <td class="px-4 py-3">
+                                                <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
+                                                <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                                <a href="'.$shared_file['file'].'" download="'.$shared_file['file'].'"><i class="ml-10 text-green-500 fas fa-download"></i></a>
 
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
-                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full"
-                                        src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                        alt="" loading="lazy" />
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                    </div>
-                                    <div>
-                                    <p class="font-semibold">Wenzel Dashington</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        Actor
-                                    </p>
-                                    </div>
-                                </div>
-                                </td>
-                                <td class="px-4 py-3 text-sm">$ 863.45</td>
-                                <td class="px-4 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                                    Expired
-                                </span>
-                                </td>
-                                <td class="px-4 py-3 text-sm">6/10/2020</td>
-                            </tr>
+                                            </td>
+                                        </tr>
+                                        ';
+
+                                    }
+                                }
+                                else{
+                                    echo '<td class="text-right">
+                                            <div>
+                                                <p class="font-semibold">No file available</p>
+                                            </div>
+                                        </td>';
+                                    
+                                }
+   
+                            ?>
 
                             </tbody>
                         </table>

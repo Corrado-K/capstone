@@ -3,10 +3,10 @@
   include '../controller/announcement_controller.php';
   include '../controller/shared_files_controller.php';
 
-  $shared_files = select_all_shared_files_controller();
+  $shared_files = select_all_shared_files_controller(); 
 
   $announcements = select_all_announcements_controller();
-  $count_announcement = count_announcement_controller();
+  $announcement_count = count_announcement_controller();
   
 ?>
 
@@ -35,7 +35,7 @@
     <!-- Desktop sidebar -->
     <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block">
       <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 mt-16 text-lg font-bold text-white dark:text-gray-200" href="#">
+        <a class="mt-16 ml-6 text-lg font-bold text-white dark:text-gray-200" href="#">
           Student Advising System
         </a>
         <ul class="mt-6">
@@ -479,11 +479,11 @@
                 </path>
               </svg>
             </div> -->
-            <div class="text-center mx-auto">
+            <div class="mx-auto text-center">
               <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
                 Welcome {} to the Student Advising System
               </p>
-              <p class="text-md text-center font-semibold text-gray-700 dark:text-gray-200">
+              <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
                 Look up FAQ, shared files, and 
               </p>
             </div>
@@ -505,7 +505,8 @@
           <div class="grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1">
 
             <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            <div <?php if($announcement_count > 0){echo '@click="openModal"';}?>  
+              class="flex items-center p-4 bg-white rounded-lg shadow-xs <?php if($announcement_count > 0){echo 'hover:bg-gray-100';}?>  dark:bg-gray-800">
               <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
               <i class="fas fa-bullhorn fa-xl"></i>
               </div>
@@ -514,7 +515,7 @@
                   Announcement
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  You have <?php echo $count_announcement['count'] ?> new announcements
+                  You have <?php echo $announcement_count['count'] ?> new announcements
                 </p>
               </div>
             </div>
@@ -542,63 +543,148 @@
 
           <!-- New Table -->
           <div class="w-full overflow-hidden rounded-lg shadow-xs">
-            <div class="w-full overflow-x-auto">
+              <div class="w-full overflow-x-auto">
               <table class="w-full whitespace-no-wrap">
-                <thead>
+                  <thead>
                   <tr
-                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-12 py-3">File name</th>
-                    <th class="px-4 py-3">Description</th>
-                    <th class="px-4 py-3"></th>
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                      <th class="px-12 py-3">File name</th>
+                      <th class="px-4 py-3">Description`</th>
+                      <th class="px-4 py-3"></th>
                   </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <?php 
-                if($shared_files){
-                  foreach ($shared_files as $shared_file) {
-                      echo'<tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                        <i class="fas fa-file fa-lg mr-3"></i>
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                          <!-- </div> -->
-                        <div>
-                          <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                    <td class="px-4 py-3 text-xs">
-                      <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                      <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                      <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                    </td>
-                    
-                  </tr>';
-                  }
-                }else{
-                  echo'<tr class="text-gray-700 dark:text-gray-400">
-                        <td class="text-right">
-                          <div>
-                            <p class="font-semibold">No file available</p>
-                          </div>
-                        </td>
-                      </tr>';
-                }
-                ?>
+                  </thead>
 
-                </tbody>
+                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                  <?php if ($shared_files) {
+                      foreach ($shared_files as $shared_file) {
+                          echo '
+                          <tr class="text-gray-700 dark:text-gray-400">
+                              <td class="px-4 py-3">
+                                  <div class="flex items-center text-sm">
+                                      <!-- Avatar with inset shadow -->
+                                      <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                          <i class="mr-3 fas fa-file fa-lg"></i>
+                                      <!-- </div> -->
+                                  <div>
+                                      <p class="font-semibold">' .
+                              $shared_file['file_name'] .
+                              '</p>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-4 py-3 text-sm">';
+
+                          if (strlen($shared_file['file_desc'] < 50)) {
+                              echo substr($shared_file['file_desc'], 0, 50) .
+                                  '...';
+                          } else {
+                              echo $shared_file['file_desc'];
+                          }
+                          echo '</td>
+                              
+                              <td class="px-4 py-3">
+                                  <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
+                                  <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                  <a href="' .
+                              $shared_file['file'] .
+                              '" download="' .
+                              basename($shared_file['file']) .
+                              PHP_EOL .
+                              '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
+
+                              </td>
+                          </tr>
+                          ';
+                      }
+                  } else {
+                      echo '<td class="text-right">
+                              <div>
+                                  <p class="font-semibold">No file available</p>
+                              </div>
+                            </td>';
+                  } ?>
+
+                  </tbody>
               </table>
-            </div>
-            <div
-              class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            </div>
+              </div>
+              <div
+                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+              </div>
           </div>
           
         </div>
       </main>
+    </div>
+  </div>
+
+
+  <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    class="fixed overflow-auto inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <!-- Modal -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+      @keydown.escape="closeModal"
+      class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+      role="dialog" id="modal">
+      <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+      <header class="flex justify-end">
+        <button
+          class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+          aria-label="close" @click="closeModal">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+            <path
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </header>
+      <!-- Modal body -->
+      <div class="mt-4 mb-6">
+        <!-- Modal title -->
+        <p class="mb-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-300">
+          Announcements
+        </p>
+        <!-- Modal description -->
+
+        <?php
+        $count = 0;
+        foreach ($announcements as $announcement) {
+            if ($count < 5) {
+                if ($announcement_count > 0) {
+                    echo '<h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">' .
+                        $announcement['announcement_subject'] .
+                        '</h2>
+                    <p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
+                    ' .
+                        $announcement['announcement_message'] .
+                        '
+                    </p>';
+                }
+                $count++;
+
+            }else {
+              echo '<p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
+                    Click <a class="text-blue-600" href="../student_view/announcements.php">here</a>  for more...
+                    </p>';
+              break;
+
+            }
+
+        }
+        ?>
+      
+      </div>
+      <footer
+        class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+        <button  @click="closeModal"
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+          Done
+        </button>
+      </footer>
     </div>
   </div>
 </body>

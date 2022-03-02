@@ -78,7 +78,7 @@ if (isset($_POST['add_announcement'])) {
     }else{
         $file = $target_file;
     }
-    $date = date("Y/m/d");
+    $date = date("Y/m/d h:i:sa");
 
     echo $file;
     $result = add_announcement_controller($subject,$message,$file,$date);
@@ -99,7 +99,11 @@ if (isset($_POST['add_announcement'])) {
 
     }else{
         // echo $subject.$message.$file.$date;
-        echo 'swal("Failed")';
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/announcements.php";
+                });
+            </script>';
     }
     
 
@@ -116,11 +120,12 @@ if (isset($_POST['add_announcement'])) {
 
 // Update announcement 
 if (isset($_POST['update_announcement'])) {
-    $subject = '';
-    $message = '';
-    $date = date();
+    $announcement_id = $_POST[''];
+    $subject = $_POST[''];
+    $message = $_POST[''];
+    $date = date("Y/m/d h:i:sa");
 
-    $result = '';
+    $result = update_announcement_controller($announcement_id, $subject, $message, $date);
     
 }
 

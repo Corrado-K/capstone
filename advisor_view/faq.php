@@ -491,6 +491,32 @@
               </button>
             </form>
           </div>
+
+          <div class="my-5"></div>
+
+          <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <h2 class="my-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-200">
+              Add FAQ by CSV file
+            </h2>
+            <form action="../action/faq_action.php" method="post" enctype="multipart/form-data">
+        
+              <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                    File
+                </span>
+
+                <input
+                    class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                    type="file"
+                    name="uploaded_faq_file"
+                    placeholder="Please insert a csv file" />
+                </label>
+
+              <button name="process_faq_csv" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                  Submit
+              </button>
+            </form>
+          </div>
           
           <div class="px-4 py-2 mt-10 mb-4 bg-white rounded-lg shadow-md dark:text-white dark:bg-gray-800">
           <h2 class="my-3 text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">

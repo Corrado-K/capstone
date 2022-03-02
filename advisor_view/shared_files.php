@@ -497,7 +497,7 @@
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">File name</span>
                         <input
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             name="file_name" placeholder="File name" />
                         </label>
 
@@ -514,14 +514,13 @@
                         </span>
       
                         <input
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full
-                            file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                             type="file"
                             name="uploaded_file"
-                            placeholder="Jane Doe" />
+                            placeholder="Add a file" />
                         </label>
                         
-                        <button name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                             Submit
                         </button>
                     </form>
@@ -543,39 +542,54 @@
                                 <th class="px-4 py-3"></th>
                             </tr>
                             </thead>
+
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             <?php 
-                            if ($shared_files) {
-                                foreach ($shared_files as $shared_file) {
-                                    echo'<tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                    <div class="flex items-center text-sm">
-                                        <!-- Avatar with inset shadow -->
-                                        <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                        <i class="fas fa-file fa-lg mr-3"></i>
-                                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                        <!-- </div> -->
-                                        <div>
-                                        <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                                        </div>
-                                    </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                                    <td class="px-4 py-3 text-xs">
-                                    <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                                    <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                                    <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                                    </td>
-                                    
-                                </tr>';
+
+                            if($shared_files) {
+                                foreach($shared_files as $shared_file) {
+
+                                    echo '
+                                    <tr class="text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <!-- Avatar with inset shadow -->
+                                                <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                                    <i class="mr-3 fas fa-file fa-lg"></i>
+                                                <!-- </div> -->
+                                            <div>
+                                                <p class="font-semibold">' .
+                                                $shared_file['file_name'] .
+                                                '</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">';
+                                        
+                                        if(strlen($shared_file['file_desc'] < 50)){
+                                        echo substr($shared_file['file_desc'], 0, 50). '...';
+                                        }else {
+                                        echo $shared_file['file_desc'];
+                                        }
+                                        echo '</td>
+                                        
+                                        <td class="px-4 py-3">
+                                            <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
+                                            <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                            <a href="'.$shared_file['file'].'" download="'.basename($shared_file['file']).PHP_EOL.'"><i class="ml-10 text-green-500 fas fa-download"></i></a>
+
+                                        </td>
+                                    </tr>
+                                    ';
+
                                 }
-                            }else{
+                            }
+                            else{
                                 echo '<td class="text-right">
                                         <div>
                                             <p class="font-semibold">No file available</p>
                                         </div>
                                       </td>';
-                                
                             }
                                
                             ?>

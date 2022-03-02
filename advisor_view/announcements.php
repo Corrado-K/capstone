@@ -20,7 +20,7 @@ $announcements = select_all_announcements_controller();
 </head>
 
 <body>
-  <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+  <div x-date="{ open: false }" class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
       <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -473,7 +473,7 @@ $announcements = select_all_announcements_controller();
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Subject</span>
                 <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                  class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Jane Doe"
                   name="subject" />
               </label>
@@ -483,8 +483,7 @@ $announcements = select_all_announcements_controller();
                   Files
                 </span>
                 <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full
-                  file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                  class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                   type="file"
                   name="uploaded_file"
                   id="uploaded_file"
@@ -530,8 +529,8 @@ $announcements = select_all_announcements_controller();
                             <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
                                 <!-- Avatar with inset shadow -->
-                                <!-- <div class=" hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                    <i class="fas fa-bullhorn fa-lg mr-3"></i>
+                                <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                    <i class="mr-3 fas fa-bullhorn fa-lg"></i>
                                     <!-- </div> -->
                                 <div>
                                 <p class="font-semibold">' .
@@ -540,9 +539,14 @@ $announcements = select_all_announcements_controller();
                                 </div>
                             </div>
                             </td>
-                            <td class="px-4 py-3 text-sm">' .
-                                $announcement['announcement_message'] .
-                                '</td>
+                            <td class="px-4 py-3 text-sm">';
+                            
+                            if(strlen($announcement['announcement_message']) > 50){
+                              echo substr($announcement['announcement_message'], 0, 50). '...';
+                            }else {
+                              echo $announcement['announcement_message'];
+                            }
+                            echo '</td>
                             <td class="px-4 py-3 text-xs">';
                             if ($announcement['attached_file'] == null) {
                               echo'
@@ -562,8 +566,9 @@ $announcements = select_all_announcements_controller();
                                 $announcement['date'] .
                                 '</td>
                             <td class="px-4 py-3">
-                                <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
-                                <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                <a href=""><i class="ml-8 text-blue-400 fas fa-edit"></i></a>
+                                <a href=""><i class="ml-8 text-red-500 fas fa-trash-alt"></i></a>
+                                <a href=""><i class="ml-8 text-green-500 fas fa-eye"></i></a>
                             </td>
                           </tr>
                           ';
@@ -595,6 +600,36 @@ $announcements = select_all_announcements_controller();
       </main>
     </div>
   </div>
+
+  <!-- <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  >
+
+    <div role="dialog" aria-labelledby="modal1_label" aria-modal="true" tabindex="0" x-show="open"
+    @click="open = false; $refs.modal1_button.focus()" @click.away="open = false; $refs.modal1_button.focus()"
+    class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false; $refs.modal1_button.focus()">
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">
+            Modal Title Here
+            </h3>
+            <div class="mt-2">
+                <p class="text-sm leading-5 text-gray-500">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+        </div>
+        <div class="mt-5 sm:mt-6">
+            <span class="flex w-full rounded-md shadow-sm">
+                <button @click="open = false" class="inline-flex justify-center w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700">
+                Close this modal!
+                </button>
+            </span>
+        </div>
+    </div>
+  </div> -->
 
   
 </body>

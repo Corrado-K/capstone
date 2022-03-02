@@ -35,7 +35,7 @@ function delete_announcement_controller($announcement_id){
 
 }
 
-function update_announcement_controller($announcement_id,$subject,$message){
+function update_announcement_controller($announcement_id,$subject,$message,$date){
     // create an instance of the customer class
     $announcement_instance = new Announcement();
     // call the method from the class

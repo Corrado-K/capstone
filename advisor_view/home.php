@@ -1,13 +1,12 @@
-<?php  
+<?php
 
-  include '../controller/announcement_controller.php';
-  include '../controller/shared_files_controller.php';
+include '../controller/announcement_controller.php';
+include '../controller/shared_files_controller.php';
 
-  $announcement_count = count_announcement_controller();
-  $announcements = select_all_announcements_controller();
+$announcement_count = count_announcement_controller();
+$announcements = select_all_announcements_controller();
 
-  $shared_files = select_all_shared_files_controller();
-  
+$shared_files = select_all_shared_files_controller();
 ?>
 
 
@@ -500,8 +499,14 @@
           <div class="mb-8">
 
             <!-- Card -->
-            <div  <?php if($announcement_count > 0){echo '@click="openModal"';}?> 
-              class="flex items-center p-4 bg-white rounded-lg shadow-xs <?php if($announcement_count > 0){echo 'hover:bg-gray-100';}?>  dark:bg-gray-800">
+            <div  <?php if ($announcement_count > 0) {
+                echo '@click="openModal"';
+            } ?> 
+              class="flex items-center p-4 bg-white rounded-lg shadow-xs <?php if (
+                  $announcement_count > 0
+              ) {
+                  echo 'hover:bg-gray-100';
+              } ?>  dark:bg-gray-800">
               <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
               <i class="fas fa-bullhorn fa-xl"></i>
               </div>
@@ -510,11 +515,13 @@
                   Announcements
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  You have <?php if($announcement_count > 0){
+                  You have <?php if ($announcement_count > 0) {
                       echo $announcement_count['count'];
-                  }else{echo 0;} ?> new announcements.  <?php if($announcement_count > 0){
-                    echo '<button @click="openModal"><span class="text-sm text-blue-500 transition-colors duration-150 hover:text-blue-400">Click here</span></button>';
-                }?>
+                  } else {
+                      echo 0;
+                  } ?> new announcements.  <?php if ($announcement_count > 0) {
+                echo '<button @click="openModal"><span class="text-sm text-blue-500 transition-colors duration-150 hover:text-blue-400">Click here</span></button>';
+            } ?>
 
                 </p>
               </div>
@@ -543,59 +550,73 @@
 
           <!-- New Table -->
           <div class="w-full overflow-hidden rounded-lg shadow-xs">
-            <div class="w-full overflow-x-auto">
+              <div class="w-full overflow-x-auto">
               <table class="w-full whitespace-no-wrap">
-                <thead>
+                  <thead>
                   <tr
-                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-12 py-3">File name</th>
-                    <th class="px-4 py-3">Description</th>
-                    <th class="px-4 py-3"></th>
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                      <th class="px-12 py-3">File name</th>
+                      <th class="px-4 py-3">Description`</th>
+                      <th class="px-4 py-3"></th>
                   </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <?php 
-                if($shared_files){
-                  foreach ($shared_files as $shared_file) {
-                      echo'<tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                        <i class="fas fa-file fa-lg mr-3"></i>
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                          <!-- </div> -->
-                        <div>
-                          <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                    <td class="px-4 py-3 text-xs">
-                      <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                      <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                      <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                    </td>
-                    
-                  </tr>';
-                  }
-                }else{
-                  echo'<tr class="text-gray-700 dark:text-gray-400">
-                        <td class="text-right">
-                          <div>
-                            <p class="font-semibold">No file available</p>
-                          </div>
-                        </td>
-                      </tr>';
-                }
-                ?>
+                  </thead>
 
-                </tbody>
+                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                  <?php if ($shared_files) {
+                      foreach ($shared_files as $shared_file) {
+                          echo '
+                          <tr class="text-gray-700 dark:text-gray-400">
+                              <td class="px-4 py-3">
+                                  <div class="flex items-center text-sm">
+                                      <!-- Avatar with inset shadow -->
+                                      <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                          <i class="mr-3 fas fa-file fa-lg"></i>
+                                      <!-- </div> -->
+                                  <div>
+                                      <p class="font-semibold">' .
+                              $shared_file['file_name'] .
+                              '</p>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-4 py-3 text-sm">';
+
+                          if (strlen($shared_file['file_desc'] < 50)) {
+                              echo substr($shared_file['file_desc'], 0, 50) .
+                                  '...';
+                          } else {
+                              echo $shared_file['file_desc'];
+                          }
+                          echo '</td>
+                              
+                              <td class="px-4 py-3">
+                                  <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
+                                  <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                  <a href="' .
+                              $shared_file['file'] .
+                              '" download="' .
+                              basename($shared_file['file']) .
+                              PHP_EOL .
+                              '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
+
+                              </td>
+                          </tr>
+                          ';
+                      }
+                  } else {
+                      echo '<td class="text-right">
+                              <div>
+                                  <p class="font-semibold">No file available</p>
+                              </div>
+                            </td>';
+                  } ?>
+
+                  </tbody>
               </table>
-            </div>
-            <div
-              class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            </div>
+              </div>
+              <div
+                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+              </div>
           </div>
           
         </div>
@@ -606,7 +627,7 @@
   <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
     x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-    class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    class="fixed overflow-auto inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
     <!-- Modal -->
     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
       x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
@@ -635,15 +656,31 @@
         </p>
         <!-- Modal description -->
 
-        <?php 
-          foreach ($announcements as $announcement) {
-              if ($announcement_count > 0) {
-                  echo '<h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">'.$announcement['announcement_subject'].'</h2>
+        <?php
+        $count = 0;
+        foreach ($announcements as $announcement) {
+            if ($count < 5) {
+                if ($announcement_count > 0) {
+                    echo '<h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">' .
+                        $announcement['announcement_subject'] .
+                        '</h2>
                     <p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
-                    '.$announcement['announcement_message'].'
+                    ' .
+                        $announcement['announcement_message'] .
+                        '
                     </p>';
-              }
-          }
+                }
+                $count++;
+
+            }else {
+              echo '<p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
+                    Click <a class="text-blue-600" href="../advisor_view/announcements.php">here</a>  for more...
+                    </p>';
+              break;
+
+            }
+
+        }
         ?>
       
       </div>

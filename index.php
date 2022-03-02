@@ -55,7 +55,7 @@
                 
             </div>
             <div class="mt-10 text-center">
-                <a href="./student_view/home.php" class="rounded-full text-white bg-red-900 px-10 py-3">Get started</a>
+                <a href="./login/login.html" class="rounded-full text-white bg-red-900 px-10 py-3">Get started</a>
  
             </div>
         </div>

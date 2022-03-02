@@ -10,7 +10,7 @@ module.exports = {
       default: {
         'input, textarea': {
           '&::placeholder': {
-            color: theme('colors.gray.400'),
+            colors: theme('colors.gray.400'),
           },
         },
       },
