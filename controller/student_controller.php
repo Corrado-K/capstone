@@ -3,11 +3,11 @@
 require_once '../class/student_class.php';
 
 // student
-function add_student_controller($name,$email,$password,$contact, $image){
+function add_student_controller($name,$email,$password,$contact){
     // create an instance of the student class
     $student_instance = new Student();
     // call the method from the class
-    return $student_instance->add_student($name,$email,$password,$contact,$image);
+    return $student_instance->add_student($name,$email,$password,$contact);
 
 }
 

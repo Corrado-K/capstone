@@ -50,7 +50,7 @@ if (($handle = fopen("../files/faq_uploads/faq_csv.csv", "r")) !== FALSE) {
 // }
 // fclose($file);
 
-$file = '../files/shared_files_uploads/faq_csv.csv';
+// $file = '../files/shared_files_uploads/faq_csv.csv';
 
 
 // Use unlink() function to delete a file
@@ -68,21 +68,37 @@ $file = '../files/shared_files_uploads/faq_csv.csv';
 <?php
 
 	// Initialize a file URL to the variable
-	$url =
-	'https://media.geeksforgeeks.org/wp-content/uploads/gfg-40.png';
+	// $url =
+	// 'https://media.geeksforgeeks.org/wp-content/uploads/gfg-40.png';
 	
-	// Use basename() function to return the base name of file
-	$file_name = basename($file);
+	// // Use basename() function to return the base name of file
+	// $file_name = basename($file);
 	
 	// Use file_get_contents() function to get the file
 	// from url and use file_put_contents() function to
 	// save the file by using base name
-	if (file_put_contents($file_name, file_get_contents($file)))
-	{
-		echo "File downloaded successfully";
-	}
-	else
-	{
-		echo "File downloading failed.";
-	}
+	// if (file_put_contents($file_name, file_get_contents($file)))
+	// {
+	// 	echo "File downloaded successfully";
+	// }
+	// else
+	// {
+	// 	echo "File downloading failed.";
+	// }
+
+
+	$password = "fish";
+	$hashed_password  = ""
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

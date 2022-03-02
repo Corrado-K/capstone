@@ -1,8 +1,9 @@
-<?php 
-    require '../controller/shared_files_controller.php';
+<?php
+require '../controller/shared_files_controller.php';
 
-    $shared_files = select_all_shared_files_controller();
-    
+session_start();
+
+$shared_files = select_all_shared_files_controller();
 ?>
 
 <!DOCTYPE html>
@@ -467,7 +468,9 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="#">
+                                            href="../action/login_action.php?logout=<?php $_SESSION[
+                                                'user_id'
+                                            ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -544,11 +547,8 @@
                             </thead>
 
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            <?php 
-
-                            if($shared_files) {
-                                foreach($shared_files as $shared_file) {
-
+                            <?php if ($shared_files) {
+                                foreach ($shared_files as $shared_file) {
                                     echo '
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3">
@@ -559,40 +559,47 @@
                                                 <!-- </div> -->
                                             <div>
                                                 <p class="font-semibold">' .
-                                                $shared_file['file_name'] .
-                                                '</p>
+                                        $shared_file['file_name'] .
+                                        '</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-sm">';
-                                        
-                                        if(strlen($shared_file['file_desc'] < 50)){
-                                        echo substr($shared_file['file_desc'], 0, 50). '...';
-                                        }else {
+
+                                    if (
+                                        strlen($shared_file['file_desc'] < 50)
+                                    ) {
+                                        echo substr(
+                                            $shared_file['file_desc'],
+                                            0,
+                                            50
+                                        ) . '...';
+                                    } else {
                                         echo $shared_file['file_desc'];
-                                        }
-                                        echo '</td>
+                                    }
+                                    echo '</td>
                                         
                                         <td class="px-4 py-3">
                                             <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
                                             <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
-                                            <a href="'.$shared_file['file'].'" download="'.basename($shared_file['file']).PHP_EOL.'"><i class="ml-10 text-green-500 fas fa-download"></i></a>
+                                            <a href="' .
+                                        $shared_file['file'] .
+                                        '" download="' .
+                                        basename($shared_file['file']) .
+                                        PHP_EOL .
+                                        '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
 
                                         </td>
                                     </tr>
                                     ';
-
                                 }
-                            }
-                            else{
+                            } else {
                                 echo '<td class="text-right">
                                         <div>
                                             <p class="font-semibold">No file available</p>
                                         </div>
                                       </td>';
-                            }
-                               
-                            ?>
+                            } ?>
 
                             </tbody>
                         </table>

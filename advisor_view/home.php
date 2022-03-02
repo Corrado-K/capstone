@@ -3,6 +3,8 @@
 include '../controller/announcement_controller.php';
 include '../controller/shared_files_controller.php';
 
+session_start();
+
 $announcement_count = count_announcement_controller();
 $announcements = select_all_announcements_controller();
 
@@ -35,7 +37,7 @@ $shared_files = select_all_shared_files_controller();
     <!-- Desktop sidebar -->
     <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block">
       <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 mt-16 text-lg font-bold text-white dark:text-gray-200" href="#">
+        <a class="mt-16 ml-6 text-lg font-bold text-white dark:text-gray-200" href="#">
           Student Advising System
         </a>
         <ul class="mt-6">
@@ -461,7 +463,7 @@ $shared_files = select_all_shared_files_controller();
                   </li>
                   <li class="flex">
                     <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
+                      href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
@@ -485,11 +487,11 @@ $shared_files = select_all_shared_files_controller();
           <!-- Card -->
           <div class="flex items-center p-4 mb-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             
-            <div class="text-center mx-auto">
+            <div class="mx-auto text-center">
               <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
                 Welcome {} to the Student Advising System
               </p>
-              <p class="text-md text-center font-semibold text-gray-700 dark:text-gray-200">
+              <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
                 Look up FAQ, shared files, and 
               </p>
             </div>
@@ -627,7 +629,7 @@ $shared_files = select_all_shared_files_controller();
   <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
     x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-    class="fixed overflow-auto inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    class="fixed inset-0 z-30 flex items-end overflow-auto bg-black bg-opacity-50 sm:items-center sm:justify-center">
     <!-- Modal -->
     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
       x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
@@ -651,7 +653,7 @@ $shared_files = select_all_shared_files_controller();
       <!-- Modal body -->
       <div class="mt-4 mb-6">
         <!-- Modal title -->
-        <p class="mb-2 text-xl text-center font-semibold text-gray-700 dark:text-gray-300">
+        <p class="mb-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-300">
           Announcements
         </p>
         <!-- Modal description -->
@@ -664,7 +666,7 @@ $shared_files = select_all_shared_files_controller();
                     echo '<h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">' .
                         $announcement['announcement_subject'] .
                         '</h2>
-                    <p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
+                    <p class="mb-3 text-sm text-gray-700 dark:text-gray-400">
                     ' .
                         $announcement['announcement_message'] .
                         '
@@ -673,7 +675,7 @@ $shared_files = select_all_shared_files_controller();
                 $count++;
 
             }else {
-              echo '<p class="text-sm mb-3 text-gray-700 dark:text-gray-400">
+              echo '<p class="mb-3 text-sm text-gray-700 dark:text-gray-400">
                     Click <a class="text-blue-600" href="../advisor_view/announcements.php">here</a>  for more...
                     </p>';
               break;

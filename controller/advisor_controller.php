@@ -3,11 +3,11 @@
 require_once '../class/advisor_class.php';
 
 // advisor
-function add_advisor_controller($name,$email,$password,$contact, $image){
+function add_advisor_controller($name,$email,$password,$contact){
     // create an instance of the advisor class
     $advisor_instance = new Advisor();
     // call the method from the class
-    return $advisor_instance->add_advisor($name,$email,$password,$contact,$image);
+    return $advisor_instance->add_advisor($name,$email,$password,$contact);
 
 }
 
@@ -15,7 +15,7 @@ function select_advisor_controller($email){
     // create an instance of the advisor class
     $advisor_instance = new Advisor();
     // call the method from the class
-    return $advisor_instance->select_advisor($email);
+    return $advisor_instance->select_one_advisor_by_email($email);
 
 }
 

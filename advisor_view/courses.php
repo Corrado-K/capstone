@@ -1,6 +1,9 @@
 <?php 
     require '../controller/course_controller.php';
 
+    session_start();
+
+
     // $shared_files = select_all_shared_files_controller();
     
 ?>
@@ -467,7 +470,7 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="#">
+                                            href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -486,7 +489,7 @@
             </header>
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container grid px-6 mx-auto">
-                <h2 class="mt-6 my-3 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                <h2 class="my-3 mt-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                     Courses
                 </h2>
 
@@ -502,20 +505,20 @@
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Course code</span>
                         <input
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             name="file_name" placeholder="Enter course code" />
                         </label>
 
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Course name</span>
                         <input
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             name="file_name" placeholder="Enter course name" />
                         </label>
 
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Pass grade</span>
-                        <select class="block w-full mt-1 form-select text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                        <select class="block w-full mt-1 text-sm rounded-full form-select dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                          name="file_name" placeholder="Enter course name">
                             <option value="">A</option>
                             <option value="">B</option>
@@ -544,7 +547,7 @@
 
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Pass grade</span>
-                        <select class="block w-full mt-1 form-select text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                        <select class="block w-full mt-1 text-sm rounded-full form-select dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                          name="file_name" placeholder="Enter course name">
                             <option value="">FDE</option>
                             <option value="">WOC</option>
@@ -557,7 +560,7 @@
 
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Prerequisite</span>
-                        <select class="block w-full mt-1 form-select text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input rounded-full"
+                        <select class="block w-full mt-1 text-sm rounded-full form-select dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                          name="file_name" placeholder="Enter course name">
                             <option value="">FDE</option>
                             <option value="">WOC</option>
@@ -602,7 +605,7 @@
                             //     <div class="flex items-center text-sm">
                             //         <!-- Avatar with inset shadow -->
                             //         <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //         <i class="fas fa-file fa-lg mr-3"></i>
+                            //         <i class="mr-3 fas fa-file fa-lg"></i>
                             //         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                             //         <!-- </div> -->
                             //         <div>

@@ -1,6 +1,9 @@
 <?php  
 
-  include '../controller/announcement_controller.php';
+  include_once '../controller/announcement_controller.php';
+  
+  session_start();
+
 
   $announcements = select_all_announcements_controller();
   
@@ -30,7 +33,7 @@
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="./home.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +47,7 @@
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="./faq.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,7 +61,7 @@
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
               href="./announcements.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +73,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="./shared_files.php">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +85,7 @@
           </li> 
           <li class="relative px-6 py-3">
             <button
-              class="inline-flex items-center justify-between w-full text-white text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               @click="togglePagesMenu" aria-haspopup="true">
               <span class="inline-flex items-center">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -304,7 +307,7 @@
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c] dark:text-red-300">
           <!-- Mobile hamburger -->
-          <button class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
+          <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
             @click="toggleSideMenu" aria-label="Menu">
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd"
@@ -433,7 +436,7 @@
                   </li>
                   <li class="flex">
                     <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
+                      href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
@@ -450,23 +453,23 @@
         </div>
       </header>
       <main class="h-full pb-16 overflow-y-auto">
-        <div class="container px-6 mx-auto grid">
+        <div class="container grid px-6 mx-auto">
           <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Announcements
           </h2>
          
 
           <!-- General elements -->
-          <div class="px-4 py-3 mb-3 h-full mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
           <?php 
           if ($announcements) {
               foreach ($announcements as $announcement) {
                   echo '
-                    <h2 class="my-2 underline text-xl font-normal text-gray-700 dark:text-gray-200">
+                    <h2 class="my-2 text-xl font-normal text-gray-700 underline dark:text-gray-200">
                       Subject: '.$announcement['announcement_subject'].'
-                    </h2> <p class="my-2 text-sm font-base text-gray-700 dark:text-gray-200">
+                    </h2> <p class="my-2 text-sm text-gray-700 font-base dark:text-gray-200">
                     Posted on: '.$announcement['date'].'</p>
-                    <p class="my-2 text-sm font-base text-gray-700 dark:text-gray-200">
+                    <p class="my-2 text-sm text-gray-700 font-base dark:text-gray-200">
                       '.$announcement['announcement_message'].'
                     </p>';
               }

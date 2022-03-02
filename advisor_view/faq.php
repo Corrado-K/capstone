@@ -2,6 +2,8 @@
 
   include '../controller/faq_controller.php';
 
+  session_start();
+
   $faqs = select_all_faqs_controller();
   
 ?>
@@ -445,7 +447,7 @@
                   </li>
                   <li class="flex">
                     <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
+                      href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
@@ -475,7 +477,7 @@
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Question</span>
                 <input
-                  class="block w-full rounded-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                  class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Enter a question"
                   name="question" />
               </label>
@@ -483,7 +485,7 @@
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Answer/Response</span>
                 <textarea
-                  class="block w-full rounded-2xl mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray"
+                  class="block w-full mt-1 text-sm rounded-2xl dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray"
                   rows="3" name="answer" placeholder="Enter a response"></textarea>
               </label>
               <button name="add_faq" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
@@ -537,7 +539,7 @@
                 </details>';
               }
           }else{
-            echo '<h2 class="my-3 text-xl font-base text-center text-gray-700 dark:text-gray-200">
+            echo '<h2 class="my-3 text-xl text-center text-gray-700 font-base dark:text-gray-200">
             No FAQs posted yet!
           </h2>';
           }
