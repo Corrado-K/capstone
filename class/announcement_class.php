@@ -12,7 +12,7 @@ class Announcement extends Connection{
 
 	public function select_announcement($subject, $message){
 		// return associative array or false
-		return $this->fetchOne("select * from announcements where question='$question' and announcement_password='$answer'");
+		return $this->fetchOne("select * from announcements where question='$subject' and announcement_password='$message'");
 	}
 
 	public function select_all_announcements(){

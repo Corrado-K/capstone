@@ -15,6 +15,7 @@ if (isset($_POST['loginButton'])) {
         if ($_POST['is_advisor'] ==  true) {
             $is_advisor = true;
         }
+    
     }
 
     if ($is_advisor) {

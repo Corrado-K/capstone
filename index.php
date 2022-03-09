@@ -26,8 +26,8 @@
 
 <div class="w-full h-screen bg-center bg-no-repeat bg-cover ">
     <div class="w-full h-screen bg-opacity-50">
-        <div class="mx-4">
-            <h1 class="font-semibold text-black text-6xl ml-10 mb-20 mt-8">SaS</h1>
+        <div class="mx-4 ">
+            <h1 class="font-semibold text-black text-6xl ml-10 mb-15 mt-8">SaS</h1>
             <h2 class="font-semibold text-5xl text-center mt-5 mb-12">Student Advising System</h2>
             <div class="grid grid-cols-2 gap-4 text-center">
                 <div class="border-r border-r-red-900">

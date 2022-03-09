@@ -39,7 +39,7 @@ function update_announcement_controller($announcement_id,$subject,$message,$date
     // create an instance of the customer class
     $announcement_instance = new Announcement();
     // call the method from the class
-    return $announcement_instance->update_announcement($announcement_id,$subject,$message);
+    return $announcement_instance->update_announcement($announcement_id,$subject,$message,$date);
 
 }
 

@@ -19,13 +19,13 @@ function select_advisor_controller($email){
 
 }
 
-function select_all_advisors_controller(){
-    // create an instance of the advisor class
-    $advisor_instance = new Advisor();
-    // call the method from the class
-    return $advisor_instance->select_all_advisors();
+// function select_all_advisors_controller(){
+//     // create an instance of the advisor class
+//     $advisor_instance = new Advisor();
+//     // call the method from the class
+//     return $advisor_instance->select_all_advisors();
 
-}
+// }
 
 /* function delete_advisor_controller($advisor_id){
     // create an instance of the advisor class

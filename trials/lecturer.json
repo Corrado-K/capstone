@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Adom",
+        "course": "CS",
+        "interest": [
+            "Data Science",
+            "Machine Learning"
+        ]
+    },
+    {
+        "name": "Kusi",
+        "course": "CS",
+        "interest": [
+            "Data Science",
+            "Cybersecurity"
+        ]
+    },
+    {
+        "name": "Brent",
+        "course": "CS",
+        "interest": [
+            "AI",
+            "Machine Learning",
+            "Web Dev"
+        ]
+    },
+    {
+        "name": "Jeff",
+        "course": "CS",
+        "interest": [
+            "Cybersecurity",
+            "Web Dev"
+        ]
+    },
+    {
+        "name": "Dre",
+        "course": "BA",
+        "interest": [
+            "Investment",
+            "Real Estate"
+        ]
+    },
+    {
+        "name": "Casey",
+        "course": "BA",
+        "interest": [
+            "Investment",
+            "Auditing",
+            "Accounting"
+        ]
+    },
+    {
+        "name": "Pascal",
+        "course": "BA",
+        "interest": [
+            "Accounting",
+            "Real Estate",
+            "Sales"
+        ]
+    },
+    {
+        "name": "Omari",
+        "course": "BA",
+        "interest": [
+            "Auditing",
+            "Sales"
+        ]
+    }
+]
