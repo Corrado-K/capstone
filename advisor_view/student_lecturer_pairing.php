@@ -1,11 +1,9 @@
-<?php 
-    require '../controller/course_controller.php';
+<?php
+require '../controller/shared_files_controller.php';
 
-    session_start();
+session_start();
 
-
-    // $shared_files = select_all_shared_files_controller();
-    
+$shared_files = select_all_shared_files_controller();
 ?>
 
 <!DOCTYPE html>
@@ -82,8 +80,6 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                    <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             href="./courses.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -96,6 +92,8 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
+                    <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             href="./student_lecturer_pairing.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -481,7 +479,9 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
+                                            href="../action/login_action.php?logout=<?php $_SESSION[
+                                                'user_id'
+                                            ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -500,99 +500,53 @@
             </header>
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container grid px-6 mx-auto">
-                <h2 class="my-3 mt-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Courses
-                </h2>
-
-
-                <h2 class="my-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Add Course
-                </h2>
-                
-
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form action="../action/shared_files_action.php" method="post">
-                        <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Course code</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            name="file_name" placeholder="Enter course code" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Course name</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            name="file_name" placeholder="Enter course name" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Pass grade</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
-                            <option value="">D</option>
-                            <option value="">E</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
                 <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Set course prerequisite
+                    Student-Lecturer Pairing Process
                 </h2>
+                
 
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form action="../action/shared_files_action.php" method="post">
-                        
-
+                    <form action="../action/shared_files_action.php" method="post" enctype="multipart/form-data">
                         <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Pass grade</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
+                        <span class="text-gray-700 dark:text-gray-400">Choose major</span>
+                        <!-- This is supposed to be a select -->
+                        <input
+                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            name="file_name" placeholder="File name" />
                         </label>
 
-                        <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Prerequisite</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
+                        <!-- This is also supposed to be a select but would have suggestions based on major selected about -->
+                        <!-- That would require php-ajax -->
 
-                        </select>
+                        <label class="block mt-4 text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">Select areas of interest</span>
+                            <textarea
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray rounded-2xl"
+                            rows="3" name="desc" placeholder="Enter description"></textarea>
                         </label>
+
+                        <!-- <label class="block mt-4 text-sm">
+                        <span class="text-gray-700 dark:text-gray-400">
+                            File
+                        </span>
+      
+                        <input
+                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                            type="file"
+                            name="uploaded_file"
+                            placeholder="Add a file" />
+                        </label> -->
                         
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                             Submit
                         </button>
                     </form>
                     
                 </div>
-
-                
                     
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                        Courses
+                        Results
                     </h2>
 
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -601,39 +555,66 @@
                             <thead>
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3">Course code</th>
-                                <th class="px-4 py-3">Course name</th>
-                                <th class="px-4 py-3">Pass grade</th>
-                                <th class="px-4 py-3">Prerequisite</th>
+                                <th class="px-12 py-3">Lecturer</th>
+                                <th class="px-4 py-3">Similar interests</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
                             </thead>
+
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            <?php 
-                            // foreach ($shared_files as $shared_file) {
-                            //     echo'<tr class="text-gray-700 dark:text-gray-400">
-                            //     <td class="px-4 py-3">
-                            //     <div class="flex items-center text-sm">
-                            //         <!-- Avatar with inset shadow -->
-                            //         <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //         <i class="mr-3 fas fa-file fa-lg"></i>
-                            //         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                            //         <!-- </div> -->
-                            //         <div>
-                            //         <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                            //         </div>
-                            //     </div>
-                            //     </td>
-                            //     <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                            //     <td class="px-4 py-3 text-xs">
-                            //     <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                            //     <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                            //     <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                            //     </td>
-                                
-                            // </tr>';
-                            // }   
-                            ?>
+                            <?php if ($shared_files) {
+                                foreach ($shared_files as $shared_file) {
+                                    echo '
+                                    <tr class="text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <!-- Avatar with inset shadow -->
+                                                <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
+                                                    <i class="mr-3 fas fa-file fa-lg"></i>
+                                                <!-- </div> -->
+                                            <div>
+                                                <p class="font-semibold">' .
+                                        $shared_file['file_name'] .
+                                        '</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">';
+
+                                    if (
+                                        strlen($shared_file['file_desc'] < 50)
+                                    ) {
+                                        echo substr(
+                                            $shared_file['file_desc'],
+                                            0,
+                                            50
+                                        ) . '...';
+                                    } else {
+                                        echo $shared_file['file_desc'];
+                                    }
+                                    echo '</td>
+                                        
+                                        <td class="px-4 py-3">
+                                            <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
+                                            <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                            <a href="' .
+                                        $shared_file['file'] .
+                                        '" download="' .
+                                        basename($shared_file['file']) .
+                                        PHP_EOL .
+                                        '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
+
+                                        </td>
+                                    </tr>
+                                    ';
+                                }
+                            } else {
+                                echo '<td class="text-right">
+                                        <div>
+                                            <p class="font-semibold">No file available</p>
+                                        </div>
+                                      </td>';
+                            } ?>
 
                             </tbody>
                         </table>

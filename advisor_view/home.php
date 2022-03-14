@@ -105,6 +105,17 @@ $shared_files = select_all_shared_files_controller();
               </a>
           </li>
           <li class="relative px-6 py-3">
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="./student_lecturer_pairing.php">
+                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                    <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                </svg>
+                <span class="ml-4">Student-Lecturer Pairing</span>
+            </a>
+          </li>
+          <li class="relative px-6 py-3">
             <button
               class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               @click="togglePagesMenu" aria-haspopup="true">

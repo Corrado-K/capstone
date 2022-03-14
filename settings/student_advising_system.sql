@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2022 at 12:46 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Mar 14, 2022 at 06:00 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,21 +50,17 @@ CREATE TABLE `announcements` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `announcements`
+-- Table structure for table `areas_of_interest`
 --
 
-INSERT INTO `announcements` (`announcement_id`, `announcement_subject`, `announcement_message`, `attached_file`, `date`) VALUES
-(30, 'Newestestest', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam maecenas ultricies mi eget mauris pharetra et ultrices neque. Consequat semper viverra nam libero justo laoreet. Arcu vitae elementum curabitur vitae nunc. Purus semper eget duis at tellus at urna. Sit amet mauris commodo quis imperdiet massa. Molestie a iaculis at erat pellentesque. Lacus viverra vitae congue eu consequat ac. Fringilla urna porttitor rhoncus dolor purus. Proin sagittis nisl rhoncus mattis rhoncus urna neque. Lacinia quis vel eros donec ac odio tempor orci. Ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt.', '', '2022-02-26'),
-(31, 'Who is the Dean of Students', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '../files/announcement_uploads/superheros_wall_droidviews_13.jpg', '2022-02-26'),
-(32, 'No file test', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '../files/announcement_uploads/superheros_wall_droidviews_14.jpg', '2022-02-26'),
-(33, 'Actual No file test', 'For real this time, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo', '', '2022-02-26'),
-(34, 'Actual No file test', 'For real real this time, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea co', '', '2022-02-26'),
-(35, 'Actual No file test', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '', '2022-02-26'),
-(36, 'Actual No file test', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '', '2022-02-26'),
-(37, 'Actual No file test', 'No file here baby. Just Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com', '', '2022-02-26'),
-(38, 'Who is the Dean of Students', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aut', '', '2022-02-26'),
-(39, 'Who is the Dean of Students', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aut', '', '2022-02-26');
+CREATE TABLE `areas_of_interest` (
+  `aoi_id` int(10) NOT NULL,
+  `aoi_name` varchar(120) NOT NULL,
+  `aoi_description` varchar(240) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -103,12 +99,30 @@ CREATE TABLE `faq` (
   `faq_answer` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `faq`
+-- Table structure for table `lecturers`
 --
 
-INSERT INTO `faq` (`faq_id`, `faq_category`, `faq_question`, `faq_answer`) VALUES
-(0, '', 'Who is the Dean of Students?', 'Dean Abdul Madhi');
+CREATE TABLE `lecturers` (
+  `lecturer_id` int(10) NOT NULL,
+  `lecturer_name` varchar(120) NOT NULL,
+  `lecturer_email` varchar(120) NOT NULL,
+  `lecturer_contact` varchar(20) NOT NULL,
+  `image` varchar(240) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lecturer_aoi`
+--
+
+CREATE TABLE `lecturer_aoi` (
+  `aoi_id` int(10) NOT NULL,
+  `lecturer_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -122,13 +136,6 @@ CREATE TABLE `shared_files` (
   `file_desc` varchar(100) NOT NULL,
   `file` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `shared_files`
---
-
-INSERT INTO `shared_files` (`file_id`, `file_name`, `file_desc`, `file`) VALUES
-(0, 'Homework 1', 'Lorem ipsum dolor sit amet.', '../files/product/');
 
 -- --------------------------------------------------------
 
@@ -150,10 +157,53 @@ CREATE TABLE `student` (
 --
 
 --
+-- Indexes for table `advisor`
+--
+ALTER TABLE `advisor`
+  ADD PRIMARY KEY (`advisor_id`);
+
+--
 -- Indexes for table `announcements`
 --
 ALTER TABLE `announcements`
   ADD PRIMARY KEY (`announcement_id`);
+
+--
+-- Indexes for table `areas_of_interest`
+--
+ALTER TABLE `areas_of_interest`
+  ADD PRIMARY KEY (`aoi_id`);
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`course_id`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`faq_id`);
+
+--
+-- Indexes for table `lecturers`
+--
+ALTER TABLE `lecturers`
+  ADD PRIMARY KEY (`lecturer_id`),
+  ADD UNIQUE KEY `lecturer_email` (`lecturer_email`);
+
+--
+-- Indexes for table `shared_files`
+--
+ALTER TABLE `shared_files`
+  ADD PRIMARY KEY (`file_id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -163,7 +213,19 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `announcement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `announcement_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `areas_of_interest`
+--
+ALTER TABLE `areas_of_interest`
+  MODIFY `aoi_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lecturers`
+--
+ALTER TABLE `lecturers`
+  MODIFY `lecturer_id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
