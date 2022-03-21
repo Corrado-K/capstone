@@ -22,7 +22,7 @@ $shared_files = select_all_shared_files_controller();
 </head>
 
 <body>
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+    <div class="flex h-screen bg-zinc-200 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
         <!-- Desktop sidebar -->
         <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
             <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -499,7 +499,7 @@ $shared_files = select_all_shared_files_controller();
                 </div>
             </header>
             <main class="h-full pb-16 overflow-y-auto">
-                <div class="container grid px-6 mx-auto">
+                <div class="container grid px-12 mx-auto">
                 <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                     Shared files
                 </h2>

@@ -15,15 +15,15 @@ class Course extends Connection{
 		return $this->fetch("select * from courses");
 	}
 
-	public function select_courses($course_name){
+	public function select_course($course_name){
 		// return associative array or false
 		return $this->fetchOne("select * from courses where course_name = '$course_name'");
 	}
 
 	//create update and delete queries
-	public function update_courses($course_id, $course_name, $course){
+	public function update_course($course_id, $course_name, $course_code, $course_passgrade){
 		// return true or false
-		return $this->query("update courses set course_name = '$course_name' and course = '$course' where courses_id = '$courses_id'");
+		return $this->query("update courses set course_name = '$course_name' and course_code = '$course_code' and course_passgrade = '$course_passgrade' where courses_id = '$course_id'");
 	}
 
     public function set_prerequisite($course_id, $prerequisite_id){

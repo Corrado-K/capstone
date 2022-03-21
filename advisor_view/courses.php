@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+    <div class="flex h-screen bg-zinc-200 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
         <!-- Desktop sidebar -->
         <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
             <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -499,19 +499,30 @@
                 </div>
             </header>
             <main class="h-full pb-16 overflow-y-auto">
-                <div class="container grid px-6 mx-auto">
+                <div class="container grid px-12 mx-auto">
                 <h2 class="my-3 mt-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                     Courses
                 </h2>
 
-
-                <h2 class="my-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Add Course
-                </h2>
+                <!-- Card -->
+                <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs dark:bg-gray-800">
+                        
+                    <div class="mx-auto text-center">
+                        <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+                            Find a faculty who has interest in a certain view
+                        </p>
+                        <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
+                            Look up FAQ, shared files, and 
+                        </p>
+                    </div>
+                </div>
                 
 
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <h2 class="my-2 text-2xl text-center font-semibold text-gray-700 dark:text-gray-200">
+                    Add Course
+                </h2>
                     <form action="../action/shared_files_action.php" method="post">
                         <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Course code</span>

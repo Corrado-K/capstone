@@ -24,7 +24,7 @@
 </head>
 
 <body>
-  <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+  <div class="flex h-screen bg-zinc-200 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
       <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -475,10 +475,23 @@
         </div>
       </header>
       <main class="h-full pb-16 overflow-y-auto">
-        <div class="container grid px-6 mx-auto">
+        <div class="container grid px-12 mx-auto">
           <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             FAQs
           </h2>
+
+          <!-- Card -->
+          <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs dark:bg-gray-800">
+            
+            <div class="mx-auto text-center">
+              <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+                FAQ Page
+              </p>
+              <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
+                Save yourself the stress of answering the same questions all over again by posting Frequently Asked Questions
+              </p>
+            </div>
+          </div>
 
           <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <h2 class="my-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-200">
@@ -511,6 +524,8 @@
             <h2 class="my-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-200">
               Add FAQ by CSV file
             </h2>
+
+            
             <form action="../action/faq_action.php" method="post" enctype="multipart/form-data">
         
               <label class="block mt-4 text-sm">
@@ -535,9 +550,43 @@
           <h2 class="my-3 text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">
             FAQs
           </h2>
+          <ul class="flex flex-col">
+            
           <?php 
           if ($faqs) {
               foreach ($faqs as $faq) {
+                //   echo '<li class="bg-white my-2 shadow-lg" x-data="accordion(1)">
+                //   <h2 @click="handleClick()"
+                //     class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                //     <span>'.$faq['faq_question'].'</span>
+                //     <svg :class="handleRotate()" class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500" viewBox="0 0 20 20">
+                //       <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
+                //     </svg>
+                //   </h2>
+                //   <div x-ref="tab" :style="handleToggle()" class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all">
+                //     <p class="p-3 text-gray-900">
+                //     '.$faq['faq_answer'].'                    
+                //     </p>
+                //   </div>
+                // </li>';
+
+                // echo '<li class="bg-white my-2 shadow-lg" x-data="accordion(1)">
+                // <details class="flex flex-row justify-between items-center font-semibold p-3">
+                //     <summary>
+                //     <svg class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500" viewBox="0 0 20 20">
+                //       <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
+                //     </svg>
+                //     '.$faq['faq_question'].'</summary>
+                    
+                  
+                //   <div  class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all">
+                //     <p class="p-3 text-gray-900">
+                //     '.$faq['faq_answer'].'                    
+                //     </p>
+                //   </div>
+                // </li>
+                // </details>';
+
                   echo '
                 <details class="mb-3">
                   <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
@@ -548,6 +597,19 @@
                   '.$faq['faq_answer'].'
                   </span>
                 </details>';
+
+                
+
+                //   echo '
+                // <details class="mb-3">
+                //   <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
+                //   '.$faq['faq_question'].'
+                //   </summary>
+
+                //   <span>
+                //   '.$faq['faq_answer'].'
+                //   </span>
+                // </details>';
               }
           }else{
             echo '<h2 class="my-3 text-xl text-center text-gray-700 font-base dark:text-gray-200">
@@ -555,7 +617,24 @@
           </h2>';
           }
           ?>
+          </ul>
           </div>
+
+          <!-- <details> <li class="bg-white my-2 shadow-lg" x-data="accordion(1)">
+                  <h2 @click="handleClick()"
+                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                    <summary>'.$faq['faq_question'].'</summary>
+                    <svg :class="handleRotate()" class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500" viewBox="0 0 20 20">
+                      <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
+                    </svg>
+                  </h2>
+                  <div x-ref="tab" :style="handleToggle()" class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all">
+                    <p class="p-3 text-gray-900">
+                    '.$faq['faq_answer'].'                    
+                    </p>
+                  </div>
+                </li>
+                </details> -->
 
           
         </div>

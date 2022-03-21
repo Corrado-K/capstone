@@ -23,7 +23,7 @@
 </head>
 
 <body>
-  <div x-date="{ open: false }" class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+  <div x-date="{ open: false }" class="flex h-screen bg-zinc-200 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
       <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -475,19 +475,35 @@
         </div>
       </header>
       <main class="h-full pb-16 overflow-y-auto">
-        <div class="container grid px-6 mx-auto">
+        <div class="container grid px-12 mx-auto">
           <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Announcements
           </h2>
          
+          <!-- Card -->
+          <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs dark:bg-gray-800">
+            
+            <div class="mx-auto text-center">
+              <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+                Admin Announcement Page
+              </p>
+              <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
+                Take over and be in control of the announcement content students receive.
+              </p>
+            </div>
+          </div>
 
           <!-- General elements -->
           <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form action="../action/announcement_action.php" method="post" enctype="multipart/form-data">
+            <h2 class="my-3 text-center text-2xl font-semibold text-gray-700 dark:text-gray-200">
+              Add an announcement
+            </h2>
+            <div class="w-full bg-zinc-200 rounded-lg">
+            <form class="px-12 py-5" action="../action/announcement_action.php" method="post" enctype="multipart/form-data">
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Subject</span>
                 <input
-                  class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                  class="block w-full mt-1 text-sm border-gray-400 rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Jane Doe"
                   name="subject" />
               </label>
@@ -497,7 +513,7 @@
                   Files
                 </span>
                 <input
-                  class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                  class="block w-full mt-1 text-sm border-gray-400 rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                   type="file"
                   name="uploaded_file"
                   id="uploaded_file"
@@ -508,13 +524,15 @@
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Message</span>
                 <textarea
-                  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray rounded-2xl"
+                  class="block w-full mt-1 text-sm border-gray-400 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray rounded-2xl"
                   rows="3" name="desc" placeholder="Enter announcement"></textarea>
               </label>
               <button name="add_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                   Submit
               </button>
             </form>
+            </div>
+            
           </div>
           
           
@@ -533,6 +551,7 @@
                       <th class="px-4 py-3">Message</th>
                       <th class="px-4 py-3">File</th>
                       <th class="px-4 py-3">Date</th>
+                      <th class="px-4 py-3"></th>
                   </tr>
                   </thead>
                   <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
