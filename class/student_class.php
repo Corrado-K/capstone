@@ -13,7 +13,7 @@ class Student extends Connection{
 
 	function select_all_students(){
 		// return associative array or false
-		return $this->fetchOne("select * from student");
+		return $this->fetch("select * from student");
 	}
 
 	function select_one_student($email){

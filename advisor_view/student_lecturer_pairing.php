@@ -1,9 +1,17 @@
 <?php
-require '../controller/shared_files_controller.php';
+require '../controller/aoi_controller.php';
 
 session_start();
 
-$shared_files = select_all_shared_files_controller();
+$aois = select_all_aois_controller();
+
+if (isset($_GET['search_aoi'])) {
+    $aoi = $_GET['aois'];
+
+    // var_dump($aoi);
+
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +27,12 @@ $shared_files = select_all_shared_files_controller();
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- select2.js  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 </head>
 
 <body>
@@ -91,7 +105,7 @@ $shared_files = select_all_shared_files_controller();
                             <span class="ml-4">Courses</span>
                         </a>
                     </li>
-                    <li class="relative px-6 py-3">
+                    <!-- <li class="relative px-6 py-3">
                     <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -103,8 +117,10 @@ $shared_files = select_all_shared_files_controller();
                             </svg>
                             <span class="ml-4">Student-Lecturer Pairing</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="relative px-6 py-3">
+                        <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
                         <button
                             class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             @click="togglePagesMenu" aria-haspopup="true">
@@ -115,7 +131,7 @@ $shared_files = select_all_shared_files_controller();
                                         d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
                                     </path>
                                 </svg>
-                                <span class="ml-4">Pages</span>
+                                <span class="ml-4">Student-Lecturer Pairing</span>
                             </span>
                             <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -134,27 +150,19 @@ $shared_files = select_all_shared_files_controller();
                                 aria-label="submenu">
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/login.html">Login</a>
+                                    <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/create-account.html">
-                                        Create account
-                                    </a>
+                                    <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/forgot-password.html">
-                                        Forgot password
-                                    </a>
+                                    <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/404.html">404</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/blank.html">Blank</a>
+                                    <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
                         </template>
@@ -520,27 +528,16 @@ $shared_files = select_all_shared_files_controller();
 
                     <!-- General elements -->
                     <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                        <form action="../action/shared_files_action.php" method="post" enctype="multipart/form-data">
+                        <form action="../action/aoi_action.php" method="post" enctype="multipart/form-data">
                             <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Choose major</span>
+                            <span class="text-gray-700 mb-3 dark:text-gray-400">Choose area of interest</span>
                             <!-- This is supposed to be a select -->
-                            <input
-                                class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                name="file_name" placeholder="File name" />
+                            <select class="prompt block w-full mt-3 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="aois[]" placeholder="Area of interest">
+
+                            </select>
                             </label>
 
-                            <!-- This is also supposed to be a select but would have suggestions based on major selected about -->
-                            <!-- That would require php-ajax -->
-
-                            <label class="block mt-4 text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Select areas of interest</span>
-                                <textarea
-                                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray rounded-2xl"
-                                rows="3" name="desc" placeholder="Enter description"></textarea>
-                            </label>
-
-                            
-                            <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                            <button type="submit" name="search_aoi" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                                 Submit
                             </button>
                         </form>
@@ -551,6 +548,31 @@ $shared_files = select_all_shared_files_controller();
                         Results
                     </h2>
 
+                    <?php 
+                        if (isset($lect_aoi_results)) {
+                            foreach ($lect_aoi_results as $lect_aoi_result) {
+                                echo '
+                                <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                                  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                      <path
+                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
+                                      </path>
+                                    </svg>
+                                  </div>
+                                  <div>
+                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                                      Total clients
+                                    </p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                                      6389
+                                    </p>
+                                  </div>
+                                </div>';
+                            }
+                        }
+                    ?>
+
                     
 
                     
@@ -560,5 +582,48 @@ $shared_files = select_all_shared_files_controller();
         </div>
     </div>
 </body>
+
+<?php 
+    require_once '../controller/aoi_controller.php';
+    $aois_json =  select_all_aois_to_json_controller();
+
+    $content = json_encode($aois_json);
+
+?>
+
+<script>
+
+    var content =  <?php echo $content ?>;
+    
+
+
+     $(".prompt").select2({
+         data:content,
+         minimumInputLength: 0,
+         width: '100%',
+         multiple:true,
+         placeholder:"Area of interest",
+         templateResult:formatState
+
+     });
+
+    function formatState (text) {
+
+          str ="";
+          str += "<p style='padding-left: 12px;'>"+ text.text+ "</p>";
+          var $state = $(str);
+          return $state;
+
+    };
+
+
+    function btn_handler() {
+        var data = $('.prompt').select2('data');
+        data.forEach(datas => {
+            alert(datas.text);
+        });
+    }
+
+</script>
 
 </html>

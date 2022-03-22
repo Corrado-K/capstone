@@ -2,8 +2,8 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-<!-- component -->
-<div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
+
+<!-- <div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">
     <x-loading class="w-24 h-24">
       <svg viewBox="0 0 860.1 876.5">
@@ -40,187 +40,76 @@
     </x-loading>
     <div class="mt-3 text-gray-200 text-sm sm:text-xs">Loading...</div>
   </div>
-</div>
+</div> -->
 
 
-<?php
 
-require_once '../controller/student_controller.php';
-require_once '../controller/advisor_controller.php';
+<?php 
 
-session_start();
+require_once '../controller/aoi_controller.php';
 
 
-// Add user
-
-if (isset($_POST['addUserButton'])) {
+if (isset($_POST['add_aoi'])) {
+    
     $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $contact = $_POST['contact'];
-    // $image = $_POST['image'];
+    $desc = $_POST['desc'];
 
-    $is_advisor = false;
-
-    if(isset($_POST['is_advisor'])){
-        
-        if ($_POST['is_advisor'] ==  true) {
-            $is_advisor = true;
-        }
-    }
-
-    echo 'Verify if advisor with advisor secret login code';
-
-    // Password check here 
-
-    if ($password != $confirm_password) {
-        echo 'Passwords, do not match';
-    }
-
-
-    // Use password hash or md5
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-
-    if ($is_advisor) {
-        $result = add_advisor_controller($name,$email,$password,$contact);
-    } else {
-        $result = add_student_controller($name,$email,$password,$contact);
-    }
+    $result = add_aoi_controller($name, $desc);
 
     if ($result) {
-        // Change to sweet alert
         echo '<script>
                 swal({
-                    title: "Account created!",
-                    text: "Account created successfully!",
+                    title: "AOI added!",
+                    text: "Area of interest added successfully!",
                     icon: "success",
                     button: "Ok",
                     timer: 2000
                 }).then(() => {
-                    window.location = "../login/login.html";
+                    window.location = "../advisor_view/areas_of_interest.php";
                     });
             </script>';
-        // echo 'Success';
-    }else{
-        echo '<script>
-                swal({
-                    title: "Error!",
-                    text: "Failed to create account! Please try again",
-                    icon: "error",
-                    button: "Ok",
-                    timer: 2000
-                }).then(() => {
-                    window.location = "../login/create-account.html";
-                    });
+
+    }else {
+        echo '<script>swal("Failed").then(() => {
+                window.location = "../advisor_view/areas_of_interest.php";
+                });
             </script>';
-        // echo 'Fail';
     }
 }
 
+if (isset($_POST['search_aoi'])) {
+    $aoi = $_POST['aois'];
 
-// Select user and login
+    var_dump($aoi);
 
-if (isset($_POST['loginButton'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $data_lect = select_all_lecturer_aoi_controller();
+
+    $lect_count = 0;
+    $lect_array = [];
     
-    $is_advisor = false;
 
-    if(isset($_POST['is_advisor'])){
+    foreach ($data_lect as $lect) {
         
-        if ($_POST['is_advisor'] ==  true) {
-            $is_advisor = true;
-        }
+          for ($i=0; $i < count($aoi); $i++) { 
+              for ($j=0; $j < count($lect->interest); $j++) { 
+                  if ($aoi[$i] == $lect->interest[$j]) {
+                      $lect_count ++;
+                      echo "1 <br>";
+                  }else{
+                      echo "0 <br>";
+                  }
+              }
+          }
+        // }
+        echo "Similarity: " . $lect_count . "<br> <br>";
+        array_push($lect_array, $lect_count);
+
+        $lect_count = 0;
     }
 
-    if ($is_advisor) {
-        $advisor_result = select_advisor_controller($email);
+    print_r($lect_array);
 
-        if ($advisor_result['advisor_email'] == $email && password_verify($password, $advisor_result['advisor_pass']) ) {
-            $_SESSION['user_id'] = $advisor_result['advisor_id'];
-            $_SESSION['email'] = $advisor_result['advisor_email'];
-            $_SESSION['name'] = $advisor_result['advisor_name'];
-    
-            // Change to sweet alert
-            echo '<script>
-                swal({
-                    title: "Login successful!",
-                    text: "Login successful!",
-                    icon: "success",
-                    button: "Ok",
-                    timer: 2000
-                }).then(() => {
-                    window.location = "../advisor_view/home.php";
-                    });
-            </script>';
-        }else{
-            echo '<script>
-            swal({
-                title: "Error!",
-                text: "Failed to login! Please try again",
-                icon: "error",
-                button: "Ok",
-                timer: 2000
-            }).then(() => {
-                window.location = "../login/login.html";
-                });
-        </script>';
-        }
-    } else {
-        $student_result = select_student_controller($email);
 
-        if($student_result['student_email'] == $email && password_verify($password, $student_result['student_pass']) ){
-            $_SESSION['user_id'] = $student_result['student_id'];
-            $_SESSION['email'] = $student_result['student_email'];
-            $_SESSION['name'] = $student_result['student_name'];
-    
-            // Change to sweet alert
-            echo '<script>
-                swal({
-                    title: "Login!",
-                    text: "Login successful!",
-                    icon: "success",
-                    button: "Ok",
-                    timer: 2000
-                }).then(() => {
-                    window.location = "../student_view/home.php";
-                    });
-            </script>';
-        }else{
-            echo '<script>
-            swal({
-                title: "Error!",
-                text: "Failed to login! Please try again",
-                icon: "error",
-                button: "Ok",
-                timer: 2000
-            }).then(() => {
-                window.location = "../login/login.html";
-                });
-        </script>';
-        }
-    }
-
-    
-    
 }
-
-
-// Logout
-
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['user_id']);
-    unset($_SESSION['email']);
-    unset($_SESSION['name']);
-    header('location: ../index.php');
-}
-
-
-
-
-
 
 ?>

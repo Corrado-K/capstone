@@ -1,9 +1,9 @@
 <?php
-require '../controller/shared_files_controller.php';
+require '../controller/aoi_controller.php';
 
 session_start();
 
-$shared_files = select_all_shared_files_controller();
+$aois = select_all_aois_controller();;
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +19,12 @@ $shared_files = select_all_shared_files_controller();
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- select2.js  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 </head>
 
 <body>
@@ -69,10 +75,8 @@ $shared_files = select_all_shared_files_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                    <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="./shared_files.php">
+                            href="./aoi.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -91,6 +95,19 @@ $shared_files = select_all_shared_files_controller();
                                 </path>
                             </svg>
                             <span class="ml-4">Courses</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                    <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="./student_lecturer_pairing.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                            </svg>
+                            <span class="ml-4">Student-Lecturer Pairing</span>
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
@@ -123,19 +140,19 @@ $shared_files = select_all_shared_files_controller();
                                 aria-label="submenu">
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
+                                    <a class="w-full" href="pages/login.html">Areas of interest</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
+                                    <a class="w-full" href="pages/create-account.html"> Lecturer management</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="./student_management.php">Student management</a>
+                                    <a class="w-full" href="pages/forgot-password.html">Student management</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
+                                    <a class="w-full" href="pages/404.html">Pairing and result simulator</a>
                                 </li>
                             </ul>
                         </template>
@@ -481,194 +498,100 @@ $shared_files = select_all_shared_files_controller();
             </header>
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container grid px-12 mx-auto">
-                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Shared files
-                </h2>
-                
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                        Areas of interest
+                    </h2>
 
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form action="../action/shared_files_action.php" method="post" enctype="multipart/form-data">
-                        <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">File name</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            name="file_name" placeholder="File name" />
-                        </label>
-
-                        <label class="block mt-4 text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Description</span>
-                            <textarea
-                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:focus:shadow-outline-gray rounded-2xl"
-                            rows="3" name="desc" placeholder="Enter description"></textarea>
-                        </label>
-
-                        <label class="block mt-4 text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">
-                            File
-                        </span>
-      
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
-                            type="file"
-                            name="uploaded_file"
-                            placeholder="Add a file" />
-                        </label>
+                    <!-- Card -->
+                    <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs dark:bg-gray-800">
                         
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-                    
-                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                    Shared files
-                </h2>
-
-                <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                    <div class="w-full overflow-x-auto">
-                    <table class="w-full whitespace-no-wrap">
-                        <thead>
-                        <tr
-                            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="px-12 py-3">File name</th>
-                            <th class="px-4 py-3">Description</th>
-                            <th class="px-4 py-3"></th>
-                        </tr>
-                        </thead>
-
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        <?php if ($shared_files) {
-                            foreach ($shared_files as $shared_file) {
-                                echo '
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                                <i class="mr-3 fas fa-file fa-lg"></i>
-                                            <!-- </div> -->
-                                        <div>
-                                            <p class="font-semibold">' .
-                                    $shared_file['file_name'] .
-                                    '</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">';
-
-                                if (
-                                    strlen($shared_file['file_desc'] < 50)
-                                ) {
-                                    echo substr(
-                                        $shared_file['file_desc'],
-                                        0,
-                                        50
-                                    ) . '...';
-                                } else {
-                                    echo $shared_file['file_desc'];
-                                }
-                                echo '</td>
-                                    
-                                    <td class="px-4 py-3">
-                                        <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
-                                        <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
-                                        <a href="' .
-                                    $shared_file['file'] .
-                                    '" download="' .
-                                    basename($shared_file['file']) .
-                                    PHP_EOL .
-                                    '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
-
-                                    </td>
-                                </tr>
-                                ';
-                            }
-                        } else {
-                            echo '<td class="text-right">
-                                    <div>
-                                        <p class="font-semibold">No file available</p>
-                                    </div>
-                                    </td>';
-                        } ?>
-
-                        </tbody>
-                    </table>
+                        <div class="mx-auto text-center">
+                            <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+                                Find a faculty who has interest in a certain view
+                            </p>
+                            <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
+                                Look up FAQ, shared files, and 
+                            </p>
+                        </div>
                     </div>
-                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                        <span class="flex items-center col-span-3">
-                            Showing 1-10 of {}
-                        </span>
-                        <span class="col-span-2"></span>
-                        <!-- Pagination -->
-                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                            <nav aria-label="Table navigation">
-                            <ul class="inline-flex items-center">
-                                <li>
-                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
-                                    aria-label="Previous">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                    <path
-                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                        clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                                </li>
-                                <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                    1
-                                </button>
-                                </li>
-                                <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                    2
-                                </button>
-                                </li>
-                                <li>
-                                <button
-                                    class="px-3 py-1 text-white transition-colors duration-150 bg-[#9b1c1c] border border-r-0 border-[#9b1c1c] rounded-md focus:outline-none focus:shadow-outline-red">
-                                    3
-                                </button>
-                                </li>
-                                <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                    4
-                                </button>
-                                </li>
-                                <li>
-                                <span class="px-3 py-1">...</span>
-                                </li>
-                                <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                    8
-                                </button>
-                                </li>
-                                <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                    9
-                                </button>
-                                </li>
-                                <li>
-                                <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                                    aria-label="Next">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                    <path
-                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                        clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                                </li>
-                            </ul>
-                            </nav>
-                        </span>
+                    
+
+                    <!-- General elements -->
+                    <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                        <form action="../action/action.php" method="post" enctype="multipart/form-data">
+                            <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">Area of interest name</span>
+                            <select class="prompt block w-full mt-1 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="aois[]" placeholder="Area of interest">
+                            </select>
+                            </label>
+
+                            
+
+                            
+                            <button type="submit" name="add_aoi" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                                Submit
+                            </button>
+                        </form>
+                        
                     </div>
-                </div>
+                    
+                    
+
+                   
+
+                    
+
+                    
 
                 </div>
             </main>
         </div>
     </div>
 </body>
+
+
+<?php 
+    require_once '../controller/aoi_controller.php';
+    $aois_json =  select_all_aois_to_json_controller();
+
+    $content = json_encode($aois_json);
+
+?>
+
+<script>
+
+    var content =  <?php echo $content ?>;
+    
+
+
+     $(".prompt").select2({
+         data:content,
+         minimumInputLength: 1,
+         width: '100%',
+         multiple:true,
+         placeholder:"Area of interest",
+         templateResult:formatState
+
+     });
+
+    function formatState (text) {
+
+          str ="";
+          str += "<p style='padding-left: 12px;'>"+ text.text+ "</p>";
+          var $state = $(str);
+          return $state;
+
+    };
+
+
+    function btn_handler() {
+        var data = $('.prompt').select2('data');
+        data.forEach(datas => {
+            alert(datas.text);
+        });
+    }
+
+</script>
+
 
 </html>

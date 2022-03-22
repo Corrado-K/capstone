@@ -42,6 +42,19 @@
             </div>
         </div>
 </body>
+<?php 
+    require_once '../controller/aoi_controller.php';
+    $aois =  select_all_aois_to_json_controller();
+
+    $content1 = json_encode($aois);
+
+    // printf(json_encode($aois));
+
+    // foreach ($aois as $aoi) {
+    //     echo $aoi['aoi_name']. "<br>";
+    // }
+
+?>
 
 <script>
     var content = [
@@ -50,42 +63,45 @@
         {id: 2, text: "Soumil Shah  ",  email:"Soumil@xy"},
     ];
 
+    var content1 =  <?php echo $content1 ?>;
+    
+
 
     // how to transform the json into app format
-    var json = [
-        {
-            name: "Nitin Shah",
-            email:"Nitin@xy",
-        },
-        {
-            name: "SSS Shah",
-            email:"SS@xy",
-        },
+    // var json = [
+    //     {
+    //         name: "Nitin Shah",
+    //         email:"Nitin@xy",
+    //     },
+    //     {
+    //         name: "SSS Shah",
+    //         email:"SS@xy",
+    //     },
 
-    ];
+    // ];
 
-    var vector = [];
-    $.each(json, function(index , value){
-        var tem =
-            {
-                id:index,
-                text:value.name
-            };
-        vector.push(tem);
-    })
+    // var vector = [];
+    // $.each(json, function(index , value){
+    //     var tem =
+    //         {
+    //             id:index,
+    //             text:value.name
+    //         };
+    //     vector.push(tem);
+    // })
 
-    var final_json = {
-        "result":vector
-    };
+    // var final_json = {
+    //     "result":vector
+    // };
 
 
-    console.log(final_json);
+    // console.log(final_json);
 
 
 
      $(".prompt").select2({
-         data:content,
-         minimumInputLength: 2,
+         data:content1,
+         minimumInputLength: 0,
          width: '100%',
          multiple:true,
          placeholder:"Enter First Name",

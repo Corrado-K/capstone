@@ -27,13 +27,13 @@ function select_all_faqs_controller(){
 
 }
 
-function delete_faq_controller($faq_id){
-    // create an instance of the customer class
-    $faq_instance = new FAQ();
-    // call the method from the class
-    return $faq_instance->delete_faq($faq_id);
+// function delete_faq_controller($faq_id){
+//     // create an instance of the customer class
+//     $faq_instance = new FAQ();
+//     // call the method from the class
+//     return $faq_instance->delete_faq($faq_id);
 
-}
+// }
 
 function update_faq_controller($faq_id,$question, $answer){
     // create an instance of the customer class
