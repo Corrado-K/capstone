@@ -30,6 +30,25 @@ class AOI extends Connection{
 		return $this->fetchOne("select * from areas_of_interest where aoi_name='$name' and aoi_description='$description'");
 	}
 
+	function find_aoi($aoi){
+		// return an associative array or false
+		$count = count($aoi);
+		$counter = 0;
+		$query = "select * from lecturer_aoi inner join areas_of_interest on lecturer_aoi.aoi_id = areas_of_interest.aoi_id
+											 inner join lecturers on lecturer_aoi.lecturer_id = lecturers.lecturer_id
+				 							 where";
+		foreach ($aoi as $aoi_item) {
+			if ($counter < $count) {
+				$query = $query . " aoi_name like '" . $aoi_item ."' or";
+			}else{
+				$query = $query . " aoi_name like '" . $aoi_item ."'";
+
+			}
+		}
+		//  aoi_name like 'Machine Learning' or `aoi_name` LIKE 'Data Science'";
+		return $this->fetch($query);
+	}
+
 	//create update and delete queries
 	function update_aoi($aoi_id, $name, $description){
 		// return true or false

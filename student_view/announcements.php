@@ -1,16 +1,13 @@
-<?php  
-
+<?php
   include_once '../controller/announcement_controller.php';
-  
+
   session_start();
 
-
   $announcements = select_all_announcements_controller();
-  
-?>
 
+?>
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+<html x-data="data()" lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -21,19 +18,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <script src="./assets/js/init-alpine.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
-  <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+  <div x-date="{ open: false }" class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen}">
     <!-- Desktop sidebar -->
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
-      <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 text-lg font-bold text-white dark:text-gray-200" href="#">
+    <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block flex-shrink-0">
+      <div class="py-4 text-gray-500">
+        <a class="ml-6 text-lg font-bold text-white" href="#">
         Student Advising System
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
               href="./home.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -47,7 +46,7 @@
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
               href="./faq.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,7 +60,7 @@
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
               href="./announcements.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +72,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                 href="./shared_files.php">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,52 +83,63 @@
             </a>
           </li> 
           <li class="relative px-6 py-3">
-            <button
-              class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              @click="togglePagesMenu" aria-haspopup="true">
-              <span class="inline-flex items-center">
-                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
-                  </path>
-                </svg>
-                <span class="ml-4">Pages</span>
-              </span>
-              <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </button>
-            <template x-if="isPagesMenuOpen">
-              <ul x-transition:enter="transition-all ease-in-out duration-300"
-                x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                x-transition:leave="transition-all ease-in-out duration-300"
-                x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
-                aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/login.html">Login</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/create-account.html">
-                    Create account
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/forgot-password.html">
-                    Forgot password
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/404.html">404</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/blank.html">Blank</a>
-                </li>
-              </ul>
-            </template>
+              <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                  href="./courses.php">
+                  <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                          d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122">
+                      </path>
+                  </svg>
+                  <span class="ml-4">Courses</span>
+              </a>
+          </li>
+          <li class="relative px-6 py-3">
+              <button
+                  class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                  @click="togglePagesMenu" aria-haspopup="true">
+                  <span class="inline-flex items-center">
+                      <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                              d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
+                          </path>
+                      </svg>
+                      <span class="ml-4">Student-Lecturer Pairing</span>
+                  </span>
+                  <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                  </svg>
+              </button>
+              <template x-if="isPagesMenuOpen">
+                  <ul x-transition:enter="transition-all ease-in-out duration-300"
+                      x-transition:enter-start="opacity-25 max-h-0"
+                      x-transition:enter-end="opacity-100 max-h-xl"
+                      x-transition:leave="transition-all ease-in-out duration-300"
+                      x-transition:leave-start="opacity-100 max-h-xl"
+                      x-transition:leave-end="opacity-0 max-h-0"
+                      class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
+                      aria-label="submenu">
+                      <li
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
+                      </li>
+                      <li
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
+                      </li>
+                      <li
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          <a class="w-full" href="./student_management.php">Student management</a>
+                      </li>
+                      <li
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
+                      </li>
+                  </ul>
+              </template>
           </li>
         </ul>
         <div class="px-6 my-6">
@@ -148,19 +158,19 @@
       x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
       class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-    <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+    <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden"
       x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
       x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
       x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
       @keydown.escape="closeSideMenu">
-      <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+      <div class="py-4 text-gray-500">
+        <a class="ml-6 text-lg font-bold text-gray-800" href="#">
           Windmill
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               href="index.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -176,7 +186,7 @@
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
               href="Announcements.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -188,7 +198,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               href="cards.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -200,7 +210,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               href="charts.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -211,7 +221,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               href="buttons.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -223,7 +233,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               href="modals.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -235,7 +245,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               href="tables.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -246,7 +256,7 @@
           </li>
           <li class="relative px-6 py-3">
             <button
-              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
               @click="togglePagesMenu" aria-haspopup="true">
               <span class="inline-flex items-center">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -268,25 +278,25 @@
                 x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                 x-transition:leave="transition-all ease-in-out duration-300"
                 x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                 aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                   <a class="w-full" href="pages/login.html">Login</a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                   <a class="w-full" href="pages/create-account.html">
                     Create account
                   </a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                   <a class="w-full" href="pages/forgot-password.html">
                     Forgot password
                   </a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                   <a class="w-full" href="pages/404.html">404</a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                   <a class="w-full" href="pages/blank.html">Blank</a>
                 </li>
               </ul>
@@ -303,9 +313,9 @@
       </div>
     </aside>
     <div class="flex flex-col flex-1">
-      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+      <header class="z-10 py-4 bg-white shadow-md">
         <div
-          class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c] dark:text-red-300">
+          class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c]">
           <!-- Mobile hamburger -->
           <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
             @click="toggleSideMenu" aria-label="Menu">
@@ -326,7 +336,7 @@
                 </svg>
               </div>
               <input
-                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-red-300 focus:outline-none focus:shadow-outline-red form-input"
+                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white focus:border-red-300 focus:outline-none focus:shadow-outline-red form-input"
                 type="text" placeholder="Search for projects" aria-label="Search" />
             </div>
           </div>
@@ -338,13 +348,6 @@
                 <template x-if="!dark">
                   <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                  </svg>
-                </template>
-                <template x-if="dark">
-                  <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                      clip-rule="evenodd"></path>
                   </svg>
                 </template>
               </button>
@@ -361,36 +364,36 @@
                 </svg>
                 <!-- Notification badge -->
                 <span aria-hidden="true"
-                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full dark:border-gray-800"></span>
+                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full"></span>
               </button>
               <template x-if="isNotificationsMenuOpen">
                 <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                   x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu"
                   @keydown.escape="closeNotificationsMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                   aria-label="submenu">
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                       href="#">
                       <span>Messages</span>
                       <span
-                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full dark:text-red-100 dark:bg-[#9b1c1c]">
+                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
                         13
                       </span>
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                       href="#">
                       <span>Sales</span>
                       <span
-                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full dark:text-red-100 dark:bg-[#9b1c1c]">
+                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
                         2
                       </span>
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                       href="#">
                       <span>Alerts</span>
                     </a>
@@ -409,10 +412,10 @@
               <template x-if="isProfileMenuOpen">
                 <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                   x-transition:leave-end="opacity-0" @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                   aria-label="submenu">
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                       href="#">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -422,7 +425,7 @@
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                       href="#">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -435,7 +438,7 @@
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                       href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -453,31 +456,54 @@
         </div>
       </header>
       <main class="h-full pb-16 overflow-y-auto">
-        <div class="container grid px-6 mx-auto">
-          <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        <div class="container grid px-12 mx-auto">
+          <h2 class="my-6 text-2xl font-semibold text-gray-700">
             Announcements
           </h2>
          
+          <!-- Card -->
+          <div class="flex items-center p-4 mb-2 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+            
+            <div class="mx-auto text-center">
+              <p class="mb-2 text-xl font-medium text-gray-600">
+                Student Announcement Page
+              </p>
+              <p class="font-semibold text-center text-gray-700 text-md">
+                These are the announcements from the academic advisor. Don't miss a thing
+              </p>
+              
+            </div>
+          </div>
 
           <!-- General elements -->
-          <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <?php 
+          <div class="w-full bg-white text-gray-800 mt-10 overflow-hidden rounded-lg shadow-xs">
+            <div class="w-full overflow-x-auto px-10 py-10">
+              
+            <?php 
           if ($announcements) {
               foreach ($announcements as $announcement) {
                   echo '
-                    <h2 class="my-2 text-xl font-normal text-gray-700 underline dark:text-gray-200">
-                      Subject: '.$announcement['announcement_subject'].'
-                    </h2> <p class="my-2 text-sm text-gray-700 font-base dark:text-gray-200">
-                    Posted on: '.$announcement['date'].'</p>
-                    <p class="my-2 text-sm text-gray-700 font-base dark:text-gray-200">
-                      '.$announcement['announcement_message'].'
-                    </p>';
+                    <div class="mb-8">
+                      <span class="my-2 text-2xl font-semithin text-gray-600 underline decoration-1 decoration-double">
+                        '.$announcement['announcement_subject'].'
+                      </span> 
+                      <span class="my-2 mx-2 text-md text-gray-600 font-base">
+                        [Posted: '.$announcement['date'].']
+                      </span> <span class="float-right"><i class="ml-10 text-xl text-green-400 hover fas fa-comment transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-150 duration-300"></i></span>
+                      
+                      <p class="my-2 text-md text-gray-500 font-semibold">
+                        '.$announcement['announcement_message'].'
+                      </p>
+                    </div>
+
+
+                    ';
               }
           }
           ?>
+            </div>
+            
           </div>
-          
-          
 
           
           
@@ -485,6 +511,38 @@
       </main>
     </div>
   </div>
+
+  <!-- <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  >
+
+    <div role="dialog" aria-labelledby="modal1_label" aria-modal="true" tabindex="0" x-show="open"
+    @click="open = false; $refs.modal1_button.focus()" @click.away="open = false; $refs.modal1_button.focus()"
+    class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false; $refs.modal1_button.focus()">
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">
+            Modal Title Here
+            </h3>
+            <div class="mt-2">
+                <p class="text-sm leading-5 text-gray-500">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+        </div>
+        <div class="mt-5 sm:mt-6">
+            <span class="flex w-full rounded-md shadow-sm">
+                <button @click="open = false" class="inline-flex justify-center w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700">
+                Close this modal!
+                </button>
+            </span>
+        </div>
+    </div>
+  </div> -->
+
+  
 </body>
 
 </html>

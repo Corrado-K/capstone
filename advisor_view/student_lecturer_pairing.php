@@ -15,7 +15,7 @@ if (isset($_GET['search_aoi'])) {
 ?>
 
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+<html x-data="data()" lang="en">
 
 <head>  
     <meta charset="UTF-8" />
@@ -36,16 +36,16 @@ if (isset($_GET['search_aoi'])) {
 </head>
 
 <body>
-    <div class="flex h-screen bg-zinc-200 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+    <div class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen}">
         <!-- Desktop sidebar -->
-        <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
-            <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-white dark:text-gray-200" href="#">
+        <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block flex-shrink-0">
+            <div class="py-4 text-gray-500">
+                <a class="ml-6 text-lg font-bold text-white" href="#">
                     Student Advising System
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./home.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +59,7 @@ if (isset($_GET['search_aoi'])) {
                 </ul>
                 <ul>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./faq.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +71,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./announcements.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,7 +83,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./shared_files.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -94,7 +94,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./courses.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,7 +108,7 @@ if (isset($_GET['search_aoi'])) {
                     <!-- <li class="relative px-6 py-3">
                     <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./student_lecturer_pairing.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -122,7 +122,7 @@ if (isset($_GET['search_aoi'])) {
                         <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
                         <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -146,22 +146,22 @@ if (isset($_GET['search_aoi'])) {
                                 x-transition:leave="transition-all ease-in-out duration-300"
                                 x-transition:leave-start="opacity-100 max-h-xl"
                                 x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
@@ -184,19 +184,19 @@ if (isset($_GET['search_aoi'])) {
             x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
             class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-        <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+        <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden"
             x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
             x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
             @keydown.escape="closeSideMenu">
-            <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+            <div class="py-4 text-gray-500">
+                <a class="ml-6 text-lg font-bold text-gray-800" href="#">
                     Student Advising System
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="index.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -212,7 +212,7 @@ if (isset($_GET['search_aoi'])) {
                     <li class="relative px-6 py-3">
                         <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
                             href="forms.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -224,7 +224,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="cards.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -236,7 +236,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="charts.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -247,7 +247,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="buttons.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -259,7 +259,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="modals.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -271,7 +271,7 @@ if (isset($_GET['search_aoi'])) {
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="tables.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -282,7 +282,7 @@ if (isset($_GET['search_aoi'])) {
                     </li>
                     <li class="relative px-6 py-3">
                         <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -306,30 +306,30 @@ if (isset($_GET['search_aoi'])) {
                                 x-transition:leave="transition-all ease-in-out duration-300"
                                 x-transition:leave-start="opacity-100 max-h-xl"
                                 x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/login.html">Login</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/create-account.html">
                                         Create account
                                     </a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/forgot-password.html">
                                         Forgot password
                                     </a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/404.html">404</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/blank.html">Blank</a>
                                 </li>
                             </ul>
@@ -346,9 +346,9 @@ if (isset($_GET['search_aoi'])) {
             </div>
         </aside>
         <div class="flex flex-col flex-1">
-            <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+            <header class="z-10 py-4 bg-white shadow-md">
                 <div
-                    class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c] dark:text-red-300">
+                    class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c]">
                     <!-- Mobile hamburger -->
                     <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
                         @click="toggleSideMenu" aria-label="Menu">
@@ -369,7 +369,7 @@ if (isset($_GET['search_aoi'])) {
                                 </svg>
                             </div>
                             <input
-                                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-red-300 focus:outline-none focus:shadow-outline-red form-input"
+                                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white focus:border-red-300 focus:outline-none focus:shadow-outline-red form-input"
                                 type="text" placeholder="Search for projects" aria-label="Search" />
                         </div>
                     </div>
@@ -384,13 +384,7 @@ if (isset($_GET['search_aoi'])) {
                                         </path>
                                     </svg>
                                 </template>
-                                <template x-if="dark">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </template>
+                                
                             </button>
                         </li>
                         <!-- Notifications menu -->
@@ -406,36 +400,36 @@ if (isset($_GET['search_aoi'])) {
                                 </svg>
                                 <!-- Notification badge -->
                                 <span aria-hidden="true"
-                                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full dark:border-gray-800"></span>
+                                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full"></span>
                             </button>
                             <template x-if="isNotificationsMenuOpen">
                                 <ul x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 "
                                             href="#">
                                             <span>Messages</span>
                                             <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full dark:text-red-100 dark:bg-[#9b1c1c]">
+                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
                                                 13
                                             </span>
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <span>Sales</span>
                                             <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full dark:text-red-100 dark:bg-[#9b1c1c]">
+                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
                                                 2
                                             </span>
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <span>Alerts</span>
                                         </a>
@@ -456,10 +450,10 @@ if (isset($_GET['search_aoi'])) {
                                 <ul x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
-                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -472,7 +466,7 @@ if (isset($_GET['search_aoi'])) {
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -486,7 +480,7 @@ if (isset($_GET['search_aoi'])) {
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="../action/login_action.php?logout=<?php $_SESSION[
                                                 'user_id'
                                             ]; ?>">
@@ -508,18 +502,18 @@ if (isset($_GET['search_aoi'])) {
             </header>
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container grid px-12 mx-auto">
-                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700">
                         Student-Lecturer Pairing Process
                     </h2>
 
                     <!-- Card -->
-                    <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs dark:bg-gray-800">
+                    <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
                         
                         <div class="mx-auto text-center">
-                            <p class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400">
+                            <p class="mb-2 text-xl font-medium text-gray-600">
                                 Find a faculty who has interest in a certain view
                             </p>
-                            <p class="font-semibold text-center text-gray-700 text-md dark:text-gray-200">
+                            <p class="font-semibold text-center text-gray-700 text-md">
                                 Look up FAQ, shared files, and 
                             </p>
                         </div>
@@ -527,12 +521,12 @@ if (isset($_GET['search_aoi'])) {
                     
 
                     <!-- General elements -->
-                    <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
                         <form action="../action/aoi_action.php" method="post" enctype="multipart/form-data">
                             <label class="block text-sm">
-                            <span class="text-gray-700 mb-3 dark:text-gray-400">Choose area of interest</span>
+                            <span class="text-gray-700 mb-3">Choose area of interest</span>
                             <!-- This is supposed to be a select -->
-                            <select class="prompt block w-full mt-3 text-sm rounded-full dark:border-gray-600 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="aois[]" placeholder="Area of interest">
+                            <select class="prompt block w-full mt-3 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" name="aois[]" placeholder="Area of interest">
 
                             </select>
                             </label>
@@ -544,7 +538,7 @@ if (isset($_GET['search_aoi'])) {
                         
                     </div>
                     
-                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700">
                         Results
                     </h2>
 
@@ -552,8 +546,8 @@ if (isset($_GET['search_aoi'])) {
                         if (isset($lect_aoi_results)) {
                             foreach ($lect_aoi_results as $lect_aoi_result) {
                                 echo '
-                                <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                                  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                                <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                                  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full">
                                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                       <path
                                         d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
@@ -561,10 +555,10 @@ if (isset($_GET['search_aoi'])) {
                                     </svg>
                                   </div>
                                   <div>
-                                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                                    <p class="mb-2 text-sm font-medium text-gray-600">
                                       Total clients
                                     </p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                                    <p class="text-lg font-semibold text-gray-700">
                                       6389
                                     </p>
                                   </div>

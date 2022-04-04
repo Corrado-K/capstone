@@ -1,17 +1,15 @@
-<?php 
-    require '../controller/course_controller.php';
+<?php
+require '../controller/aoi_controller.php';
 
-    session_start();
+session_start();
 
-
-    // $shared_files = select_all_shared_files_controller();
-    
+$aois = select_all_aois_controller();
 ?>
 
 <!DOCTYPE html>
 <html x-data="data()" lang="en">
 
-<head>  
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Advising System Dashboard - Forms</title>
@@ -72,7 +70,7 @@
                     </li>
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
-                            href="./shared_files.php">
+                            href="./aoi.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -82,8 +80,6 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                    <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./courses.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -96,6 +92,8 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
+                        <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
                         <button
                             class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             @click="togglePagesMenu" aria-haspopup="true">
@@ -124,25 +122,24 @@
                                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
                         </template>
                     </li>
-                    
                 </ul>
                 <div class="px-6 my-6">
                     <button
@@ -456,7 +453,9 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                                            href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
+                                            href="../action/login_action.php?logout=<?php $_SESSION[
+                                                'user_id'
+                                            ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -475,160 +474,150 @@
             </header>
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container grid px-12 mx-auto">
-                <h2 class="my-3 mt-6 text-2xl font-semibold text-gray-700">
-                    Courses
-                </h2>
-
-                <!-- Card -->
-                <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
-                        
-                    <div class="mx-auto text-center">
-                        <p class="mb-2 text-xl font-medium text-gray-600">
-                            Find a faculty who has interest in a certain view
-                        </p>
-                        <p class="font-semibold text-center text-gray-700 text-md">
-                            Look up FAQ, shared files, and 
-                        </p>
-                    </div>
-                </div>
-                
-
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                <h2 class="my-2 text-2xl text-center font-semibold text-gray-700">
-                    Add Course
-                </h2>
-                    <form action="../action/shared_files_action.php" method="post">
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course code</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course code" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course name</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course name" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Pass grade</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
-                            <option value="">D</option>
-                            <option value="">E</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
-                <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                    Set course prerequisite
-                </h2>
-
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                    <form action="../action/shared_files_action.php" method="post">
-                        
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Prerequisite</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
-                
-                    
                     <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                        Courses
+                        Areas of interest
                     </h2>
 
-                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                            <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
-                                <th class="px-4 py-3">Course code</th>
-                                <th class="px-4 py-3">Course name</th>
-                                <th class="px-4 py-3">Pass grade</th>
-                                <th class="px-4 py-3">Prerequisite</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y">
-                            <?php 
-                            // foreach ($shared_files as $shared_file) {
-                            //     echo'<tr class="text-gray-700">
-                            //     <td class="px-4 py-3">
-                            //     <div class="flex items-center text-sm">
-                            //         <!-- Avatar with inset shadow -->
-                            //         <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //         <i class="mr-3 fas fa-file fa-lg"></i>
-                            //         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                            //         <!-- </div> -->
-                            //         <div>
-                            //         <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                            //         </div>
-                            //     </div>
-                            //     </td>
-                            //     <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                            //     <td class="px-4 py-3 text-xs">
-                            //     <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                            //     <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                            //     <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                            //     </td>
-                                
-                            // </tr>';
-                            // }   
-                            ?>
-
-                            </tbody>
-                        </table>
-                        </div>
-                        <div
-                        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                    <!-- Card -->
+                    <div class="flex items-center p-4 mb-8 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+                        
+                        <div class="mx-auto text-center">
+                            <p class="mb-2 text-xl font-medium text-gray-600">
+                                Find a faculty who has interest in a certain view
+                            </p>
+                            <p class="font-semibold text-center text-gray-700 text-md">
+                                Look up FAQ, shared files, and 
+                            </p>
                         </div>
                     </div>
+                    
 
+                    <!-- General elements -->
+                    <div class="h-full px-4 py-1 mb-3 bg-white rounded-lg shadow-md">
+                        <h2 class="my-3 text-2xl text-center font-semibold text-gray-700">
+                            Areas of interest
+                        </h2>
+
+                        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                            <div class="w-full overflow-x-auto">
+                            <table class="w-full whitespace-no-wrap">
+                                <thead>
+                                <tr
+                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3"></th>
+                                </tr>
+                                </thead>
+
+                                <tbody class="bg-white divide-y">
+                                <?php if ($aois) {
+                                    foreach ($aois as $aoi) {
+                                        echo '
+                                        <tr class="text-gray-700">
+                                        <td class="px-4 py-3">
+                                            <p class="font-normal">' .
+                                                $aoi['aoi_name'] .
+                                            '</p>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">';
+
+                                        if (strlen($aoi['aoi_description'] > 80)) {
+                                            echo substr($aoi['aoi_description'],0, 80) . '...';
+                                        } else {
+                                            echo $aoi['aoi_description'];
+                                        }
+                                        echo '</td>
+                                            
+                                            <td class="px-4 py-3">
+                                                <a href=""><i class="ml-10 text-slate-500 fas fa-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                        ';
+                                    }
+                                } else {
+                                    echo '<td class="text-right">
+                                            <div>
+                                                <p class="font-semibold">No file available</p>
+                                            </div>
+                                            </td>';
+                                } ?>
+
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                                <span class="flex items-center col-span-3">
+                                    Showing 1-10 of {}
+                                </span>
+                                <span class="col-span-2"></span>
+                                <!-- Pagination -->
+                                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                                    <nav aria-label="Table navigation">
+                                        <ul class="inline-flex items-center">
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                                    aria-label="Previous">
+                                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                        clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    1
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    2
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 text-white transition-colors duration-150 bg-[#9b1c1c] border border-r-0 border-[#9b1c1c] rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    3
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    4
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span class="px-3 py-1">...</span>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    8
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    9
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                                    aria-label="Next">
+                                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                        clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+     
                 </div>
             </main>
         </div>

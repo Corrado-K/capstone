@@ -27,6 +27,13 @@ function select_all_announcements_controller(){
 
 }
 
+function number_of_announcements_controller(){
+    // create an instance of the customer class
+    $announcement_instance = new Announcement();
+    // call the method from the class
+    return $announcement_instance->number_of_announcements();
+}
+
 function delete_announcement_controller($announcement_id){
     // create an instance of the customer class
     $announcement_instance = new Announcement();

@@ -42,6 +42,13 @@ function select_all_lecturer_aoi_controller(){
     return $aoi_instance->select_all_lecturer_aois();
 }
 
+function find_aoi_controller($aoi){
+    // create an instance of the customer class
+    $aoi_instance = new AOI();
+    // call the method from the class
+    return $aoi_instance->find_aoi($aoi);
+}
+
 // function delete_aoi_controller($aoi_id){
 //     // create an instance of the customer class
 //     $aoi_instance = new AOI();

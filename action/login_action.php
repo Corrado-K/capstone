@@ -48,7 +48,6 @@
 require_once '../controller/student_controller.php';
 require_once '../controller/advisor_controller.php';
 
-session_start();
 
 
 // Add user
@@ -212,10 +211,10 @@ if (isset($_POST['loginButton'])) {
 
 if (isset($_GET['logout'])) {
     session_destroy();
-    unset($_SESSION['user_id']);
-    unset($_SESSION['email']);
-    unset($_SESSION['name']);
-    header('location: ../index.php');
+    // echo '<script>window.location = "../index.php";</script>';
+    header('Location: ..');
+    
+    
 }
 
 

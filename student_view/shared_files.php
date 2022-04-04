@@ -1,19 +1,31 @@
-<?php 
-    include_once '../controller/shared_files_controller.php';
+<?php
+require '../controller/shared_files_controller.php';
 
-    session_start();
+session_start();
+
+$shared_files = select_all_shared_files_controller();
+
+$number_of_result = count($shared_files);
+$results_per_page = 10;
 
 
-    $shared_files = select_all_shared_files_controller();
-    
+  //determine the total number of pages available  
+  $number_of_page = ceil ($number_of_result / $results_per_page);  
+
+  //determine which page number visitor is currently on  
+
+  if (!isset($_GET['page']) ) {  
+    $page = 1;  
+  } else {  
+    $page = $_GET['page'];  
+  }
+
 ?>
 
-
-
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+<html x-data="data()" lang="en">
 
-<head>
+<head>  
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Advising System Dashboard - Forms</title>
@@ -23,20 +35,19 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 
 <body>
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
+    <div class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen}">
         <!-- Desktop sidebar -->
-        <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] dark:bg-gray-800 md:block flex-shrink-0">
-            <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-white dark:text-gray-200" href="#">
+        <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block flex-shrink-0">
+            <div class="py-4 text-gray-500">
+                <a class="ml-6 text-lg font-bold text-white" href="#">
                     Student Advising System
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./home.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,7 +61,7 @@
                 </ul>
                 <ul>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./faq.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +73,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./announcements.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +87,7 @@
                     <li class="relative px-6 py-3">
                     <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./shared_files.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -87,8 +98,20 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                            href="./courses.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122">
+                                </path>
+                            </svg>
+                            <span class="ml-4">Courses</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
                         <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -97,7 +120,7 @@
                                         d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
                                     </path>
                                 </svg>
-                                <span class="ml-4">Pages</span>
+                                <span class="ml-4">Student-Lecturer Pairing</span>
                             </span>
                             <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -112,31 +135,23 @@
                                 x-transition:leave="transition-all ease-in-out duration-300"
                                 x-transition:leave-start="opacity-100 max-h-xl"
                                 x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/login.html">Login</a>
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                                    <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/create-account.html">
-                                        Create account
-                                    </a>
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                                    <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/forgot-password.html">
-                                        Forgot password
-                                    </a>
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                                    <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/404.html">404</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="pages/blank.html">Blank</a>
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                                    <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
                         </template>
@@ -158,19 +173,19 @@
             x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
             class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-        <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+        <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden"
             x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
             x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
             @keydown.escape="closeSideMenu">
-            <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+            <div class="py-4 text-gray-500">
+                <a class="ml-6 text-lg font-bold text-gray-800" href="#">
                     Student Advising System
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="index.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -186,7 +201,7 @@
                     <li class="relative px-6 py-3">
                         <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
                             href="forms.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -198,7 +213,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="cards.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -210,7 +225,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="charts.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -221,7 +236,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="buttons.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -233,7 +248,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="modals.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -245,7 +260,7 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             href="tables.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -256,7 +271,7 @@
                     </li>
                     <li class="relative px-6 py-3">
                         <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -280,30 +295,30 @@
                                 x-transition:leave="transition-all ease-in-out duration-300"
                                 x-transition:leave-start="opacity-100 max-h-xl"
                                 x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/login.html">Login</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/create-account.html">
                                         Create account
                                     </a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/forgot-password.html">
                                         Forgot password
                                     </a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/404.html">404</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="pages/blank.html">Blank</a>
                                 </li>
                             </ul>
@@ -320,9 +335,9 @@
             </div>
         </aside>
         <div class="flex flex-col flex-1">
-            <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+            <header class="z-10 py-4 bg-white shadow-md">
                 <div
-                    class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c] dark:text-red-300">
+                    class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c]">
                     <!-- Mobile hamburger -->
                     <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
                         @click="toggleSideMenu" aria-label="Menu">
@@ -343,7 +358,7 @@
                                 </svg>
                             </div>
                             <input
-                                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-red-300 focus:outline-none focus:shadow-outline-red form-input"
+                                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white focus:border-red-300 focus:outline-none focus:shadow-outline-red form-input"
                                 type="text" placeholder="Search for projects" aria-label="Search" />
                         </div>
                     </div>
@@ -356,13 +371,6 @@
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
                                         </path>
-                                    </svg>
-                                </template>
-                                <template x-if="dark">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                            clip-rule="evenodd"></path>
                                     </svg>
                                 </template>
                             </button>
@@ -380,36 +388,36 @@
                                 </svg>
                                 <!-- Notification badge -->
                                 <span aria-hidden="true"
-                                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full dark:border-gray-800"></span>
+                                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full"></span>
                             </button>
                             <template x-if="isNotificationsMenuOpen">
                                 <ul x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <span>Messages</span>
                                             <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full dark:text-red-100 dark:bg-[#9b1c1c]">
+                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
                                                 13
                                             </span>
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <span>Sales</span>
                                             <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full dark:text-red-100 dark:bg-[#9b1c1c]">
+                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
                                                 2
                                             </span>
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <span>Alerts</span>
                                         </a>
@@ -430,10 +438,10 @@
                                 <ul x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
-                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="#">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -446,8 +454,8 @@
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                            href="#">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -460,8 +468,10 @@
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="#">
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                            href="../action/login_action.php?logout=<?php $_SESSION[
+                                                'user_id'
+                                            ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -479,83 +489,217 @@
                 </div>
             </header>
             <main class="h-full pb-16 overflow-y-auto">
-                <div class="container grid px-6 mx-auto">
-                
+                <div class="container grid px-12 mx-auto">
+                <h2 class="my-6 text-2xl font-semibold text-gray-700">
+                    Shared files
+                </h2>
+
+                <!-- Card -->
+                <div class="flex items-center p-4 mb-2 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
                     
-                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                        Shared files
-                    </h2>
-
-                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                            <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3">File</th>
-                                <th class="px-4 py-3">Description</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            <?php 
-
-                                if($shared_files) {
-                                    foreach($shared_files as $shared_file) {
-
-                                        echo '
-                                        <tr class="text-gray-700 dark:text-gray-400">
-                                            <td class="px-4 py-3">
-                                                <div class="flex items-center text-sm">
-                                                    <!-- Avatar with inset shadow -->
-                                                    <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                                        <i class="mr-3 fas fa-file fa-lg"></i>
-                                                    <!-- </div> -->
-                                                <div>
-                                                    <p class="font-semibold">' .
-                                                    $shared_file['file_name'] .
-                                                    '</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3 text-sm">';
-                                            
-                                            if(strlen($shared_file['file_desc']) > 50){
-                                                echo substr($shared_file['file_desc'], 0, 50). '...';
-                                            }else {
-                                                echo $shared_file['file_desc'];
-                                            }
-                                            echo '</td>
-                                            
-                                            <td class="px-4 py-3">
-                                                <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
-                                                <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
-                                                <a href="'.$shared_file['file'].'" download="'.$shared_file['file'].'"><i class="ml-10 text-green-500 fas fa-download"></i></a>
-
-                                            </td>
-                                        </tr>
-                                        ';
-
-                                    }
-                                }
-                                else{
-                                    echo '<td class="text-right">
-                                            <div>
-                                                <p class="font-semibold">No file available</p>
-                                            </div>
-                                        </td>';
-                                    
-                                }
-   
-                            ?>
-
-                            </tbody>
-                        </table>
-                        </div>
-                        <div
-                        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                        </div>
+                    <div class="mx-auto text-center">
+                    <p class="mb-2 text-xl font-medium text-gray-600">
+                        Student Announcement Page
+                    </p>
+                    <p class="font-semibold text-center text-gray-700 text-md">
+                        These are the announcements from the academic advisor. Don't miss a thing
+                    </p>
+                    
                     </div>
+                </div>
+                
+
+                <!-- General elements -->
+                <!-- <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
+                    <form action="../action/shared_files_action.php" method="post" enctype="multipart/form-data">
+                        <label class="block text-sm">
+                        <span class="text-gray-700">File name</span>
+                        <input
+                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+                            name="file_name" placeholder="File name" />
+                        </label>
+
+                        <label class="block mt-4 text-sm">
+                            <span class="text-gray-700">Description</span>
+                            <textarea
+                            class="block w-full mt-1 text-sm form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red rounded-2xl"
+                            rows="3" name="desc" placeholder="Enter description"></textarea>
+                        </label>
+
+                        <label class="block mt-4 text-sm">
+                        <span class="text-gray-700">
+                            File
+                        </span>
+      
+                        <input
+                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                            type="file"
+                            name="uploaded_file"
+                            placeholder="Add a file" />
+                        </label>
+                        
+                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                            Submit
+                        </button>
+                    </form>
+                    
+                </div> -->
+                    
+                <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                    <div class="w-full overflow-x-auto text-center">
+                    <table class="w-full whitespace-no-wrap text-center">
+                        <thead>
+                        <tr
+                            class="text-xs font-semibold text-left tracking-wide text-gray-500 uppercase border-b bg-gray-50">
+                            <th class="px-4 py-3">File name</th>
+                            <th class="px-4 py-3">Description</th>
+                            <th class="px-4 py-3"></th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="bg-white divide-y text-left">
+                        <?php if ($shared_files) {
+                            
+                            for($i= ((int)$page*10)-(10); $i < (int)$page*10 && $i < $number_of_result; $i++) {
+                                echo '
+                                <tr class="text-gray-700">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center text-sm">
+                                            <i class="mr-3 fas fa-file fa-xl"></i>
+                                        <div>
+                                    <p class="font-semibold">' .
+                                        $shared_files[$i]['file_name'] .
+                                    '</p>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">';
+                                    if (
+                                        strlen($shared_files[$i]['file_desc'] < 50)
+                                    ) {
+                                        echo substr(
+                                            $shared_files[$i]['file_desc'],
+                                            0,
+                                            50
+                                        ) . '...';
+                                    } else {
+                                        echo $shared_files[$i]['file_desc'];
+                                    }
+                                    echo '</td>
+                                    
+                                    <td class="px-4 py-3">
+                                        <a href="' .$shared_files[$i]['file'] .'" download="' .basename($shared_files[$i]['file']) .PHP_EOL .'"><i class="ml-10 text-green-500 fas fa-download"></i></a>
+                                        <a href=""><i class="ml-10 text-slate-500 fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                                ';
+                            }
+                            
+                           
+                        } else {
+                            echo '<td class="text-right">
+                                    <div>
+                                        <p class="font-semibold">No file available</p>
+                                    </div>
+                                </td>';
+                        } ?>
+
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                        <span class="flex items-center col-span-3">
+                            Showing <?php echo ($page*10)-(10-1)?> - <?php if($page*10 < $number_of_result){echo $page*10;}else{echo $number_of_result;} ?> of <?php echo $number_of_result;?>
+                        </span>
+                        <span class="col-span-2"></span>
+                        <!-- Pagination -->
+                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                            <nav aria-label="Table navigation">
+                            <ul class="inline-flex items-center">
+
+                                <?php 
+                                if ($page-1 != 0 ) {
+                                    echo '<li>
+                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Previous"><a href="./shared_files.php?page='.$page-1 .'">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                    </li>';
+
+                                }else{
+                                    echo '<li>
+                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Previous">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                    </li>';
+                                }
+                                ?>
+                                
+                                <?php 
+                                    for ($i=1; $i <= $number_of_page; $i++) { 
+                                    echo '<li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                <a href="./shared_files.php?page='.$i.'">'.$i.'</a>
+                                                
+                                            </button>
+                                            </li>';
+                                    }
+                                ?>
+                               
+                                <?php 
+                                if ($page+1 <= $number_of_page ) {
+                                    echo '<li>
+                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <a href="./shared_files.php?page='.$page+1 .'">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                </li> ';
+
+                                }else{
+                                    echo '<li>
+                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        
+                                    </button>
+                                </li> ';
+                                }
+                                ?>
+                                <!-- <li>
+                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <a href="./announcements.php?page=page+1">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                </li>  -->
+                            </ul>
+                            </nav>
+                        </span>
+                    </div>
+                </div>
 
                 </div>
             </main>

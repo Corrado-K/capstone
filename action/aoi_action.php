@@ -80,34 +80,37 @@ if (isset($_POST['add_aoi'])) {
 if (isset($_POST['search_aoi'])) {
     $aoi = $_POST['aois'];
 
-    var_dump($aoi);
+    // var_dump($aoi);
+    foreach ($aoi as $aois) {
+      echo  $aois;
+    }
+    // echo $aoi;
 
-    $data_lect = select_all_lecturer_aoi_controller();
+    // $data_lect = select_all_lecturer_aoi_controller();
 
-    $lect_count = 0;
-    $lect_array = [];
+    // $lect_count = 0;
+    // $lect_array = [];
     
 
-    foreach ($data_lect as $lect) {
+    // foreach ($data_lect as $lect) {
         
-          for ($i=0; $i < count($aoi); $i++) { 
-              for ($j=0; $j < count($lect->interest); $j++) { 
-                  if ($aoi[$i] == $lect->interest[$j]) {
-                      $lect_count ++;
-                      echo "1 <br>";
-                  }else{
-                      echo "0 <br>";
-                  }
-              }
-          }
-        // }
-        echo "Similarity: " . $lect_count . "<br> <br>";
-        array_push($lect_array, $lect_count);
+    //       for ($i=0; $i < count($aoi); $i++) { 
+    //           for ($j=0; $j < count($lect->interest); $j++) { 
+    //               if ($aoi[$i] == $lect->interest[$j]) {
+    //                   $lect_count ++;
+    //                   echo "1 <br>";
+    //               }else{
+    //                   echo "0 <br>";
+    //               }
+    //           }
+    //       }
+    //     echo "Similarity: " . $lect_count . "<br> <br>";
+    //     array_push($lect_array, $lect_count);
 
-        $lect_count = 0;
-    }
+    //     $lect_count = 0;
+    // }
 
-    print_r($lect_array);
+    // print_r($lect_array);
 
 
 }

@@ -20,6 +20,11 @@ class Announcement extends Connection{
 		return $this->fetch("select * from announcements");
 	}
 
+	public function number_of_announcements()
+	{
+		return $this->fetchOne("select count(*) as count from announcements");
+	}
+
 	//create update and delete queries
 	public function update_announcement($announcement_id, $subject, $message, $date){
 		// return true or false

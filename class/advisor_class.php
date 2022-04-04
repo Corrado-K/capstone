@@ -13,7 +13,7 @@ class Advisor extends Connection{
 
 	function login_advisor($email, $password){
 		// return associative array or false
-		return $this->fetchOne("select * from advisor where advisor_email='$email' and advisor_password='$pass'");
+		return $this->fetchOne("select * from advisor where advisor_email='$email' and advisor_password='$password'");
 	}
 
 	function select_one_advisor_by_email($email){

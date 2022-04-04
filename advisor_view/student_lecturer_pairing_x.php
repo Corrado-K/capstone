@@ -1,11 +1,13 @@
-<?php 
-    require '../controller/course_controller.php';
+<?php
+require '../controller/aoi_controller.php';
 
-    session_start();
+session_start();
 
+$aois = select_all_aois_controller();
 
-    // $shared_files = select_all_shared_files_controller();
-    
+// if (isset($_GET['search_aoi'])) {
+//     $aoi = $_GET['aois'];
+// }
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +23,12 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- select2.js  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 </head>
 
 <body>
@@ -82,8 +90,6 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                    <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             href="./courses.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -95,7 +101,10 @@
                             <span class="ml-4">Courses</span>
                         </a>
                     </li>
+                    
                     <li class="relative px-6 py-3">
+                        <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
                         <button
                             class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
                             @click="togglePagesMenu" aria-haspopup="true">
@@ -142,7 +151,6 @@
                             </ul>
                         </template>
                     </li>
-                    
                 </ul>
                 <div class="px-6 my-6">
                     <button
@@ -360,6 +368,7 @@
                                         </path>
                                     </svg>
                                 </template>
+                                
                             </button>
                         </li>
                         <!-- Notifications menu -->
@@ -384,7 +393,7 @@
                                     class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 "
                                             href="#">
                                             <span>Messages</span>
                                             <span
@@ -456,7 +465,9 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                                            href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
+                                            href="../action/login_action.php?logout=<?php $_SESSION[
+                                                'user_id'
+                                            ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -475,164 +486,104 @@
             </header>
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container grid px-12 mx-auto">
-                <h2 class="my-3 mt-6 text-2xl font-semibold text-gray-700">
-                    Courses
-                </h2>
-
-                <!-- Card -->
-                <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
-                        
-                    <div class="mx-auto text-center">
-                        <p class="mb-2 text-xl font-medium text-gray-600">
-                            Find a faculty who has interest in a certain view
-                        </p>
-                        <p class="font-semibold text-center text-gray-700 text-md">
-                            Look up FAQ, shared files, and 
-                        </p>
-                    </div>
-                </div>
-                
-
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                <h2 class="my-2 text-2xl text-center font-semibold text-gray-700">
-                    Add Course
-                </h2>
-                    <form action="../action/shared_files_action.php" method="post">
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course code</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course code" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course name</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course name" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Pass grade</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
-                            <option value="">D</option>
-                            <option value="">E</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
-                <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                    Set course prerequisite
-                </h2>
-
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                    <form action="../action/shared_files_action.php" method="post">
-                        
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Prerequisite</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
-                
-                    
                     <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                        Courses
+                        Student-Lecturer Pairing Process
                     </h2>
 
-                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                            <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
-                                <th class="px-4 py-3">Course code</th>
-                                <th class="px-4 py-3">Course name</th>
-                                <th class="px-4 py-3">Pass grade</th>
-                                <th class="px-4 py-3">Prerequisite</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y">
-                            <?php 
-                            // foreach ($shared_files as $shared_file) {
-                            //     echo'<tr class="text-gray-700">
-                            //     <td class="px-4 py-3">
-                            //     <div class="flex items-center text-sm">
-                            //         <!-- Avatar with inset shadow -->
-                            //         <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //         <i class="mr-3 fas fa-file fa-lg"></i>
-                            //         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                            //         <!-- </div> -->
-                            //         <div>
-                            //         <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                            //         </div>
-                            //     </div>
-                            //     </td>
-                            //     <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                            //     <td class="px-4 py-3 text-xs">
-                            //     <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                            //     <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                            //     <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                            //     </td>
-                                
-                            // </tr>';
-                            // }   
-                            ?>
-
-                            </tbody>
-                        </table>
-                        </div>
-                        <div
-                        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                    <!-- Card -->
+                    <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+                        
+                        <div class="mx-auto text-center">
+                            <p class="mb-2 text-xl font-medium text-gray-600">
+                                Find a faculty who has interest in a certain view
+                            </p>
+                            <p class="font-semibold text-center text-gray-700 text-md">
+                                Look up FAQ, shared files, and 
+                            </p>
                         </div>
                     </div>
+                    
+
+                    <!-- General elements -->
+                    <div class="h-full px-4 pt-3 mb-8 bg-white rounded-lg shadow-md">
+
+                        <form class="bg-white px-8 pt-6 pb-3 mb-4" action="../action/aoi_action.php" method="POST" autocomplete="on" novalidate>
+
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-lg font-semithin mb-2" for="pair">
+                                    Select your areas of interest:
+                                </label>
+                                <select class="js-example-basic-multiple" name="aois[]" style="width: 100%; border-radius:25px;"
+                                    data-placeholder="Select one or more areas of interest..." data-allow-clear="false" multiple="multiple"
+                                    title="Select areas of interst...">
+                                    <?php 
+                                        foreach ($aois as $aoi) {
+                                            echo "<option value=".$aoi['aoi_name'].">".$aoi['aoi_name']."</option>";
+                                        }
+                                    ?>
+                                    
+                                </select>
+                            </div>
+                            <button type="submit" name="search_aoi" class="px-4 mt-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                                Submit
+                            </button>
+                        </form>
+                        
+                    </div>
+                    
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700">
+                        Results
+                    </h2>
+
+                    <?php 
+                        if (isset($lect_aoi_results)) {
+                            foreach ($lect_aoi_results as $lect_aoi_result) {
+                                echo '
+                                <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                                  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                      <path
+                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
+                                      </path>
+                                    </svg>
+                                  </div>
+                                  <div>
+                                    <p class="mb-2 text-sm font-medium text-gray-600">
+                                      Total clients
+                                    </p>
+                                    <p class="text-lg font-semibold text-gray-700">
+                                      6389
+                                    </p>
+                                  </div>
+                                </div>';
+                            }
+                        }
+                    ?>
+
+                    
+
+                    
 
                 </div>
             </main>
         </div>
     </div>
 </body>
+
+<?php 
+    require_once '../controller/aoi_controller.php';
+    $aois_json =  select_all_aois_to_json_controller();
+
+    $content = json_encode($aois_json);
+
+?>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
 
 </html>

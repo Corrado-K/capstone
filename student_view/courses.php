@@ -4,7 +4,22 @@
     session_start();
 
 
-    // $shared_files = select_all_shared_files_controller();
+    $courses = select_all_courses_controller();
+
+    $number_of_result = count($courses);
+    $results_per_page = 10;
+
+
+    //determine the total number of pages available  
+    $number_of_page = ceil ($number_of_result / $results_per_page);  
+
+    //determine which page number visitor is currently on  
+
+    if (!isset($_GET['page']) ) {  
+        $page = 1;  
+    } else {  
+        $page = $_GET['page'];  
+    }
     
 ?>
 
@@ -124,19 +139,19 @@
                                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
@@ -492,99 +507,15 @@
                     </div>
                 </div>
                 
-
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                <h2 class="my-2 text-2xl text-center font-semibold text-gray-700">
-                    Add Course
-                </h2>
-                    <form action="../action/shared_files_action.php" method="post">
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course code</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course code" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course name</span>
-                        <input
-                            class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course name" />
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Pass grade</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
-                            <option value="">D</option>
-                            <option value="">E</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
+                   
                 <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                    Set course prerequisite
+                    Courses
                 </h2>
 
-                <!-- General elements -->
-                <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                    <form action="../action/shared_files_action.php" method="post">
-                        
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Course</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
-                        </label>
-
-                        <label class="block text-sm">
-                        <span class="text-gray-700">Prerequisite</span>
-                        <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
-
-                        </select>
-                        </label>
-                        
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
-                            Submit
-                        </button>
-                    </form>
-                    
-                </div>
-
-                
-                    
-                    <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                        Courses
-                    </h2>
-
-                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
+                <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                    <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                                 <th class="px-4 py-3">Course code</th>
@@ -593,41 +524,131 @@
                                 <th class="px-4 py-3">Prerequisite</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y">
-                            <?php 
-                            // foreach ($shared_files as $shared_file) {
-                            //     echo'<tr class="text-gray-700">
-                            //     <td class="px-4 py-3">
-                            //     <div class="flex items-center text-sm">
-                            //         <!-- Avatar with inset shadow -->
-                            //         <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //         <i class="mr-3 fas fa-file fa-lg"></i>
-                            //         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                            //         <!-- </div> -->
-                            //         <div>
-                            //         <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                            //         </div>
-                            //     </div>
-                            //     </td>
-                            //     <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                            //     <td class="px-4 py-3 text-xs">
-                            //     <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                            //     <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                            //     <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                            //     </td>
+                        </thead>
+                        <tbody class="bg-white divide-y">
+                        <?php 
+                            foreach ($courses as $course) {
+                                echo'<tr class="text-gray-700">
+                                    <td class="px-4 py-3">
+                                        '.$course['course_code'].'
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">'
+                                        .$course['course_name'].
+                                    '</td>
+                                    <td class="px-4 py-3 text-sm">'
+                                        .$course['course_passgrade'].
+                                    '</td>
+                                    <td class="px-4 py-3 text-sm">'
+                                        .$course['prerequisites'].
+                                    '</td>
+                                    <td class="px-4 py-3 text-xs">
+                                        <i class="ml-10 text-blue-400 fas fa-edit"></i>
+                                        <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
+                                        <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
+                                    </td>
                                 
-                            // </tr>';
-                            // }   
-                            ?>
+                                </tr>';
+                            }   
+                        ?>
 
-                            </tbody>
-                        </table>
-                        </div>
-                        <div
-                        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                        </div>
+                        </tbody>
+                    </table>
                     </div>
+                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                    <span class="flex items-center col-span-3">
+                            Showing <?php echo ($page*10)-(10-1)?> - <?php if($page*10 < $number_of_result){echo $page*10;}else{echo $number_of_result;} ?> of <?php echo $number_of_result;?>
+                        </span>
+                        <span class="col-span-2"></span>
+                        <!-- Pagination -->
+                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                            <nav aria-label="Table navigation">
+                            <ul class="inline-flex items-center">
+
+                                <?php 
+                                if ($page-1 != 0 ) {
+                                    echo '<li>
+                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Previous"><a href="./shared_files.php?page='.$page-1 .'">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                    </li>';
+
+                                }else{
+                                    echo '<li>
+                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Previous">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                    </li>';
+                                }
+                                ?>
+                                
+                                <?php 
+                                    for ($i=1; $i <= $number_of_page; $i++) { 
+                                    echo '<li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                <a href="./shared_files.php?page='.$i.'">'.$i.'</a>
+                                                
+                                            </button>
+                                            </li>';
+                                    }
+                                ?>
+                               
+                                <?php 
+                                if ($page+1 <= $number_of_page ) {
+                                    echo '<li>
+                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <a href="./shared_files.php?page='.$page+1 .'">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                </li> ';
+
+                                }else{
+                                    echo '<li>
+                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        
+                                    </button>
+                                </li> ';
+                                }
+                                ?>
+                                <!-- <li>
+                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <a href="./announcements.php?page=page+1">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                </li>  -->
+                            </ul>
+                            </nav>
+                        </span>
+                    </div>
+                </div>
 
                 </div>
             </main>
