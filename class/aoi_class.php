@@ -33,16 +33,17 @@ class AOI extends Connection{
 	function find_aoi($aoi){
 		// return an associative array or false
 		$count = count($aoi);
-		$counter = 0;
+		$counter = 1;
 		$query = "select * from lecturer_aoi inner join areas_of_interest on lecturer_aoi.aoi_id = areas_of_interest.aoi_id
 											 inner join lecturers on lecturer_aoi.lecturer_id = lecturers.lecturer_id
 				 							 where";
 		foreach ($aoi as $aoi_item) {
 			if ($counter < $count) {
-				$query = $query . " aoi_name like '" . $aoi_item ."' or";
+				$query = $query . " lecturer_aoi.aoi_id = '" . $aoi_item ."' or";
+        $counter ++;
 			}else{
-				$query = $query . " aoi_name like '" . $aoi_item ."'";
-
+				$query = $query . " lecturer_aoi.aoi_id = '" . $aoi_item ."'";
+        $counter ++;
 			}
 		}
 		//  aoi_name like 'Machine Learning' or `aoi_name` LIKE 'Data Science'";

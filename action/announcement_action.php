@@ -3,7 +3,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <!-- component -->
-<div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
+<!-- <div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">
     <x-loading class="w-24 h-24">
       <svg viewBox="0 0 860.1 876.5">
@@ -40,7 +40,7 @@
     </x-loading>
     <div class="mt-3 text-gray-200 text-sm sm:text-xs">Loading...</div>
   </div>
-</div>
+</div> -->
 
 <?php 
 
@@ -49,17 +49,20 @@ require_once '../controller/announcement_controller.php';
 $isFile = false;
 
 $target_dir = '../files/announcement_uploads/';
-if (basename($_FILES['uploaded_file']['name']) != "") {
-    $target_file = $target_dir . basename($_FILES['uploaded_file']['name']);
-    $uploadOk = 1;
-    $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    $isFile = true;
+if (isset($_FILES['uploaded_file'])) {
+    if (basename($_FILES['uploaded_file']['name']) != "") {
+        $target_file = $target_dir . basename($_FILES['uploaded_file']['name']);
+        $uploadOk = 1;
+        $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $isFile = true;
+    }
+    else{
+        echo '<p style="display:none">no file</p>';
+        $isFile = false;
+    }
+       
 }
-else{
-    echo '<p style="display:none">no file</p>';
-    $isFile = false;
-}
-    
+ 
 
 
 
@@ -159,13 +162,40 @@ if (isset($_POST['add_announcement'])) {
 
 
 // Update announcement 
-if (isset($_POST['update_announcement'])) {
-    $announcement_id = $_POST[''];
-    $subject = $_POST[''];
-    $message = $_POST[''];
+if (isset($_POST['edit_announcement'])) {
+    $announcement_id = $_POST['id'];
+    $subject = $_POST['subject'];
+    $message = $_POST['desc'];
     $date = date("Y/m/d h:i:sa");
 
+    echo $subject;
+
     $result = update_announcement_controller($announcement_id, $subject, $message, $date);
+
+    var_dump($result);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "Announcement edited!",
+                    text: "Announcement edited successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/announcements.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/announcements.php";
+                });
+            </script>';
+    }
     
 }
 
@@ -177,11 +207,34 @@ if (isset($_POST['update_announcement'])) {
 
 // Delete announcement 
 if (isset($_POST['delete_announcement'])) {
-    $subject = '';
-    $message = '';
+    $id = $_POST['ann_id'];
+    // $message = '';
     // $date = date()  ;
 
-    $result = '';
+    $result = delete_announcement_controller($id);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "Announcement deleted!",
+                    text: "Announcement deleted successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/announcements.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/announcements.php";
+                });
+            </script>';
+    }
     
 }
 

@@ -87,24 +87,28 @@
         if ($result) {
             echo '<script>
                     swal({
-                        title: "Course prerequisite set!",
-                        text: "Course added successfully!",
-                        icon: "success",
-                        button: "Ok",
-                        timer: 2000
+                      title: "Course prerequisite set!",
+                      text: "Course added successfully!",
+                      icon: "success",
+                      button: "Ok",
+                      timer: 2000
                     }).then(() => {
-                        window.location = "../advisor_view/courses.php";
-                        });
-                </script>';
-    
-        }else {
-            echo '<script>swal("Failed").then(() => {
-                    window.location = "../advisor_view/courses.php";
+                      window.location = "../advisor_view/courses.php";
                     });
-                </script>';
+                  </script>';
+  
+        }else {
+            echo '<script>
+                    swal("Failed").then(() => {
+                      window.location = "../advisor_view/courses.php";
+                    });
+                  </script>';
         }
         
     }
+
+
+    
 
     
 

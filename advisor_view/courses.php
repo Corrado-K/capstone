@@ -4,8 +4,20 @@
     session_start();
 
 
-    // $shared_files = select_all_shared_files_controller();
-    
+    $courses = select_all_courses_controller();
+    $results_per_page = 10;
+
+
+    //determine the total number of pages available  
+    $number_of_page = ceil (count($courses) / $results_per_page);  
+
+    //determine which page number visitor is currently on  
+
+    if (!isset($_GET['page']) ) {  
+        $page = 1;  
+    } else {  
+        $page = $_GET['page'];  
+    }
 ?>
 
 <!DOCTYPE html>
@@ -498,35 +510,33 @@
                 <h2 class="my-2 text-2xl text-center font-semibold text-gray-700">
                     Add Course
                 </h2>
-                    <form action="../action/shared_files_action.php" method="post">
-                        <label class="block text-sm">
+                    <form action="../action/courses_action.php" method="post">
+                        <label class="block text-sm mt-2">
                         <span class="text-gray-700">Course code</span>
                         <input
                             class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course code" />
+                            name="course_code" placeholder="Enter course code" />
                         </label>
 
-                        <label class="block text-sm">
+                        <label class="block text-sm mt-2">
                         <span class="text-gray-700">Course name</span>
                         <input
                             class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                            name="file_name" placeholder="Enter course name" />
+                            name="course_name" placeholder="Enter course name" />
                         </label>
 
-                        <label class="block text-sm">
+                        <label class="block text-sm mt-2">
                         <span class="text-gray-700">Pass grade</span>
                         <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
-                            <option value="">D</option>
-                            <option value="">E</option>
+                         name="course_passgrade" placeholder="Enter passgrade">
+                            <option disabled value="">Select a grade</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
 
                         </select>
                         </label>
                         
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <button type="submit" name="add_course" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                             Submit
                         </button>
                     </form>
@@ -537,38 +547,59 @@
                     Set course prerequisite
                 </h2>
 
+                <!-- Card -->
+                <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+                        
+                    <div class="mx-auto text-center">
+                        <p class="mb-2 text-xl font-medium text-gray-600">
+                            Important information
+                        </p>
+                        <p class="font-semibold text-center text-gray-700 text-md">
+                            All prerequisites have a passgrade of D+. All other courses that are not prerequisites have a pass grade of D 
+                        </p>
+                    </div>
+                </div>
+
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                    <form action="../action/shared_files_action.php" method="post">
+                    <form action="../action/courses_action.php" method="post">
                         
 
-                        <label class="block text-sm">
+                        <label class="block text-sm mt-2">
                         <span class="text-gray-700">Course</span>
                         <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
+                         name="course" placeholder="Enter course name">
+                         <?php 
+                            foreach ($courses as $course) {
+                                if ($course['course_passgrade'] >= 'D') {
+                                    echo '<option value="'.$course['course_id'].'">'.$course['course_name'].'</option>';
+
+                                }
+                                
+                            }
+                         ?> 
 
                         </select>
                         </label>
 
-                        <label class="block text-sm">
+                        <label class="block text-sm mt-2">
                         <span class="text-gray-700">Prerequisite</span>
                         <select class="block w-full mt-1 text-sm rounded-full form-select focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                         name="file_name" placeholder="Enter course name">
-                            <option value="">FDE</option>
-                            <option value="">WOC</option>
-                            <option value="">TM</option>
-                            <option value="">Calculus</option>
-                            <option value="">Pre-calculus</option>
+                         name="prerequisite" placeholder="Enter course name">
+                         <?php 
+                            foreach ($courses as $course) {
+                                if ($course['course_passgrade'] === 'D+') {
+                                    echo '<option value="'.$course['course_id'].'">'.$course['course_name'].'</option>';
+
+                                }
+                                
+                            }
+                         ?>
 
                         </select>
                         </label>
                         
-                        <button type="submit" name="add_shared_file" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <button type="submit" name="add_course_prerequisite" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                             Submit
                         </button>
                     </form>
@@ -582,6 +613,172 @@
                     </h2>
 
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                        <table class="w-full whitespace-no-wrap">
+                            <thead>
+                            <tr
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                                <th class="px-4 py-3">Course code</th>
+                                <th class="px-4 py-3">Course name</th>
+                                <th class="px-4 py-3">Course Passgrade</th>
+                                <th class="px-4 py-3">Has prerequisite</th>
+                                <th class="px-4 py-3"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y">
+
+                                <?php
+                                
+                                $has_prerequisite = "False";
+                                
+                                if ($courses) {
+                                
+                                    for ($i=((int)$page*10)-(10); $i < (int)$page*10 && $i < count($courses); $i++) { 
+                                        $has_prerequisite = has_prerequisite_controller($courses[$i]['course_id']);
+                                        if ($has_prerequisite) {
+                                            $has_prerequisite = "True";
+                                        }else{
+                                            $has_prerequisite = "False";
+                                        }
+                                    echo '
+                                    <tr class="text-gray-700">
+                                        <td class="px-4 py-3 text-sm">'.$courses[$i]['course_code'] .'</td>
+                                        <td class="px-4 py-3 text-sm">'.$courses[$i]['course_name'].'</td>
+                                        <td class="px-4 py-3 text-sm">'.$courses[$i]['course_passgrade'] . '</td>
+                                        <td class="px-4 py-3 text-sm">'.$has_prerequisite.'</td>
+
+                                        <td class="px-4 py-3 flex">
+                                            <a href="">
+                                            <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.4922 2.789H7.75324C4.67824 2.789 2.75024 4.966 2.75024 8.048V16.362C2.75024 19.444 4.66924 21.621 7.75324 21.621H16.5772C19.6622 21.621 21.5812 19.444 21.5812 16.362V12.334" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82763 10.9209L16.3006 3.44793C17.2316 2.51793 18.7406 2.51793 19.6716 3.44793L20.8886 4.66493C21.8196 5.59593 21.8196 7.10593 20.8886 8.03593L13.3796 15.5449C12.9726 15.9519 12.4206 16.1809 11.8446 16.1809H8.09863L8.19263 12.4009C8.20663 11.8449 8.43363 11.3149 8.82763 10.9209Z" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M15.165 4.60254L19.731 9.16854" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            </a>
+                                            <a href="">
+                                            <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.325 9.4682C19.325 9.4682 18.782 16.2032 18.467 19.0402C18.317 20.3952 17.48 21.1892 16.109 21.2142C13.5 21.2612 10.888 21.2642 8.28003 21.2092C6.96103 21.1822 6.13803 20.3782 5.99103 19.0472C5.67403 16.1852 5.13403 9.4682 5.13403 9.4682" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M20.7082 6.23969H3.75024" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M17.4406 6.23967C16.6556 6.23967 15.9796 5.68467 15.8256 4.91567L15.5826 3.69967C15.4326 3.13867 14.9246 2.75067 14.3456 2.75067H10.1126C9.53358 2.75067 9.02558 3.13867 8.87558 3.69967L8.63258 4.91567C8.47858 5.68467 7.80258 6.23967 7.01758 6.23967" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            </a>
+                                            <a href="">
+                                            <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    ';
+                                    }
+                                
+                                
+                                } else {
+                                    echo '<tr class="text-gray-700">
+                                        <td></td>
+                                        <td class="text-center">
+                                            <div>
+                                            <p class="font-semibold">No announcement available</p>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        </tr>';
+                                } ?>
+                                
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                        <span class="flex items-center col-span-3">
+                            Showing <?php echo ($page*10)-(10-1)?> - <?php if($page*10 < count($courses)){echo $page*10;}else{echo count($courses);} ?> of <?php echo count($courses);?>
+                        </span>
+                        <span class="col-span-2"></span>
+                        <!-- Pagination -->
+                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                            <nav aria-label="Table navigation">
+                            <ul class="inline-flex items-center">
+
+                                <?php 
+                                if ($page-1 != 0 ) {
+                                    echo '<li>
+                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Previous"><a href="./announcements.php?page='.$page-1 .'">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                    </li>';
+
+                                }else{
+                                    echo '<li>
+                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Previous">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                    </li>';
+                                }
+                                ?>
+                                
+                                <?php 
+                                    for ($i=1; $i <= $number_of_page; $i++) { 
+                                    echo '<li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                <a href="./announcements.php?page='.$i.'">'.$i.'</a>
+                                                
+                                            </button>
+                                            </li>';
+                                    }
+                                ?>
+                                
+                                <?php 
+                                if ($page+1 <= $number_of_page ) {
+                                    echo '<li>
+                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <a href="./announcements.php?page='.$page+1 .'">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </a>
+                                    </button>
+                                </li> ';
+
+                                }else{
+                                    echo '<li>
+                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                        aria-label="Next">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                        
+                                    </button>
+                                </li> ';
+                                }
+                                ?>
+                               
+                            </ul>
+                            </nav>
+                        </span>
+                        </div>
+                    </div>
+
+                    
+
+                    <!-- <div class="w-full overflow-hidden rounded-lg shadow-xs">
                         <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
                             <thead>
@@ -627,7 +824,7 @@
                         <div
                         class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </main>

@@ -132,10 +132,6 @@ $lecturers = select_all_lecturers_controller();
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                                    <a class="w-full" href="./student_management.php">Student management</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>

@@ -107,23 +107,23 @@ if (isset($_POST['add_shared_file'])) {
     $result = add_shared_file_controller($file_name,$description,$file);
 
     if ($result) {
-        echo '<script>
-                swal({
-                    title: "File added!",
-                    text: "File added successfully!",
-                    icon: "success",
-                    button: "Ok",
-                    timer: 2000
-                }).then(() => {
-                    window.location = "../advisor_view/shared_files.php";
-                    });
-            </script>';
+      echo '<script>
+            swal({
+                title: "File added!",
+                text: "File added successfully!",
+                icon: "success",
+                button: "Ok",
+                timer: 2000
+            }).then(() => {
+                window.location = "../advisor_view/shared_files.php";
+                });
+        </script>';
     }else{
-        // echo $subject.$message.$file.$date;
-        echo '<script>swal("Failed").then(() => {
-            window.location = "../advisor_view/shared_files.php";
-            });
-            </script>';
+      // echo $subject.$message.$file.$date;
+      echo '<script>swal("Failed").then(() => {
+          window.location = "../advisor_view/shared_files.php";
+          });
+          </script>';
     };
     
 }
@@ -151,12 +151,14 @@ if (isset($_POST['update_shared_files'])) {
 
 
 // Delete shared_files 
-if (isset($_POST['delete_shared_files'])) {
-    $title = '';
-    $files = '';
+if (isset($_POST['delete_file'])) {
+    $id = $_POST['file_id'];
+
+    // Find a way to delete the file from the list of files in the folder using php
+    // $files = '';
     
 
-    $result = '';
+    $result = delete_shared_file_controller($id);
     
 }
 

@@ -23,7 +23,7 @@ class Shared_file extends Connection{
 	//create update and delete queries
 	public function update_shared_files($file_id, $file_name, $file){
 		// return true or false
-		return $this->query("update shared_files set file_name = '$file_name' and file = '$file' where shared_files_id = '$shared_files_id'");
+		return $this->query("update shared_files set file_name = '$file_name' and file = '$file' where shared_files_id = '$file_id'");
 	}
 
 }

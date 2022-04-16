@@ -28,6 +28,14 @@ function select_course_controller($course_name){
 
 }
 
+function has_prerequisite_controller($course_id){
+    // create an instance of the customer class
+    $course_instance = new Course();
+    // call the method from the class
+    return $course_instance->has_prerequisite($course_id);
+
+}
+
 function select_all_courses_controller(){
     // create an instance of the customer class
     $course_instance = new Course();

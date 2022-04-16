@@ -469,7 +469,7 @@
               <p class="mb-2 text-xl font-medium text-gray-600">
                 FAQ Page
               </p>
-              <p class="font-semibold text-center text-gray-700 text-md">
+              <p class="font-normal text-center text-gray-700 text-md">
                 Save yourself the stress of answering the same questions all over again by posting Frequently Asked Questions
               </p>
             </div>
@@ -480,7 +480,7 @@
               Add FAQ
             </h2>
             <form action="../action/faq_action.php" method="post">
-              <label class="block text-sm">
+              <label class="block text-md">
                 <span class="text-gray-700">Question</span>
                 <input
                   class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
@@ -488,7 +488,7 @@
                   name="question" />
               </label>
 
-              <label class="block mt-4 text-sm">
+              <label class="block mt-4 text-md">
                 <span class="text-gray-700">Answer/Response</span>
                 <textarea
                   class="block w-full mt-1 text-sm rounded-2xl form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red"
@@ -502,6 +502,37 @@
 
           <div class="my-5"></div>
 
+          <!-- Card -->
+          <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+            
+            <div class="mx-auto text-center">
+              <p class="mb-2 text-xl font-medium text-gray-600">
+                ADD FAQ USING CSV
+              </p>
+              <p class="font-normal text-center px-10 text-gray-700 text-md">
+                Upload a host of frequently asked questions by inserting them in a csv file, then upload that csv. If it is successful, all the questions would enter the database.
+                That said, use the file below as an example of showing how to store the data in the csv and upload it.
+              </p>
+
+              <p class="mt-10">
+                <a href="../files/faq_csv.csv" download="faq_csv" class="hover:animate-bounce transition ease-in-out delay-500 hover:text-blue-500">
+                  <svg class="mx-auto" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="mask0_33437_4402" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="2" width="18" height="20">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.00024 2.0116H20.0529V21.8651H3.00024V2.0116Z" fill="white"/>
+                    </mask>
+                    <g mask="url(#mask0_33437_4402)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57335 3.5116C5.91635 3.5116 4.54035 4.8536 4.50135 6.5086V17.2036C4.46435 18.9166 5.81435 20.3276 7.51035 20.3656H15.5743C17.2433 20.2966 18.5653 18.9096 18.5533 17.2096V8.3396L13.9183 3.5116H7.58535H7.57335ZM7.58535 21.8656H7.47635C4.95435 21.8086 2.94635 19.7106 3.00135 17.1876V6.4906C3.05935 4.0096 5.10835 2.0116 7.57135 2.0116H7.58835H14.2383C14.4423 2.0116 14.6373 2.0946 14.7793 2.2416L19.8443 7.5186C19.9783 7.6576 20.0533 7.8446 20.0533 8.0376V17.2036C20.0713 19.7126 18.1173 21.7626 15.6043 21.8646L7.58535 21.8656Z" fill="black"/>
+                    </g>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.2985 8.98424H16.5435C14.7135 8.97924 13.2255 7.48724 13.2255 5.65924V2.75024C13.2255 2.33624 13.5615 2.00024 13.9755 2.00024C14.3895 2.00024 14.7255 2.33624 14.7255 2.75024V5.65924C14.7255 6.66324 15.5425 7.48124 16.5455 7.48424H19.2985C19.7125 7.48424 20.0485 7.82024 20.0485 8.23424C20.0485 8.64824 19.7125 8.98424 19.2985 8.98424Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7887 16.1084H8.38867C7.97467 16.1084 7.63867 15.7724 7.63867 15.3584C7.63867 14.9444 7.97467 14.6084 8.38867 14.6084H13.7887C14.2027 14.6084 14.5387 14.9444 14.5387 15.3584C14.5387 15.7724 14.2027 16.1084 13.7887 16.1084Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7437 12.3563H8.3877C7.9737 12.3563 7.6377 12.0203 7.6377 11.6063C7.6377 11.1923 7.9737 10.8563 8.3877 10.8563H11.7437C12.1577 10.8563 12.4937 11.1923 12.4937 11.6063C12.4937 12.0203 12.1577 12.3563 11.7437 12.3563Z" fill="black"/>
+                  </svg> DOWNLOAD SAMPLE CSV HERE
+                </a>
+
+              </p>
+            </div>
+          </div>
+
           <div class="h-full px-4 py-3 mb-3 mb-8 bg-white rounded-lg shadow-md">
             <h2 class="my-2 text-xl font-semibold text-center text-gray-700">
               Add FAQ by CSV file
@@ -510,8 +541,8 @@
             
             <form action="../action/faq_action.php" method="post" enctype="multipart/form-data">
         
-              <label class="block mt-4 text-sm">
-                <span class="text-gray-700">
+              <label class="block mt-4 text-md">
+                <span class="text-gray-700 mx-3">
                     File
                 </span>
 
@@ -537,37 +568,7 @@
           <?php 
           if ($faqs) {
               foreach ($faqs as $faq) {
-                //   echo '<li class="bg-white my-2 shadow-lg" x-data="accordion(1)">
-                //   <h2 @click="handleClick()"
-                //     class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                //     <span>'.$faq['faq_question'].'</span>
-                //     <svg :class="handleRotate()" class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500" viewBox="0 0 20 20">
-                //       <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
-                //     </svg>
-                //   </h2>
-                //   <div x-ref="tab" :style="handleToggle()" class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all">
-                //     <p class="p-3 text-gray-900">
-                //     '.$faq['faq_answer'].'                    
-                //     </p>
-                //   </div>
-                // </li>';
-
-                // echo '<li class="bg-white my-2 shadow-lg" x-data="accordion(1)">
-                // <details class="flex flex-row justify-between items-center font-semibold p-3">
-                //     <summary>
-                //     <svg class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500" viewBox="0 0 20 20">
-                //       <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
-                //     </svg>
-                //     '.$faq['faq_question'].'</summary>
-                    
-                  
-                //   <div  class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all">
-                //     <p class="p-3 text-gray-900">
-                //     '.$faq['faq_answer'].'                    
-                //     </p>
-                //   </div>
-                // </li>
-                // </details>';
+                
 
                   echo '
                 <details class="mb-3">
@@ -582,16 +583,6 @@
 
                 
 
-                //   echo '
-                // <details class="mb-3">
-                //   <summary class="px-4 py-2 font-semibold bg-gray-200 rounded-md">
-                //   '.$faq['faq_question'].'
-                //   </summary>
-
-                //   <span>
-                //   '.$faq['faq_answer'].'
-                //   </span>
-                // </details>';
               }
           }else{
             echo '<h2 class="my-3 text-xl text-center text-gray-700 font-base">
@@ -602,21 +593,7 @@
           </ul>
           </div>
 
-          <!-- <details> <li class="bg-white my-2 shadow-lg" x-data="accordion(1)">
-                  <h2 @click="handleClick()"
-                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <summary>'.$faq['faq_question'].'</summary>
-                    <svg :class="handleRotate()" class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500" viewBox="0 0 20 20">
-                      <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
-                    </svg>
-                  </h2>
-                  <div x-ref="tab" :style="handleToggle()" class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-gray-900">
-                    '.$faq['faq_answer'].'                    
-                    </p>
-                  </div>
-                </li>
-                </details> -->
+         
 
           
         </div>

@@ -147,10 +147,6 @@ $results_per_page = 10;
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                                    <a class="w-full" href="./student_management.php">Student management</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
@@ -565,7 +561,12 @@ $results_per_page = 10;
                                 <tr class="text-gray-700">
                                     <td class="px-4 py-3">
                                         <div class="flex items-center text-sm">
-                                            <i class="mr-3 fas fa-file fa-xl"></i>
+                                            <svg class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7378 2.76181H8.0848C6.0048 2.75381 4.2998 4.41181 4.2508 6.49081V17.2038C4.2048 19.3168 5.8798 21.0678 7.9928 21.1148C8.0238 21.1148 8.0538 21.1158 8.0848 21.1148H16.0738C18.1678 21.0298 19.8178 19.2998 19.8028 17.2038V8.03781L14.7378 2.76181Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M14.4751 2.75V5.659C14.4751 7.079 15.6231 8.23 17.0431 8.234H19.7981" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M14.2881 15.3585H8.88806" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12.2432 11.606H8.88721" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
                                         <div>
                                     <p class="font-semibold">' .
                                         $shared_files[$i]['file_name'] .
@@ -585,9 +586,20 @@ $results_per_page = 10;
                                     }
                                     echo '</td>
                                     
-                                    <td class="px-4 py-3">
-                                        <a href="' .$shared_files[$i]['file'] .'" download="' .basename($shared_files[$i]['file']) .PHP_EOL .'"><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                                        <a href=""><i class="ml-10 text-slate-500 fas fa-eye"></i></a>
+                                    <td class="px-4 py-3 flex text-green-500">
+                                        <a href="' .$shared_files[$i]['file'] .'" download="' .basename($shared_files[$i]['file']) .PHP_EOL .'">
+                                        <svg class="mx-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.1222 15.4361L12.1222 3.39508" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M15.0382 12.5084L12.1222 15.4364L9.20621 12.5084" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M16.7549 8.12799H17.6879C19.7229 8.12799 21.3719 9.77699 21.3719 11.813V16.697C21.3719 18.727 19.7269 20.372 17.6969 20.372L6.55695 20.372C4.52195 20.372 2.87195 18.722 2.87195 16.687V11.802C2.87195 9.77299 4.51795 8.12799 6.54695 8.12799L7.48895 8.12799" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a>
+                                        <a href="' .$shared_files[$i]['file'] .'" target="_blank">
+                                        <svg class="text-slate-500 flex" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a>
                                     </td>
                                 </tr>
                                 ';

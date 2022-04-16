@@ -36,9 +36,15 @@
   <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
   <script src="./assets/js/init-alpine.js"></script>
+  <script src="./assets/js/focus-trap.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
+  <!-- Sweet Alert 2 -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -534,11 +540,6 @@
           </div>
           
           
-          
-          <!-- <h2 class="my-6 text-2xl font-semibold text-gray-700">
-            Announcements
-          </h2> -->
-
           <div class="w-full mt-16 overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
               <table class="w-full whitespace-no-wrap">
@@ -558,21 +559,10 @@
                         for ($i=((int)$page*10)-(10); $i < (int)$page*10 && $i < $number_of_result['count']; $i++) { 
                           echo '
                           <tr class="text-gray-700">
-                            <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
-                                <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                    <i class="mr-3 fas fa-bullhorn fa-lg"></i>
-                                    <!-- </div> -->
-                                <div>
-                                <p class="font-semibold">' .
-                                $announcements[$i]['announcement_subject'] .
-                                '</p>
-                                </div>
-                            </div>
-                            </td>
+                            <td class="hidden">' .$announcements[$i]['announcement_id'] .'</td>
+                            <td class="px-4 py-3"><p class="font-semibold">'.$announcements[$i]['announcement_subject'] .'</p></td>
+                            <td class="hidden">' .$announcements[$i]['announcement_message'] .'</td>
                             <td class="px-4 py-3 text-sm">';
-                            
                             if(strlen($announcements[$i]['announcement_message']) > 50){
                               echo substr($announcements[$i]['announcement_message'], 0, 50). '...';
                             }else {
@@ -597,77 +587,46 @@
                             <td class="px-4 py-3 text-sm">' .
                                 $announcements[$i]['date'] .
                                 '</td>
-                            <td class="px-4 py-3">
-                                <a href=""><i class="ml-8 text-blue-400 fas fa-edit hover:animate-bounce"></i></a>
-                                <a href=""><i class="ml-8 text-red-500 fas fa-trash-alt hover:animate-bounce"></i></a>
-                                <a href=""><i class="ml-8 text-green-500 fas fa-eye hover:animate-bounce"></i></a>
+                                <td class="px-4 py-3 flex">
+                                <button class="outline-none ml-8 editbtn" @click="openModal('.'editmodal'.')" data-modal-toggle="editmodal">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.4922 2.789H7.75324C4.67824 2.789 2.75024 4.966 2.75024 8.048V16.362C2.75024 19.444 4.66924 21.621 7.75324 21.621H16.5772C19.6622 21.621 21.5812 19.444 21.5812 16.362V12.334" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82763 10.9209L16.3006 3.44793C17.2316 2.51793 18.7406 2.51793 19.6716 3.44793L20.8886 4.66493C21.8196 5.59593 21.8196 7.10593 20.8886 8.03593L13.3796 15.5449C12.9726 15.9519 12.4206 16.1809 11.8446 16.1809H8.09863L8.19263 12.4009C8.20663 11.8449 8.43363 11.3149 8.82763 10.9209Z" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.165 4.60254L19.731 9.16854" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                </button>
+                                <button class="outline-none ml-8 deletebtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.325 9.4682C19.325 9.4682 18.782 16.2032 18.467 19.0402C18.317 20.3952 17.48 21.1892 16.109 21.2142C13.5 21.2612 10.888 21.2642 8.28003 21.2092C6.96103 21.1822 6.13803 20.3782 5.99103 19.0472C5.67403 16.1852 5.13403 9.4682 5.13403 9.4682" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.7082 6.23969H3.75024" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.4406 6.23967C16.6556 6.23967 15.9796 5.68467 15.8256 4.91567L15.5826 3.69967C15.4326 3.13867 14.9246 2.75067 14.3456 2.75067H10.1126C9.53358 2.75067 9.02558 3.13867 8.87558 3.69967L8.63258 4.91567C8.47858 5.68467 7.80258 6.23967 7.01758 6.23967" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                </button>
+                                <button class="ml-8">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                </button>
                             </td>
                           </tr>
                           ';
                         }
                       
-                        // foreach ($announcements as $announcement) {
-                        //     echo '
-                        //   <tr class="text-gray-700">
-                        //     <td class="px-4 py-3">
-                        //     <div class="flex items-center text-sm">
-                        //         <!-- Avatar with inset shadow -->
-                        //         <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                        //             <i class="mr-3 fas fa-bullhorn fa-lg"></i>
-                        //             <!-- </div> -->
-                        //         <div>
-                        //         <p class="font-semibold">' .
-                        //         $announcement['announcement_subject'] .
-                        //         '</p>
-                        //         </div>
-                        //     </div>
-                        //     </td>
-                        //     <td class="px-4 py-3 text-sm">';
-                            
-                        //     if(strlen($announcement['announcement_message']) > 50){
-                        //       echo substr($announcement['announcement_message'], 0, 50). '...';
-                        //     }else {
-                        //       echo $announcement['announcement_message'];
-                        //     }
-                        //     echo '</td>
-                        //     <td class="px-4 py-3 text-xs">';
-                        //     if ($announcement['attached_file'] == null) {
-                        //       echo'
-                        //     <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
-                        //         No file
-                        //     </span>';
-                        //     }else{
-                        //       echo'
-                        //       <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full ">
-                        //           File attached
-                        //       </span>';
-                        //     }
-                            
-                        //     echo'
-                        //     </td>
-                        //     <td class="px-4 py-3 text-sm">' .
-                        //         $announcement['date'] .
-                        //         '</td>
-                        //     <td class="px-4 py-3">
-                        //         <a href=""><i class="ml-8 text-blue-400 fas fa-edit"></i></a>
-                        //         <a href=""><i class="ml-8 text-red-500 fas fa-trash-alt"></i></a>
-                        //         <a href=""><i class="ml-8 text-green-500 fas fa-eye"></i></a>
-                        //     </td>
-                        //   </tr>
-                        //   ';
-                        // }
+                       
                     } else {
-                        echo '<tr class="text-gray-700">
-                              <td></td>
-                              <td class="text-center">
-                                <div>
-                                  <p class="font-semibold">No announcement available</p>
-                                </div>
-                              </td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>';
+                        echo '
+                          <tr class="text-gray-700">
+                            <td></td>
+                            <td class="text-center">
+                              <div>
+                                <p class="font-semibold">No announcement available</p>
+                              </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>';
                     } ?>
                       
                   </tbody>
@@ -721,40 +680,7 @@
                                 </li>';
                         }
                       ?>
-                      <!-- <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                            1
-                        </button>
-                      </li>
-                      <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                            2
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                            class="px-3 py-1 text-white transition-colors duration-150 bg-[#9b1c1c] border border-r-0 border-[#9b1c1c] rounded-md focus:outline-none focus:shadow-outline-red">
-                            3
-                        </button>
-                      </li>
-                      <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                            4
-                        </button>
-                      </li>
-                      <li>
-                        <span class="px-3 py-1">...</span>
-                      </li>
-                      <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                            8
-                        </button>
-                      </li>
-                      <li>
-                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                            9
-                        </button>
-                      </li>-->
+                      
                       <?php 
                       if ($page+1 <= $number_of_page ) {
                         echo '<li>
@@ -784,18 +710,6 @@
                       </li> ';
                       }
                     ?>
-                      <!-- <li>
-                        <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                            aria-label="Next">
-                            <a href="./announcements.php?page=page+1">
-                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                            <path
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg>
-                            </a>
-                        </button>
-                      </li>  -->
                   </ul>
                   </nav>
               </span>
@@ -809,35 +723,158 @@
     </div>
   </div>
 
-  <!-- <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  >
 
-    <div role="dialog" aria-labelledby="modal1_label" aria-modal="true" tabindex="0" x-show="open"
-    @click="open = false; $refs.modal1_button.focus()" @click.away="open = false; $refs.modal1_button.focus()"
-    class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false; $refs.modal1_button.focus()">
-        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-            <h3 class="text-lg font-medium leading-6 text-gray-900">
-            Modal Title Here
-            </h3>
-            <div class="mt-2">
-                <p class="text-sm leading-5 text-gray-500">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        </div>
-        <div class="mt-5 sm:mt-6">
-            <span class="flex w-full rounded-md shadow-sm">
-                <button @click="open = false" class="inline-flex justify-center w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700">
-                Close this modal!
-                </button>
-            </span>
-        </div>
+
+  <script>
+
+    $(document).ready(function(){
+        $('.editbtn').on('click',function(){
+            $('#editModal').modal('show');
+
+            $tr = $(this).closest('tr');
+            var data = $tr.children('td').map(function(){
+                return $(this).text();
+            }).get();
+
+            $('#id').val(data[0]);
+            $('#subject').val(data[1]);
+            $('#desc').val(data[2]);
+
+        });
+    });
+
+    
+
+    $(document).ready(function(){
+        $('.deletebtn').on('click',function(){
+          $tr = $(this).closest('tr');
+          var data = $tr.children('td').map(function(){
+              return $(this).text();
+          }).get();
+
+          $('#ann_id').val(data[0]);
+          $('#ann_subject').text(data[1]);
+
+          var subject =  data[1];
+          var id =  data[0]
+
+          Swal.fire({
+            title: `Are you sure you want to delete "${subject}"?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // ajax post request to php to perform delete function
+              $.ajax({
+                type:"POST",
+                url: '../action/announcement_action.php',
+                data: {
+                  delete_announcement:true,
+                  ann_id: id
+                },
+                success: function(data){
+                  console.log(data);
+                  Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  ).then((result) => {
+                    if(result.isConfirmed){
+                      setTimeout(location.reload(), 5000);
+                    }
+                  })
+                },
+                error: function(xhr, status, error){
+                  console.error(xhr);
+                  Swal.fire(
+                    'Not deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                }
+              })
+            
+            }
+          })
+
+        });
+    });
+  </script>
+
+  <!-- EDIT  MODAL -->
+
+  <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+  <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <!-- Modal -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+      @keydown.escape="closeModal"
+      class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+      role="dialog" id="editmodal">
+      <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+      <header class="flex justify-end">
+        <button
+          class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded hover: hover:text-gray-700"
+          aria-label="close" @click="closeModal">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+            <path
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </header>
+      <!-- Modal body -->
+      <div class="mt-4 mb-6">
+        <!-- Modal title -->
+        <p class="mb-2 text-xl text-center font-semibold text-gray-700 ">
+          Edit announcement
+        </p>
+        <!-- Modal description -->
+        <form action="../action/announcement_action.php" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" id="id">
+          <label class="block text-sm">
+            <span class="text-gray-700">Subject</span>
+            <input
+              class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+              placeholder="Enter subject"
+              name="subject" id="subject" />
+          </label>
+
+
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700">Message</span>
+            <textarea
+              class="block w-full mt-1 text-sm border-gray-200 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red rounded-2xl"
+              rows="8" name="desc" id="desc" placeholder="Enter announcement" ></textarea>
+          </label>
+          <button name="edit_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+              Submit
+          </button>
+        </form>
+      </div>
+      <footer
+        class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
+        <button @click="closeModal"
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+          Cancel
+        </button>
+        <!-- <button
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+          Accept
+        </button> -->
+      </footer>
     </div>
-  </div> -->
+  </div>
+  <!-- End of modal backdrop -->
 
   
 </body>

@@ -5,9 +5,6 @@ session_start();
 
 $aois = select_all_aois_controller();
 
-// if (isset($_GET['search_aoi'])) {
-//     $aoi = $_GET['aois'];
-// }
 ?>
 
 <!DOCTYPE html>
@@ -510,15 +507,15 @@ $aois = select_all_aois_controller();
                         <form class="bg-white px-8 pt-6 pb-3 mb-4" action="../action/aoi_action.php" method="POST" autocomplete="on" novalidate>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-lg font-semithin mb-2" for="pair">
+                                <label class="block text-gray-700 text-md font-semibold mb-2" for="pair">
                                     Select your areas of interest:
                                 </label>
-                                <select class="js-example-basic-multiple" name="aois[]" style="width: 100%; border-radius:25px;"
+                                <select class="js-example-basic-multiple" name="aois[]" style="width: 100%;"
                                     data-placeholder="Select one or more areas of interest..." data-allow-clear="false" multiple="multiple"
                                     title="Select areas of interst...">
                                     <?php 
                                         foreach ($aois as $aoi) {
-                                            echo "<option value=".$aoi['aoi_name'].">".$aoi['aoi_name']."</option>";
+                                            echo "<option value=".$aoi['aoi_id'].">".$aoi['aoi_name']."</option>";
                                         }
                                     ?>
                                     

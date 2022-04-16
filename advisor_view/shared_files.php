@@ -33,7 +33,11 @@ $results_per_page = 10;
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
     <script src="./assets/js/init-alpine.js"></script>
+    <script src="./assets/js/focus-trap.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
@@ -497,6 +501,9 @@ $results_per_page = 10;
 
                 <!-- General elements -->
                 <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
+                    <h2 class="my-2 text-xl font-semibold text-center text-gray-700">
+                        Add Shared File
+                    </h2>
                     <form action="../action/shared_files_action.php" method="post" enctype="multipart/form-data">
                         <label class="block text-sm">
                         <span class="text-gray-700">File name</span>
@@ -553,20 +560,27 @@ $results_per_page = 10;
                             for($i= ((int)$page*10)-(10); $i < (int)$page*10 && $i < $number_of_result; $i++) {
                                 echo '
                                 <tr class="text-gray-700">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                                <i class="mr-3 fas fa-file fa-lg"></i>
-                                            <!-- </div> -->
-                                        <div>
-                                            <p class="font-semibold">' .
-                                    $shared_files[$i]['file_name'] .
-                                    '</p>
-                                            </div>
-                                        </div>
+                                    <td class="hidden">'.$shared_files[$i]['file_id'].'</td>
+                                    <td class="hidden">'.$shared_files[$i]['file_name'].'</td>
+                                    <td class="hidden">'.$shared_files[$i]['file_desc'].'</td>
+                                    <td class="hidden">'.$shared_files[$i]['file'].'</td>
+                                    <td class="px-4 py-3 flex">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <mask id="mask0_33437_4402" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="2" width="18" height="20">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.00024 2.0116H20.0529V21.8651H3.00024V2.0116Z" fill="white"/>
+                                            </mask>
+                                            <g mask="url(#mask0_33437_4402)">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57335 3.5116C5.91635 3.5116 4.54035 4.8536 4.50135 6.5086V17.2036C4.46435 18.9166 5.81435 20.3276 7.51035 20.3656H15.5743C17.2433 20.2966 18.5653 18.9096 18.5533 17.2096V8.3396L13.9183 3.5116H7.58535H7.57335ZM7.58535 21.8656H7.47635C4.95435 21.8086 2.94635 19.7106 3.00135 17.1876V6.4906C3.05935 4.0096 5.10835 2.0116 7.57135 2.0116H7.58835H14.2383C14.4423 2.0116 14.6373 2.0946 14.7793 2.2416L19.8443 7.5186C19.9783 7.6576 20.0533 7.8446 20.0533 8.0376V17.2036C20.0713 19.7126 18.1173 21.7626 15.6043 21.8646L7.58535 21.8656Z" fill="black"/>
+                                            </g>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.2985 8.98424H16.5435C14.7135 8.97924 13.2255 7.48724 13.2255 5.65924V2.75024C13.2255 2.33624 13.5615 2.00024 13.9755 2.00024C14.3895 2.00024 14.7255 2.33624 14.7255 2.75024V5.65924C14.7255 6.66324 15.5425 7.48124 16.5455 7.48424H19.2985C19.7125 7.48424 20.0485 7.82024 20.0485 8.23424C20.0485 8.64824 19.7125 8.98424 19.2985 8.98424Z" fill="black"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7887 16.1084H8.38867C7.97467 16.1084 7.63867 15.7724 7.63867 15.3584C7.63867 14.9444 7.97467 14.6084 8.38867 14.6084H13.7887C14.2027 14.6084 14.5387 14.9444 14.5387 15.3584C14.5387 15.7724 14.2027 16.1084 13.7887 16.1084Z" fill="black"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7437 12.3563H8.3877C7.9737 12.3563 7.6377 12.0203 7.6377 11.6063C7.6377 11.1923 7.9737 10.8563 8.3877 10.8563H11.7437C12.1577 10.8563 12.4937 11.1923 12.4937 11.6063C12.4937 12.0203 12.1577 12.3563 11.7437 12.3563Z" fill="black"/>
+                                        </svg>
+                                        <span class="font-semibold ml-2">' .
+                                        $shared_files[$i]['file_name'] .
+                                        '</span>
                                     </td>
-                                    <td class="px-4 py-3 text-sm">';
+                                    <td class="px-4 py-3 text-md">';
 
                                 if (
                                     strlen($shared_files[$i]['file_desc'] < 50)
@@ -580,67 +594,42 @@ $results_per_page = 10;
                                     echo $shared_files[$i]['file_desc'];
                                 }
                                 echo '</td>
-                                    
-                                    <td class="px-4 py-3">
-                                        <a href=""><i class="ml-10 text-blue-400 fas fa-edit hover:animate-bounce"></i></a>
-                                        <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt hover:animate-bounce"></i></a>
-                                        <a href="' .
-                                    $shared_files[$i]['file'] .
-                                    '" download="' .
-                                    basename($shared_files[$i]['file']) .
-                                    PHP_EOL .
-                                    '"><i class="ml-10 text-green-500 fas fa-download hover:animate-bounce"></i></a>
 
+                                    <td class="px-4 py-3 flex">
+                                        <button class="outline-none ml-8 editbtn" @click="openModal" data-modal-toggle="editmodal">
+                                        <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.4922 2.789H7.75324C4.67824 2.789 2.75024 4.966 2.75024 8.048V16.362C2.75024 19.444 4.66924 21.621 7.75324 21.621H16.5772C19.6622 21.621 21.5812 19.444 21.5812 16.362V12.334" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82763 10.9209L16.3006 3.44793C17.2316 2.51793 18.7406 2.51793 19.6716 3.44793L20.8886 4.66493C21.8196 5.59593 21.8196 7.10593 20.8886 8.03593L13.3796 15.5449C12.9726 15.9519 12.4206 16.1809 11.8446 16.1809H8.09863L8.19263 12.4009C8.20663 11.8449 8.43363 11.3149 8.82763 10.9209Z" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.165 4.60254L19.731 9.16854" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </button>
+                                        <button class="outline-none ml-8 deletebtn">
+                                        <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.325 9.4682C19.325 9.4682 18.782 16.2032 18.467 19.0402C18.317 20.3952 17.48 21.1892 16.109 21.2142C13.5 21.2612 10.888 21.2642 8.28003 21.2092C6.96103 21.1822 6.13803 20.3782 5.99103 19.0472C5.67403 16.1852 5.13403 9.4682 5.13403 9.4682" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M20.7082 6.23969H3.75024" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17.4406 6.23967C16.6556 6.23967 15.9796 5.68467 15.8256 4.91567L15.5826 3.69967C15.4326 3.13867 14.9246 2.75067 14.3456 2.75067H10.1126C9.53358 2.75067 9.02558 3.13867 8.87558 3.69967L8.63258 4.91567C8.47858 5.68467 7.80258 6.23967 7.01758 6.23967" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </button>
+                                        <a href="' .$shared_files[$i]['file'] .'" download="' . basename($shared_files[$i]['file']) .PHP_EOL .'">
+                                        <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.1222 15.4361L12.1222 3.39508" stroke="#5DB359" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.0382 12.5084L12.1222 15.4364L9.20621 12.5084" stroke="#5DB359" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16.7549 8.12799H17.6879C19.7229 8.12799 21.3719 9.77699 21.3719 11.813V16.697C21.3719 18.727 19.7269 20.372 17.6969 20.372L6.55695 20.372C4.52195 20.372 2.87195 18.722 2.87195 16.687V11.802C2.87195 9.77299 4.51795 8.12799 6.54695 8.12799L7.48895 8.12799" stroke="#5DB359" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a>
+                                        <a href="' .$shared_files[$i]['file'] .'" target="_blank">
+                                        <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a>
                                     </td>
+                                    
                                 </tr>
                                 ';
                             }
                             
-                            // foreach ($shared_files as $shared_file) {
-                            //     echo '
-                            //     <tr class="text-gray-700">
-                            //         <td class="px-4 py-3">
-                            //             <div class="flex items-center text-sm">
-                            //                 <!-- Avatar with inset shadow -->
-                            //                 <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //                     <i class="mr-3 fas fa-file fa-lg"></i>
-                            //                 <!-- </div> -->
-                            //             <div>
-                            //                 <p class="font-semibold">' .
-                            //         $shared_file['file_name'] .
-                            //         '</p>
-                            //                 </div>
-                            //             </div>
-                            //         </td>
-                            //         <td class="px-4 py-3 text-sm">';
-
-                            //     if (
-                            //         strlen($shared_file['file_desc'] < 50)
-                            //     ) {
-                            //         echo substr(
-                            //             $shared_file['file_desc'],
-                            //             0,
-                            //             50
-                            //         ) . '...';
-                            //     } else {
-                            //         echo $shared_file['file_desc'];
-                            //     }
-                            //     echo '</td>
-                                    
-                            //         <td class="px-4 py-3">
-                            //             <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
-                            //             <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
-                            //             <a href="' .
-                            //         $shared_file['file'] .
-                            //         '" download="' .
-                            //         basename($shared_file['file']) .
-                            //         PHP_EOL .
-                            //         '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
-
-                            //         </td>
-                            //     </tr>
-                            //     ';
-                            // }
+                            
                         } else {
                             echo '<td class="text-right">
                                     <div>
@@ -700,40 +689,7 @@ $results_per_page = 10;
                                             </li>';
                                     }
                                 ?>
-                                <!-- <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        1
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        2
-                                    </button>
-                                </li>
-                                <li>
-                                    <button
-                                        class="px-3 py-1 text-white transition-colors duration-150 bg-[#9b1c1c] border border-r-0 border-[#9b1c1c] rounded-md focus:outline-none focus:shadow-outline-red">
-                                        3
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        4
-                                    </button>
-                                </li>
-                                <li>
-                                    <span class="px-3 py-1">...</span>
-                                </li>
-                                <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        8
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        9
-                                    </button>
-                                </li>-->
+                                
                                 <?php 
                                 if ($page+1 <= $number_of_page ) {
                                     echo '<li>
@@ -763,19 +719,7 @@ $results_per_page = 10;
                                 </li> ';
                                 }
                                 ?>
-                                <!-- <li>
-                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Next">
-                                        <a href="./announcements.php?page=page+1">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                        </a>
-                                    </button>
-                                </li>  -->
-                            </ul>
+                               
                             </nav>
                         </span>
                     </div>
@@ -785,6 +729,185 @@ $results_per_page = 10;
             </main>
         </div>
     </div>
+    <script>
+
+    $(document).ready(function(){
+        $('.editbtn').on('click',function(){
+            $('#editModal').modal('show');
+
+            $tr = $(this).closest('tr');
+            var data = $tr.children('td').map(function(){
+                return $(this).text();
+            }).get();
+
+            // console.log(data);
+
+            $('#sf_id').val(data[0]);
+            $('#sf_file_name').val(data[1]);
+            $('#sf_desc').val(data[2]);
+
+            console.log(data[3]);
+            // $('#sf_uploaded_file').val(data[3]);
+            
+
+        });
+    });
+
+    
+
+    $(document).ready(function(){
+        $('.deletebtn').on('click',function(){
+          $tr = $(this).closest('tr');
+          var data = $tr.children('td').map(function(){
+              return $(this).text();
+          }).get();
+
+        //   $('#sf_id').val(data[0]);
+        //   $('#ann_subject').text(data[1]);
+
+          var file =  data[1];
+          var id =  data[0]
+
+          Swal.fire({
+            title: `Are you sure you want to delete "${file}"?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // ajax post request to php to perform delete function
+              $.ajax({
+                type:"POST",
+                url: '../action/shared_file_action.php',
+                data: {
+                  delete_file:true,
+                  file_id: id
+                },
+                success: function(data){
+                  console.log(data);
+                  Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  ).then((result) => {
+                    if(result.isConfirmed){
+                      setTimeout(location.reload(), 5000);
+                    }
+                  })
+                },
+                error: function(xhr, status, error){
+                  console.error(xhr);
+                  Swal.fire(
+                    'Not deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                }
+              })
+            
+            }
+          })
+
+        });
+    });
+  </script>
+
+
+
+
+
+
+<!-- EDIT  MODAL -->
+
+  <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+  <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <!-- Modal -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+      @keydown.escape="closeModal"
+      class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+      role="dialog" id="editmodal">
+      <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+      <header class="flex justify-end">
+        <button
+          class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded hover: hover:text-gray-700"
+          aria-label="close" @click="closeModal">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+            <path
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </header>
+      <!-- Modal body -->
+      <div class="mt-4 mb-6">
+        <!-- Modal title -->
+        <p class="mb-2 text-xl text-center font-semibold text-gray-700 ">
+          Edit announcement
+        </p>
+        <!-- Modal description -->
+        <form action="../action/announcement_action.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" id="sf_id">
+            <label class="block text-sm">
+            <span class="text-gray-700">File name</span>
+            <input
+                class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+                name="file_name" id="sf_file_name" placeholder="File name" />
+            </label>
+            <label class="block mt-4 text-sm">
+            <span class="text-gray-700">
+                File
+            </span>
+
+            <input
+                class="block w-full mt-1 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                type="file"
+                id="sf_uploaded_file"
+                name="uploaded_file"
+                placeholder="Add a file" />
+            </label>
+
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700">Description</span>
+                <textarea
+                class="block w-full mt-1 text-sm form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red rounded-2xl"
+                rows="3" name="desc" id="sf_desc" placeholder="Enter description"></textarea>
+            </label>
+
+          <!-- <label class="block mt-4 text-sm">
+            <span class="text-gray-700">Description</span>
+            <textarea
+              class="block w-full mt-1 text-sm border-gray-200 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red rounded-2xl"
+              rows="8" name="desc" id="desc" placeholder="Enter announcement" ></textarea>
+          </label> -->
+          <button name="edit_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+              Submit
+          </button>
+        </form>
+      </div>
+      <footer
+        class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
+        <button @click="closeModal"
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+          Cancel
+        </button>
+        <!-- <button
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+          Accept
+        </button> -->
+      </footer>
+    </div>
+  </div>
+  <!-- End of modal backdrop -->
+
 </body>
 
 </html>

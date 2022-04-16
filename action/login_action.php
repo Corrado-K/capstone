@@ -211,9 +211,9 @@ if (isset($_POST['loginButton'])) {
 
 if (isset($_GET['logout'])) {
     session_destroy();
-    // echo '<script>window.location = "../index.php";</script>';
-    header('Location: ..');
-    
+    header('Location: ../index.php');
+    echo '<script>window.location = "../index.php";</script>';
+
     
 }
 

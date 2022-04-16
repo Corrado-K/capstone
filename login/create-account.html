@@ -30,7 +30,7 @@
             <h1 class="mb-4 text-xl font-semibold text-gray-700">
               Create account
             </h1>
-            <form action="../action/login_action.php" method="post">
+            <form onkeyup="return passwordValidation()" action="../action/login_action.php" method="post">
               <label class="block text-sm">
                 <span class="text-gray-700">Name  <span class="text-lg text-red-500">*</span></span>
                 <input
@@ -41,7 +41,7 @@
                 <span class="text-gray-700">Email <span class="text-lg text-red-500">*</span> </span>
                 <input
                   class="block w-full mt-1 text-sm focus:border-blue-600 focus:outline-none focus:shadow-outline-blue form-input"
-                  name="email" placeholder="Email must be an Ashesi email" />
+                  name="email" id="email" placeholder="Email must be an Ashesi email" />
               </label>
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700">Phone</span>
@@ -53,7 +53,7 @@
                 <span class="text-gray-700">Password <span class="text-lg text-red-500">*</span></span>
                 <input
                   class="block w-full mt-1 text-sm focus:border-blue-600 focus:outline-none focus:shadow-outline-blue form-input"
-                  name="password" placeholder="***************" type="password" />
+                  name="password" id="password" placeholder="***************" type="password" />
               </label>
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700">
@@ -61,7 +61,9 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm focus:border-blue-600 focus:outline-none focus:shadow-outline-blue form-input"
-                  name="confirm_password" placeholder="***************" type="password" />
+                  name="confirm_password" id="confirm_password" placeholder="***************" type="password" />
+                <span class="block mt-1 text-sm text-red" id="password_message">
+                </span>  
               </label>
 
               <div class="flex mt-6 text-sm">
@@ -95,5 +97,27 @@
     </div>
   </div>
 </body>
+
+<script src="./assets/js/script.js"></script>
+
+<script>
+  // function passwordValidation(){
+
+  //   let password = document.getElementsByName('password');
+  //   let confirm_password = document.getElementByName('confirm_password');
+
+  //   if (password != confirm_password) {
+  //       password.className += "border-red-600";
+  //       confirm_password.className += "border-red-600";
+  //       document.getElementsByName("password_message").innerHTML = "Passwords do not match";
+  //       return false;
+  //   }else{
+  //       password.className += "border-green-600";
+  //       confirm_password.className += "border-green-600";
+  //       document.getElementsByName("password_message").innerHTML = "Passwords match";
+  //       return true;
+  //   }
+  // }
+</script>
 
 </html>

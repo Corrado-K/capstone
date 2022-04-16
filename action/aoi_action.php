@@ -81,9 +81,19 @@ if (isset($_POST['search_aoi'])) {
     $aoi = $_POST['aois'];
 
     // var_dump($aoi);
-    foreach ($aoi as $aois) {
-      echo  $aois;
-    }
+
+    $result = find_aoi_controller($aoi);
+
+
+
+    
+
+
+
+    
+    // foreach ($aoi as $aois) {
+    //   echo  $aois;
+    // }
     // echo $aoi;
 
     // $data_lect = select_all_lecturer_aoi_controller();

@@ -8,10 +8,17 @@ $aois = select_all_aois_controller();
 if (isset($_GET['search_aoi'])) {
     $aoi = $_GET['aois'];
 
-    // var_dump($aoi);
+    $result = find_aoi_controller($aoi);
 
-    
+    // var_dump($result);
 }
+
+// if (isset($_POST['search_aoi'])) {
+//     $aoi = $_POST['aois'];
+
+//     $result = find_aoi_controller($aoi);
+
+// }
 ?>
 
 <!DOCTYPE html>
@@ -155,10 +162,6 @@ if (isset($_GET['search_aoi'])) {
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                                    <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
@@ -522,48 +525,94 @@ if (isset($_GET['search_aoi'])) {
 
                     <!-- General elements -->
                     <div class="h-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-                        <form action="../action/aoi_action.php" method="post" enctype="multipart/form-data">
-                            <label class="block text-sm">
-                            <span class="text-gray-700 mb-3">Choose area of interest</span>
-                            <!-- This is supposed to be a select -->
-                            <select class="prompt block w-full mt-3 text-sm rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" name="aois[]" placeholder="Area of interest">
-
-                            </select>
-                            </label>
-
-                            <button type="submit" name="search_aoi" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <form class="bg-white px-8 pt-6 pb-3 mb-4" action="./student_lecturer_pairing.php" method="GET" autocomplete="on" novalidate>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-md font-semibold mb-2" for="pair">
+                                    Select your areas of interest:
+                                </label>
+                                <select class="js-example-basic-multiple" name="aois[]" style="width: 100%;"
+                                    data-placeholder="Select one or more areas of interest..." data-allow-clear="false" multiple="multiple"
+                                    title="Select areas of interst...">
+                                    <?php 
+                                        foreach ($aois as $aoi) {
+                                            echo "<option value=".$aoi['aoi_id'].">".$aoi['aoi_name']."</option>";
+                                        }
+                                    ?>
+                                    
+                                </select>
+                            </div>
+                            <button type="submit" name="search_aoi" class="px-4 mt-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
                                 Submit
                             </button>
                         </form>
                         
                     </div>
                     
-                    <h2 class="my-6 text-2xl font-semibold text-gray-700">
+                    <h2 class="mt-6 mb-3 text-2xl font-semibold text-gray-700">
                         Results
                     </h2>
 
+                    <!-- If there is a search, either there are results or there is no result -->
+
+
                     <?php 
-                        if (isset($lect_aoi_results)) {
-                            foreach ($lect_aoi_results as $lect_aoi_result) {
+                        if (isset($result)) {
+                            if (count($result) > 0) {
+                                echo '<h2 class=" mb-4 text-xl font-base text-gray-700">
+                                Lecturers interested in ';
+                                foreach ($result as $interest) {
+                                    echo $interest['aoi_name'];
+                                }
+                                echo '</h2>';
+                                foreach ($result as $lect) {
+                                    $words = explode(" ", $lect['lecturer_name']);
+                                    $acronym = "";
+    
+                                    foreach ($words as $w) {
+                                        $acronym .= $w[0];
+                                    }
+                                    echo '
+                                    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                                      <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full">
+                                        <span>'.$acronym.'</span>
+                                      </div>
+                                      <div>
+                                        <p class="mb-2 text-lg font-semibold text-gray-600">
+                                        '.$lect['lecturer_name'].'
+                                        </p>
+                                        <p class="text-md font-base text-gray-700">
+                                        '.$lect['lecturer_email'].'
+                                        </p>
+                                        <p class="text-md font-base text-gray-700">
+                                        '.$lect['lecturer_contact'].'
+                                        </p>
+                                      </div>
+                                    </div>';
+                                }
+                            }else {
                                 echo '
-                                <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
-                                  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                      <path
-                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                                      </path>
-                                    </svg>
-                                  </div>
-                                  <div>
-                                    <p class="mb-2 text-sm font-medium text-gray-600">
-                                      Total clients
-                                    </p>
-                                    <p class="text-lg font-semibold text-gray-700">
-                                      6389
-                                    </p>
-                                  </div>
-                                </div>';
+                                <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+                                    
+                                    <div class="mx-auto text-center">
+                                        <p class="mb-2 text-xl font-medium text-gray-600">
+                                            No match found
+                                        </p>
+                                    </div>
+                                </div>
+                                ';
                             }
+                            
+                        }else{
+                            echo '
+                            <div class="flex items-center p-4 mb-4 bg-white border-solid border-1 border-black rounded-lg shadow-xs">
+                                
+                                <div class="mx-auto text-center">
+                                    <p class="mb-2 text-xl font-medium text-gray-600">
+                                        No search made yet
+                                    </p>
+                                </div>
+                            </div>
+                            ';
                         }
                     ?>
 
@@ -585,39 +634,10 @@ if (isset($_GET['search_aoi'])) {
 
 ?>
 
-<script>
-
-    var content =  <?php echo $content ?>;
-    
-
-
-     $(".prompt").select2({
-         data:content,
-         minimumInputLength: 0,
-         width: '100%',
-         multiple:true,
-         placeholder:"Area of interest",
-         templateResult:formatState
-
-     });
-
-    function formatState (text) {
-
-          str ="";
-          str += "<p style='padding-left: 12px;'>"+ text.text+ "</p>";
-          var $state = $(str);
-          return $state;
-
-    };
-
-
-    function btn_handler() {
-        var data = $('.prompt').select2('data');
-        data.forEach(datas => {
-            alert(datas.text);
-        });
-    }
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
 </script>
 
 </html>

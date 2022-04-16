@@ -17,6 +17,8 @@ $aois = select_all_aois_controller();
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
     <script src="./assets/js/init-alpine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -128,10 +130,6 @@ $aois = select_all_aois_controller();
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                                     <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                                    <a class="w-full" href="./student_management.php">Student management</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
@@ -483,10 +481,10 @@ $aois = select_all_aois_controller();
                         
                         <div class="mx-auto text-center">
                             <p class="mb-2 text-xl font-medium text-gray-600">
-                                Find a faculty who has interest in a certain view
+                                Are you unsure of the career path you wish to pursue?
                             </p>
                             <p class="font-semibold text-center text-gray-700 text-md">
-                                Look up FAQ, shared files, and 
+                                Find various areas of interest that are would help you towards the career you wish to pursue
                             </p>
                         </div>
                     </div>
@@ -503,24 +501,22 @@ $aois = select_all_aois_controller();
                             <table class="w-full whitespace-no-wrap">
                                 <thead>
                                 <tr
-                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                                    class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                                     <th class="px-4 py-3">Name</th>
                                     <th class="px-4 py-3">Description</th>
                                     <th class="px-4 py-3"></th>
                                 </tr>
                                 </thead>
 
+
                                 <tbody class="bg-white divide-y">
                                 <?php if ($aois) {
                                     foreach ($aois as $aoi) {
                                         echo '
                                         <tr class="text-gray-700">
-                                        <td class="px-4 py-3">
-                                            <p class="font-normal">' .
-                                                $aoi['aoi_name'] .
-                                            '</p>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">';
+                                        <td class="px-4 py-3"><p class="font-normal">'.$aoi['aoi_name'].'</p></td>
+                                        <td class="hidden">'.$aoi['aoi_description'].'</td>
+                                        <td class="px-4 py-3 text-md">';
 
                                         if (strlen($aoi['aoi_description'] > 80)) {
                                             echo substr($aoi['aoi_description'],0, 80) . '...';
@@ -530,7 +526,12 @@ $aois = select_all_aois_controller();
                                         echo '</td>
                                             
                                             <td class="px-4 py-3">
-                                                <a href=""><i class="ml-10 text-slate-500 fas fa-eye"></i></a>
+                                            <button class="outline-none ml-8 viewbtn" @click="openModal" data-modal-toggle="modal">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </button>
                                             </td>
                                         </tr>
                                         ';
@@ -622,6 +623,83 @@ $aois = select_all_aois_controller();
             </main>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.viewbtn').on('click',function(){
+                // $('#editModal').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children('td').map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data[0]);
+                $('#aoi_name').text(data[0]);
+                $('#aoi_desc').text(data[1]);
+                
+
+            });
+        });
+    </script>
+    
+
+    <!-- DISPLAY COURSE DATA  MODAL -->
+
+  <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+  <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <!-- Modal -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+      @keydown.escape="closeModal"
+      class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+      role="dialog" id="modal">
+      <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+      <header class="flex justify-end">
+        <button
+          class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded hover: hover:text-gray-700"
+          aria-label="close" @click="closeModal">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+            <path
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </header>
+      <!-- Modal body -->
+      <div class="mt-4 mb-6">
+        <!-- Modal title -->
+        <p class="mb-2 text-xl text-center font-semibold text-gray-700 bg-zinc-200 py-2 rounded-md">
+          Course details
+        </p>
+        <!-- Modal description -->
+        <p class="text-xl font-semibold text-center underline mb-2"><span id="aoi_name"></span></p> 
+        <p class="text-lg font-semithin text-justify"><span id="aoi_desc"></span></p>
+        <!-- <p>Course passgrade: <span id="course_passgrade"></span></p>
+        <p>Course prerequisites:  <span id="course_prerequisites"></span></p> -->
+         
+        
+        
+      </div>
+      <footer
+        class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
+        <button @click="closeModal"
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+          Cancel
+        </button>
+        <!-- <button
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+          Accept
+        </button> -->
+      </footer>
+    </div>
+  </div>
+  <!-- End of modal backdrop -->
+
 </body>
 
 </html>

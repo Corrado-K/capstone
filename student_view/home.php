@@ -140,10 +140,6 @@ $shared_files = select_all_shared_files_controller();
                       </li>
                       <li
                           class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                          <a class="w-full" href="./student_management.php">Student management</a>
-                      </li>
-                      <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
                           <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                       </li>
                   </ul>
@@ -468,7 +464,7 @@ $shared_files = select_all_shared_files_controller();
             
             <div class="mx-auto text-center">
               <p class="mb-2 text-xl font-medium text-gray-600">
-                Welcome {} to the Student Advising System
+                Welcome <span class="font-semibold text-2xl text-zinc-800"><?php echo $_SESSION['name']?></span> to the Student Advising System
               </p>
               <p class="font-semibold text-center text-gray-700 text-md">
                 Look up FAQ, shared files, and 
