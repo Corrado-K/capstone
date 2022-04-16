@@ -12,7 +12,7 @@ final class TrueTest extends TestCase
     public function isConnected(): void
     {
         Connection::connection();
-        $this->assertTrue(Connection);
+        $this->assertTrue(Connection::fetch());
         // $this->connection();
     }
 

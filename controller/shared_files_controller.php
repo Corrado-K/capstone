@@ -35,11 +35,11 @@ function delete_shared_file_controller($shared_file_id){
 
 }
 
-function update_shared_file_controller($shared_file_id,$file_name,$desc,$file){
+function update_shared_file_controller($file_id,$file_name,$desc,$file){
     // create an instance of the customer class
     $shared_file_instance = new Shared_file();
     // call the method from the class
-    return $shared_file_instance->update_shared_file($shared_file_id,$file_name,$desc,$file);
+    return $shared_file_instance->update_shared_files($file_id, $file_name, $desc, $file);
 
 }
 
