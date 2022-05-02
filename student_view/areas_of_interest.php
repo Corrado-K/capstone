@@ -33,7 +33,7 @@ $aois = select_all_aois_controller();
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                             href="./home.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -47,7 +47,7 @@ $aois = select_all_aois_controller();
                 </ul>
                 <ul>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                             href="./faq.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +59,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                             href="./announcements.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,8 +71,8 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
-                            href="./aoi.php">
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
+                            href="./shared_files.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -82,7 +82,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                             href="./courses.php">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,7 +97,7 @@ $aois = select_all_aois_controller();
                         <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
                         <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -124,15 +124,11 @@ $aois = select_all_aois_controller();
                                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400 hover:bg-gray-300">
                                     <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                                    <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400 hover:bg-gray-300">
                                     <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                                 </li>
                             </ul>
@@ -167,7 +163,7 @@ $aois = select_all_aois_controller();
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             href="index.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -183,7 +179,7 @@ $aois = select_all_aois_controller();
                     <li class="relative px-6 py-3">
                         <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-400"
                             href="forms.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -195,7 +191,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             href="cards.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -207,7 +203,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             href="charts.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -218,7 +214,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             href="buttons.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -230,7 +226,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             href="modals.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -242,7 +238,7 @@ $aois = select_all_aois_controller();
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             href="tables.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -253,7 +249,7 @@ $aois = select_all_aois_controller();
                     </li>
                     <li class="relative px-6 py-3">
                         <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -280,27 +276,27 @@ $aois = select_all_aois_controller();
                                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                                     <a class="w-full" href="pages/login.html">Login</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                                     <a class="w-full" href="pages/create-account.html">
                                         Create account
                                     </a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                                     <a class="w-full" href="pages/forgot-password.html">
                                         Forgot password
                                     </a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                                     <a class="w-full" href="pages/404.html">404</a>
                                 </li>
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                                     <a class="w-full" href="pages/blank.html">Blank</a>
                                 </li>
                             </ul>
@@ -379,7 +375,7 @@ $aois = select_all_aois_controller();
                                     class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                                             href="#">
                                             <span>Messages</span>
                                             <span
@@ -389,7 +385,7 @@ $aois = select_all_aois_controller();
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                                             href="#">
                                             <span>Sales</span>
                                             <span
@@ -399,7 +395,7 @@ $aois = select_all_aois_controller();
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                                             href="#">
                                             <span>Alerts</span>
                                         </a>
@@ -423,7 +419,7 @@ $aois = select_all_aois_controller();
                                     class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                                             href="#">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -436,7 +432,7 @@ $aois = select_all_aois_controller();
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                                             href="#">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -450,7 +446,7 @@ $aois = select_all_aois_controller();
                                         </a>
                                     </li>
                                     <li class="flex">
-                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                                        <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                                             href="../action/login_action.php?logout=<?php $_SESSION[
                                                 'user_id'
                                             ]; ?>">
@@ -491,130 +487,131 @@ $aois = select_all_aois_controller();
                     
 
                     <!-- General elements -->
-                    <div class="h-full px-4 py-1 mb-3 bg-white rounded-lg shadow-md">
-                        <h2 class="my-3 text-2xl text-center font-semibold text-gray-700">
+                    <!-- <div class="h-full px-4 py-1 mb-3 bg-white rounded-lg shadow-md"> -->
+                        <h2 class="my-3 text-2xl font-semibold text-gray-700">
                             Areas of interest
                         </h2>
+                    <!-- </div> -->
 
-                        <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                            <div class="w-full overflow-x-auto">
-                            <table class="w-full whitespace-no-wrap">
-                                <thead>
-                                <tr
-                                    class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
-                                    <th class="px-4 py-3">Name</th>
-                                    <th class="px-4 py-3">Description</th>
-                                    <th class="px-4 py-3"></th>
-                                </tr>
-                                </thead>
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                        <table class="w-full whitespace-no-wrap">
+                            <thead>
+                            <tr
+                                class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                                <th class="px-4 py-3">Name</th>
+                                <th class="px-4 py-3">Description</th>
+                                <th class="px-4 py-3"></th>
+                            </tr>
+                            </thead>
 
 
-                                <tbody class="bg-white divide-y">
-                                <?php if ($aois) {
-                                    foreach ($aois as $aoi) {
-                                        echo '
-                                        <tr class="text-gray-700">
-                                        <td class="px-4 py-3"><p class="font-normal">'.$aoi['aoi_name'].'</p></td>
-                                        <td class="hidden">'.$aoi['aoi_description'].'</td>
-                                        <td class="px-4 py-3 text-md">';
+                            <tbody class="bg-white divide-y">
+                            <?php if ($aois) {
+                                foreach ($aois as $aoi) {
+                                    echo '
+                                    <tr class="text-gray-700">
+                                    <td class="px-4 py-3"><p class="font-normal">'.$aoi['aoi_name'].'</p></td>
+                                    <td class="hidden">'.$aoi['aoi_description'].'</td>
+                                    <td class="px-4 py-3 text-md">';
 
-                                        if (strlen($aoi['aoi_description'] > 80)) {
-                                            echo substr($aoi['aoi_description'],0, 80) . '...';
-                                        } else {
-                                            echo $aoi['aoi_description'];
-                                        }
-                                        echo '</td>
-                                            
-                                            <td class="px-4 py-3">
-                                            <button class="outline-none ml-8 viewbtn" @click="openModal" data-modal-toggle="modal">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    if (strlen($aoi['aoi_description'] < 80)) {
+                                        echo substr($aoi['aoi_description'],0, 80) . '...';
+                                    } else {
+                                        echo $aoi['aoi_description'];
+                                    }
+                                    echo '</td>
+                                        
+                                        <td class="px-4 py-3">
+                                        <button class="outline-none ml-8 viewbtn" @click="openModal" data-modal-toggle="modal">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+                                        </td>
+                                    </tr>
+                                    ';
+                                }
+                            } else {
+                                echo '<td class="text-right">
+                                        <div>
+                                            <p class="font-semibold">No file available</p>
+                                        </div>
+                                        </td>';
+                            } ?>
+
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                            <span class="flex items-center col-span-3">
+                                Showing 1-10 of {}
+                            </span>
+                            <span class="col-span-2"></span>
+                            
+                            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                                <nav aria-label="Table navigation">
+                                    <ul class="inline-flex items-center">
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                                aria-label="Previous">
+                                                <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd" fill-rule="evenodd"></path>
                                                 </svg>
                                             </button>
-                                            </td>
-                                        </tr>
-                                        ';
-                                    }
-                                } else {
-                                    echo '<td class="text-right">
-                                            <div>
-                                                <p class="font-semibold">No file available</p>
-                                            </div>
-                                            </td>';
-                                } ?>
-
-                                </tbody>
-                            </table>
-                            </div>
-                            <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                                <span class="flex items-center col-span-3">
-                                    Showing 1-10 of {}
-                                </span>
-                                <span class="col-span-2"></span>
-                                <!-- Pagination -->
-                                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                                    <nav aria-label="Table navigation">
-                                        <ul class="inline-flex items-center">
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
-                                                    aria-label="Previous">
-                                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                        clip-rule="evenodd" fill-rule="evenodd"></path>
-                                                    </svg>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                                    1
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                                    2
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 text-white transition-colors duration-150 bg-[#9b1c1c] border border-r-0 border-[#9b1c1c] rounded-md focus:outline-none focus:shadow-outline-red">
-                                                    3
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                                    4
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <span class="px-3 py-1">...</span>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                                    8
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                                    9
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                                                    aria-label="Next">
-                                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                        clip-rule="evenodd" fill-rule="evenodd"></path>
-                                                    </svg>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </span>
-                            </div>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                1
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                2
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 text-white transition-colors duration-150 bg-[#9b1c1c] border border-r-0 border-[#9b1c1c] rounded-md focus:outline-none focus:shadow-outline-red">
+                                                3
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                4
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <span class="px-3 py-1">...</span>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                8
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                9
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                                aria-label="Next">
+                                                <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                    clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </span>
                         </div>
                     </div>
+                    <!-- </div> -->
                     
                     
 

@@ -56,6 +56,11 @@ class AOI extends Connection{
 		return $this->query("update areas_of_interest set name = '$name' and description = '$description' where aoi_id = '$aoi_id'");
 	}
 
+	public function number_of_aois(){
+		// return  associative array or false
+		return $this->fetchOne("select count(*) as count from areas_of_interest");
+	}
+
 }
 
 ?>

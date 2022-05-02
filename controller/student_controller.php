@@ -42,14 +42,15 @@ function update_student_controller($name,$email,$password,$contact, $image){
     return $student_instance->update_student($name,$email,$password,$contact, $image);
 
 } 
+*/
 
-function count_student_controller(){
+function count_students_controller(){
     // create an instance of the student class
     $student_instance = new Student();
     // call the method from the class
-    return $student_instance->count_students();
+    return $student_instance->number_of_students();
 
-}*/
+} 
 
 
 ?>

@@ -7,12 +7,9 @@ class Announcement extends Connection{
 	
 	public function add_announcement($subject, $message, $file, $date){
 		// return true or false
-		return $this->query("insert into announcements(announcement_subject, announcement_message, attached_file, date) values('$subject', '$message', '$file', '$date')");
-	}
-
-	public function select_announcement($subject, $message){
-		// return associative array or false
-		return $this->fetchOne("select * from announcements where question='$subject' and announcement_password='$message'");
+		return $this->query("insert into announcements(
+			announcement_subject, announcement_message, attached_file, date) 
+			values('$subject', '$message', '$file', '$date')");
 	}
 
 	public function select_all_announcements(){
@@ -20,8 +17,13 @@ class Announcement extends Connection{
 		return $this->fetch("select * from announcements");
 	}
 
-	public function number_of_announcements()
-	{
+	public function select_announcement($subject, $message){
+		// return associative array or false
+		return $this->fetchOne("select * from announcements where question='$subject' and announcement_password='$message'");
+	}
+
+	public function number_of_announcements(){
+		// return  associative array or false
 		return $this->fetchOne("select count(*) as count from announcements");
 	}
 

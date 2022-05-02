@@ -1,6 +1,6 @@
 <?php
 
-require('../settings/db_class.php');
+require_once('../settings/db_class.php');
 
 // inherit the methods from Connection
 class Student extends Connection{
@@ -19,6 +19,11 @@ class Student extends Connection{
 	function select_one_student($email){
 		// return associative array or false
 		return $this->fetchOne("select * from student where student_email='$email'");
+	}
+
+	public function number_of_students(){
+		// return associative array or false
+		return $this->fetchOne("select count(*) as count from student");
 	}
 
 

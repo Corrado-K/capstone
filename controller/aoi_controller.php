@@ -65,5 +65,12 @@ function update_aoi_controller($aoi_id, $name, $description){
 
 }
 
+function number_of_aois_controller(){
+    // create an instance of the customer class
+    $aoi_instance = new AOI();
+    // call the method from the class
+    return $aoi_instance->number_of_aois();
+}
+
 
 ?>

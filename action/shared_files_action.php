@@ -1,3 +1,4 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -48,10 +49,15 @@ include '../controller/shared_files_controller.php';
 
 //Use the add file thing from e-commerce
 
-$target_dir = '../files/shared_files_uploads/';
-$target_file = $target_dir . basename($_FILES['uploaded_file']['name']);
-$uploadOk = 1;
-$fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+if (isset($_FILES['uploaded_file'])) {
+  $target_dir = '../files/shared_files_uploads/';
+  $target_file = $target_dir . basename($_FILES['uploaded_file']['name']);
+  $uploadOk = 1;
+  $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+}
+
+
 
 
 //Add sweet alert
@@ -152,13 +158,59 @@ if (isset($_POST['update_shared_files'])) {
 
 // Delete shared_files 
 if (isset($_POST['delete_file'])) {
+    $target_dir = '../files/shared_files_uploads/';
     $id = $_POST['file_id'];
+    $file =  $_POST['file'];
+
+    // echo $file;
 
     // Find a way to delete the file from the list of files in the folder using php
     // $files = '';
+
+//     $filename = 'readme.txt';
+
+// if (unlink($filename)) {
+// 	echo 'The file ' . $filename . ' was deleted successfully!';
+// } else {
+// 	echo 'There was a error deleting the file ' . $filename;
+// }
     
 
     $result = delete_shared_file_controller($id);
+
+    if ($result) {
+
+      if (unlink($file)) {
+      	echo '<script>
+              swal({
+                  title: "File deleted!",
+                  text: File deleted successfully!",
+                  icon: "success",
+                  button: "Ok",
+                  timer: 2000
+              }).then(() => {
+                  window.location = "../advisor_view/shared_files.php";
+                  });
+          </script>';
+        }else {
+          echo '<script>
+              swal("Failed to remove the file from the system").then(() => {
+                  window.location = "../advisor_view/shared_files.php";
+              });
+          </script>';
+        }
+
+  }else{
+      // echo $subject.$message.$file.$date;
+      echo '<script>
+              swal("Failed").then(() => {
+                  window.location = "../advisor_view/shared_files.php";
+              });
+          </script>';
+  }
+  
+
+
     
 }
 

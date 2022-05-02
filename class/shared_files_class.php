@@ -7,7 +7,8 @@ class Shared_file extends Connection{
 	
 	public function add_shared_file($file_name,$desc, $file){
 		// return true or false
-		return $this->query("insert into shared_files(file_name, file_desc, file) values('$file_name', '$desc', '$file')");
+		return $this->query("insert into shared_files(file_name, file_desc, file)
+							 values('$file_name', '$desc', '$file')");
 	}
 
 	public function select_all_shared_files(){
@@ -20,15 +21,20 @@ class Shared_file extends Connection{
 		return $this->fetchOne("select * from shared_files where file_name = '$file_name'");
 	}
 
+	public function number_of_shared_files()
+	{
+		return $this->fetchOne("select count(*) as count from shared_files");
+	}
+
 	//create update and delete queries
 	public function update_shared_files($file_id, $file_name, $desc, $file){
 		// return true or false
-		return $this->query("update shared_files set file_name = '$file_name' ,file = '$file', file_desc = '$desc' where shared_files_id = '$file_id'");
+		return $this->query("update shared_files set file_name = '$file_name' ,file = '$file', file_desc = '$desc' where file_id = '$file_id'");
 	}
 
 	public function delete_shared_file($file_id){
 		// return true or false
-		return $this->query("delete from shared_files where shared_files_id = '$file_id'");
+		return $this->query("delete from shared_files where file_id = '$file_id'");
 	}
 
 }

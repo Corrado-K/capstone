@@ -35,11 +35,11 @@
     <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block flex-shrink-0">
       <div class="py-4 text-gray-500">
         <a class="ml-6 text-lg font-bold text-white" href="#">
-        Student Advising System
+          Student Advising System
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
               href="./home.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,7 +53,7 @@
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
               href="./faq.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +67,7 @@
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
               href="./announcements.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +79,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                 href="./shared_files.php">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -90,7 +90,7 @@
             </a>
           </li> 
           <li class="relative px-6 py-3">
-              <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+              <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                   href="./courses.php">
                   <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                       stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -103,7 +103,7 @@
           </li>
           <li class="relative px-6 py-3">
               <button
-                  class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                  class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                   @click="togglePagesMenu" aria-haspopup="true">
                   <span class="inline-flex items-center">
                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -130,15 +130,11 @@
                       class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                       aria-label="submenu">
                       <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-400 hover:bg-gray-300">
                           <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                       </li>
                       <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                          <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
-                      </li>
-                      <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-400 hover:bg-gray-300">
                           <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                       </li>
                   </ul>
@@ -173,7 +169,7 @@
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="index.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -189,7 +185,7 @@
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-400"
               href="Announcements.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -201,7 +197,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="cards.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,7 +209,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="charts.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -224,7 +220,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="buttons.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -236,7 +232,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="modals.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -248,7 +244,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="tables.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -259,7 +255,7 @@
           </li>
           <li class="relative px-6 py-3">
             <button
-              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               @click="togglePagesMenu" aria-haspopup="true">
               <span class="inline-flex items-center">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -283,23 +279,23 @@
                 x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                 aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/login.html">Login</a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/create-account.html">
                     Create account
                   </a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/forgot-password.html">
                     Forgot password
                   </a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/404.html">404</a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/blank.html">Blank</a>
                 </li>
               </ul>
@@ -376,7 +372,7 @@
                   class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                   aria-label="submenu">
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <span>Messages</span>
                       <span
@@ -386,7 +382,7 @@
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <span>Sales</span>
                       <span
@@ -396,7 +392,7 @@
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <span>Alerts</span>
                     </a>
@@ -418,7 +414,7 @@
                   class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                   aria-label="submenu">
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -428,7 +424,7 @@
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -441,7 +437,7 @@
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -497,14 +493,6 @@
                   <p class="text-md font-semithin text-gray-700">
                   '.$announcement['announcement_message'].'
                   </p>
-                  <span class="float-right">
-                    <svg class="ml-10 text-xl text-green-400 hover transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-150 duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M15.9393 12.413H15.9483" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11.9303 12.413H11.9393" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M7.92128 12.413H7.93028" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>      
-                  
                 </div>
               </div>';
                  
@@ -555,3 +543,13 @@
 </body>
 
 </html>
+
+
+<!-- <span class="float-right">
+  <svg class="ml-10 text-xl text-green-400 hover transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-150 duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15.9393 12.413H15.9483" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M11.9303 12.413H11.9393" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.92128 12.413H7.93028" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>      
+</span> -->

@@ -12,7 +12,7 @@ class Connection{
 
 
 	// method used to connect to the database
-	function connection(){
+	function connect(){
 
 		// connect to the database
 		$this->db = mysqli_connect(SERVER, USER, PASSWORD, DATABASE);
@@ -31,7 +31,7 @@ class Connection{
 	function query($query){
 
 		// check if the connection was successful
-		if($this->connection() == false){
+		if($this->connect() == false){
 			return false;
 		}
 

@@ -43,6 +43,16 @@ function update_shared_file_controller($file_id,$file_name,$desc,$file){
 
 }
 
+function number_of_shared_files_controller(){
+    // create an instance of the customer class
+    $shared_file_instance = new Shared_file();
+    // call the method from the class
+    return $shared_file_instance->number_of_shared_files();
+
+}
+
+
+
 
 
 ?>

@@ -31,7 +31,7 @@ $shared_files = select_all_shared_files_controller();
 </head>
 
 <body>
-  <div class="flex h-screen bg-gray-50" :class="{ 'overflow-hidden': isSideMenuOpen }">
+  <div class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <!-- Desktop sidebar -->
     <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block">
       <div class="py-4 text-gray-500">
@@ -42,7 +42,7 @@ $shared_files = select_all_shared_files_controller();
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-white rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
               href="./home.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,7 +56,7 @@ $shared_files = select_all_shared_files_controller();
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
               href="./faq.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -68,7 +68,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
               href="./announcements.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,7 +80,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                 href="./shared_files.php">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,7 +91,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-              <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+              <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                   href="./courses.php">
                   <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                       stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,7 +104,7 @@ $shared_files = select_all_shared_files_controller();
           </li>
           <li class="relative px-6 py-3">
               <button
-                  class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800"
+                  class="inline-flex items-center justify-between w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-400"
                   @click="togglePagesMenu" aria-haspopup="true">
                   <span class="inline-flex items-center">
                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -131,15 +131,11 @@ $shared_files = select_all_shared_files_controller();
                       class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 "
                       aria-label="submenu">
                       <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-400 hover:bg-gray-300">
                           <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
                       </li>
                       <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
-                          <a class="w-full" href="./lecturer_management.php"> Lecturer management</a>
-                      </li>
-                      <li
-                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 hover:bg-gray-300">
+                          class="px-2 py-1 transition-colors duration-150 hover:text-gray-400 hover:bg-gray-300">
                           <a class="w-full" href="./student_lecturer_pairing.php">Pairing and result simulator</a>
                       </li>
                   </ul>
@@ -183,7 +179,7 @@ $shared_files = select_all_shared_files_controller();
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-400"
               href="index.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -197,7 +193,7 @@ $shared_files = select_all_shared_files_controller();
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="forms.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -209,7 +205,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="cards.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -221,7 +217,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="charts.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -232,7 +228,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="buttons.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -244,7 +240,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="modals.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -256,7 +252,7 @@ $shared_files = select_all_shared_files_controller();
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               href="tables.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -267,7 +263,7 @@ $shared_files = select_all_shared_files_controller();
           </li>
           <li class="relative px-6 py-3">
             <button
-              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
               @click="togglePagesMenu" aria-haspopup="true">
               <span class="inline-flex items-center">
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -291,23 +287,23 @@ $shared_files = select_all_shared_files_controller();
                 x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                 aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/login.html">Login</a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/create-account.html">
                     Create account
                   </a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/forgot-password.html">
                     Forgot password
                   </a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/404.html">404</a>
                 </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
                   <a class="w-full" href="pages/blank.html">Blank</a>
                 </li>
               </ul>
@@ -372,7 +368,7 @@ $shared_files = select_all_shared_files_controller();
                   @keydown.escape="closeNotificationsMenu"
                   class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md ">
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <span>Messages</span>
                       <span
@@ -382,7 +378,7 @@ $shared_files = select_all_shared_files_controller();
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <span>Sales</span>
                       <span
@@ -392,7 +388,7 @@ $shared_files = select_all_shared_files_controller();
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <span>Alerts</span>
                     </a>
@@ -414,7 +410,7 @@ $shared_files = select_all_shared_files_controller();
                   class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                   aria-label="submenu">
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -424,7 +420,7 @@ $shared_files = select_all_shared_files_controller();
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="#">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -437,7 +433,7 @@ $shared_files = select_all_shared_files_controller();
                     </a>
                   </li>
                   <li class="flex">
-                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
                       href="../action/login_action.php?logout=<?php echo $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -455,7 +451,7 @@ $shared_files = select_all_shared_files_controller();
         </div>
       </header>
       <main class="h-full overflow-y-auto">
-        <div class="container grid px-6 mx-auto">
+        <div class="container grid px-12 mx-auto">
           <h2 class="my-6 text-2xl font-semibold text-gray-700">
             Home
           </h2>
@@ -471,8 +467,9 @@ $shared_files = select_all_shared_files_controller();
               </p>
             </div>
           </div>
+
           
-          <!-- Cards -->
+          <!-- Announcement card -->
           <div class="mb-8">
 
             <!-- Card -->
@@ -502,7 +499,7 @@ $shared_files = select_all_shared_files_controller();
           <!-- the card code is in take out -->
 
           <!-- New Table -->
-          <div class="w-full overflow-hidden rounded-lg shadow-xs">
+          <!-- <div class="w-full overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
               <table class="w-full whitespace-no-wrap">
                   <thead>
@@ -570,7 +567,7 @@ $shared_files = select_all_shared_files_controller();
               <div
                 class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
               </div>
-          </div>
+          </div> -->
           
         </div>
       </main>
@@ -645,7 +642,7 @@ $shared_files = select_all_shared_files_controller();
       <footer
         class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
         <button  @click="closeModal"
-          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
           Done
         </button>
       </footer>
