@@ -22,10 +22,9 @@ class Course extends Connection{
 	}
 
 	//create update and delete queries
-	public function update_course($course_id, $course_name, $course_code, $course_passgrade){
+	public function update_course($course_id, $course_code, $course_name, $course_passgrade){
 		// return true or false
-		return $this->query("update courses set course_name = '$course_name' and course_code
-		 = '$course_code' and course_passgrade = '$course_passgrade' where courses_id = '$course_id'");
+		return $this->query("update courses set course_name = '$course_name' , course_code = '$course_code' , course_passgrade = '$course_passgrade' where course_id = '$course_id'");
 	}
 
     public function set_prerequisite($course_id, $prerequisite_id){
@@ -51,9 +50,17 @@ class Course extends Connection{
 								course_prerequisite.course_prerequisite_id='$course_id'");
 	}
 
-
     //delete course here
-    
+	public function delete_course($course_id){
+		// return true or false
+		return $this->query("delete from courses where course_id='$course_id'");
+	}
+
+	//update course
+	// public function update_courseupdate_course($course_id,$course_code,$course_name,$course_passgrade){
+	// 	// return true or false
+	// 	return $this->query("update announcements set announcement_subject = '$subject', announcement_message = '$message', date = '$date' where announcement_id = '$announcement_id'");
+	// }
 
 
 

@@ -1,8 +1,8 @@
 <?php 
     require '../controller/course_controller.php';
+    include '../settings/core.php';
 
-    session_start();
-
+    check_login();
 
     $courses = select_all_courses_controller();
     $results_per_page = 10;
@@ -29,16 +29,22 @@
     <title>Student Advising System - Courses</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
+    <script src="./assets/js/focus-trap.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Sweet Alert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <div class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen}">
         <!-- Desktop sidebar -->
-        <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block flex-shrink-0">
+        <aside class="z-20 hidden w-64 overflow-y-auto bg-[#923] md:block flex-shrink-0">
             <div class="py-4 text-gray-500">
                 <img class="mx-auto w-1/2 mb-4" src="./assets/img/ashesiLogo.png" alt="">
                 <a class="mt-16 ml-6 text-lg font-bold text-white" href="#">
@@ -157,13 +163,7 @@
                     </li>
                     
                 </ul>
-                <div class="px-6 my-6">
-                    <button
-                        class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-black transition-colors duration-150 bg-red-100 border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                        Create account
-                        <span class="ml-2" aria-hidden="true">+</span>
-                    </button>
-                </div>
+                
             </div>
         </aside>
         <!-- Mobile sidebar -->
@@ -234,7 +234,7 @@
                     </a>
                     </li>
                     <li class="relative px-6 py-3">                        
-                    <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
+                    <span class="absolute inset-y-0 left-0 w-1 bg-[#923] rounded-tr-lg rounded-br-lg"
                         aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                         href="./courses.php">
@@ -318,20 +318,14 @@
                     </template>
                     </li>
                 </ul>
-                <div class="px-6 my-6">
-                    <button
-                    class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                    Create account
-                    <span class="ml-2" aria-hidden="true">+</span>
-                    </button>
-                </div>
-                </div>
+                
+            </div>
       </aside>
 
         <div class="flex flex-col flex-1">
             <header class="z-10 py-4 bg-white shadow-md">
                 <div
-                    class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c]">
+                    class="container flex items-center justify-between h-full px-6 mx-auto text-[#923]">
                     <!-- Mobile hamburger -->
                     <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
                         @click="toggleSideMenu" aria-label="Menu">
@@ -370,55 +364,7 @@
                             </button>
                         </li>
                         <!-- Notifications menu -->
-                        <li class="relative">
-                            <button
-                                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-red"
-                                @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                aria-label="Notifications" aria-haspopup="true">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                                    </path>
-                                </svg>
-                                <!-- Notification badge -->
-                                <span aria-hidden="true"
-                                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full"></span>
-                            </button>
-                            <template x-if="isNotificationsMenuOpen">
-                                <ul x-transition:leave="transition ease-in duration-150"
-                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                    @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
-                                    aria-label="submenu">
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="#">
-                                            <span>Messages</span>
-                                            <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
-                                                13
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="#">
-                                            <span>Sales</span>
-                                            <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
-                                                2
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="#">
-                                            <span>Alerts</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </template>
-                        </li>
+                        
                         <!-- Profile menu -->
                         <li class="relative">
                             <button class="align-middle rounded-full focus:shadow-outline-red focus:outline-none"
@@ -463,7 +409,7 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
+                                            href="../action/logout_action.php?logout=<?php $_SESSION['user_id']?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -531,7 +477,7 @@
                         </select>
                         </label>
                         
-                        <button type="submit" name="add_course" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <button type="submit" name="add_course" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#923] rounded-full">
                             Submit
                         </button>
                     </form>
@@ -594,7 +540,7 @@
                         </select>
                         </label>
                         
-                        <button type="submit" name="add_course_prerequisite" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                        <button type="submit" name="add_course_prerequisite" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-[#9b1c10] focus:outline-none focus:shadow-outline-[#923] rounded-full">
                             Submit
                         </button>
                     </form>
@@ -610,7 +556,7 @@
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
                         <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
-                            <thead>
+                            <thead >
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                                 <th class="px-4 py-3">Course code</th>
@@ -637,32 +583,28 @@
                                         }
                                     echo '
                                     <tr class="text-gray-700">
+                                        <td class="hidden">'.$courses[$i]['course_id'] .'</td>
                                         <td class="px-4 py-3 text-sm">'.$courses[$i]['course_code'] .'</td>
                                         <td class="px-4 py-3 text-sm">'.$courses[$i]['course_name'].'</td>
                                         <td class="px-4 py-3 text-sm">'.$courses[$i]['course_passgrade'] . '</td>
                                         <td class="px-4 py-3 text-sm">'.$has_prerequisite.'</td>
 
                                         <td class="px-4 py-3 flex">
-                                            <a href="">
-                                            <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <button class="ml-8 editbtn"  @click="openModal('.'editmodal'.')" data-modal-toggle="editmodal">
+                                            <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.4922 2.789H7.75324C4.67824 2.789 2.75024 4.966 2.75024 8.048V16.362C2.75024 19.444 4.66924 21.621 7.75324 21.621H16.5772C19.6622 21.621 21.5812 19.444 21.5812 16.362V12.334" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82763 10.9209L16.3006 3.44793C17.2316 2.51793 18.7406 2.51793 19.6716 3.44793L20.8886 4.66493C21.8196 5.59593 21.8196 7.10593 20.8886 8.03593L13.3796 15.5449C12.9726 15.9519 12.4206 16.1809 11.8446 16.1809H8.09863L8.19263 12.4009C8.20663 11.8449 8.43363 11.3149 8.82763 10.9209Z" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M15.165 4.60254L19.731 9.16854" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            </a>
-                                            <a href="">
-                                            <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            </button>
+                                            <button class="ml-8 deletebtn">
+                                            <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M19.325 9.4682C19.325 9.4682 18.782 16.2032 18.467 19.0402C18.317 20.3952 17.48 21.1892 16.109 21.2142C13.5 21.2612 10.888 21.2642 8.28003 21.2092C6.96103 21.1822 6.13803 20.3782 5.99103 19.0472C5.67403 16.1852 5.13403 9.4682 5.13403 9.4682" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M20.7082 6.23969H3.75024" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M17.4406 6.23967C16.6556 6.23967 15.9796 5.68467 15.8256 4.91567L15.5826 3.69967C15.4326 3.13867 14.9246 2.75067 14.3456 2.75067H10.1126C9.53358 2.75067 9.02558 3.13867 8.87558 3.69967L8.63258 4.91567C8.47858 5.68467 7.80258 6.23967 7.01758 6.23967" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            </a>
-                                            <a href="">
-                                            <svg class="ml-8 hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            </a>
+                                            </button>
+                                            
                                         </td>
                                     </tr>
                                     ';
@@ -687,144 +629,259 @@
                         </table>
                         </div>
                         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                        <span class="flex items-center col-span-3">
-                            Showing <?php echo ($page*10)-(10-1)?> - <?php if($page*10 < count($courses)){echo $page*10;}else{echo count($courses);} ?> of <?php echo count($courses);?>
-                        </span>
-                        <span class="col-span-2"></span>
-                        <!-- Pagination -->
-                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                            <nav aria-label="Table navigation">
-                            <ul class="inline-flex items-center">
+                            <span class="flex items-center col-span-3">
+                                Showing <?php echo ($page*10)-(10-1)?> - <?php if($page*10 < count($courses)){echo $page*10;}else{echo count($courses);} ?> of <?php echo count($courses);?>
+                            </span>
+                            <span class="col-span-2"></span>
+                            <!-- Pagination -->
+                            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                                <nav aria-label="Table navigation">
+                                <ul class="inline-flex items-center">
 
-                                <?php 
-                                if ($page-1 != 0 ) {
-                                    echo '<li>
-                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Previous"><a href="./announcements.php?page='.$page-1 .'">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                        </a>
-                                    </button>
-                                    </li>';
+                                    <?php 
+                                    if ($page-1 != 0 ) {
+                                        echo '<li>
+                                        <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Previous"><a href="./announcements.php?page='.$page-1 .'">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                            </a>
+                                        </button>
+                                        </li>';
 
-                                }else{
-                                    echo '<li>
-                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Previous">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                    </li>';
-                                }
-                                ?>
-                                
-                                <?php 
-                                    for ($i=1; $i <= $number_of_page; $i++) { 
-                                    echo '<li>
-                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                                <a href="./announcements.php?page='.$i.'">'.$i.'</a>
-                                                
-                                            </button>
-                                            </li>';
+                                    }else{
+                                        echo '<li>
+                                        <button disabled="disabled" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Previous">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        </li>';
                                     }
-                                ?>
-                                
-                                <?php 
-                                if ($page+1 <= $number_of_page ) {
-                                    echo '<li>
-                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Next">
-                                        <a href="./announcements.php?page='.$page+1 .'">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                        </a>
-                                    </button>
-                                </li> ';
+                                    ?>
+                                    
+                                    <?php 
+                                        for ($i=1; $i <= $number_of_page; $i++) { 
+                                        echo '<li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    <a href="./announcements.php?page='.$i.'">'.$i.'</a>
+                                                    
+                                                </button>
+                                                </li>';
+                                        }
+                                    ?>
+                                    
+                                    <?php 
+                                    if ($page+1 <= $number_of_page ) {
+                                        echo '<li>
+                                        <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Next">
+                                            <a href="./announcements.php?page='.$page+1 .'">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                            </a>
+                                        </button>
+                                    </li> ';
 
-                                }else{
-                                    echo '<li>
-                                    <button disabled="disabled" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Next">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                        
-                                    </button>
-                                </li> ';
-                                }
-                                ?>
-                               
-                            </ul>
-                            </nav>
-                        </span>
+                                    }else{
+                                        echo '<li>
+                                        <button disabled="disabled" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Next">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                            
+                                        </button>
+                                    </li> ';
+                                    }
+                                    ?>
+                                
+                                </ul>
+                                </nav>
+                            </span>
                         </div>
                     </div>
 
                     
-
-                    <!-- <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                            <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
-                                <th class="px-4 py-3">Course code</th>
-                                <th class="px-4 py-3">Course name</th>
-                                <th class="px-4 py-3">Pass grade</th>
-                                <th class="px-4 py-3">Prerequisite</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y">
-                            <?php 
-                            // foreach ($shared_files as $shared_file) {
-                            //     echo'<tr class="text-gray-700">
-                            //     <td class="px-4 py-3">
-                            //     <div class="flex items-center text-sm">
-                            //         <!-- Avatar with inset shadow -->
-                            //         <!-- <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                            //         <i class="mr-3 fas fa-file fa-lg"></i>
-                            //         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                            //         <!-- </div> -->
-                            //         <div>
-                            //         <p class="font-semibold">'.$shared_file['file_name'].'</p>
-                            //         </div>
-                            //     </div>
-                            //     </td>
-                            //     <td class="px-4 py-3 text-sm">'.$shared_file['file_desc'].'</td>
-                            //     <td class="px-4 py-3 text-xs">
-                            //     <i class="ml-10 text-blue-400 fas fa-edit"></i>
-                            //     <i class="ml-10 text-red-500 fas fa-trash-alt"></i>
-                            //     <a href="{}" download><i class="ml-10 text-green-500 fas fa-download"></i></a>
-                            //     </td>
-                                
-                            // </tr>';
-                            // }   
-                            ?>
-
-                            </tbody>
-                        </table>
-                        </div>
-                        <div
-                        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                        </div>
-                    </div> -->
-
                 </div>
             </main>
         </div>
     </div>
+
+    <script>
+
+    $(document).ready(function(){
+        $('.editbtn').on('click',function(){
+            $('#editModal').modal('show');
+
+            $tr = $(this).closest('tr');
+            var data = $tr.children('td').map(function(){
+                return $(this).text();
+            }).get();
+
+            console.log(data[0]);
+
+            $('#id').val(data[0]);
+            $('#course_code').val(data[1]);
+            $('#course_name').val(data[2]);
+            $('#course_passgrade').val(data[3]);
+
+        });
+    });
+
+
+    $(document).ready(function(){
+        $('.deletebtn').on('click',function(){
+          $tr = $(this).closest('tr');
+          var data = $tr.children('td').map(function(){
+              return $(this).text();
+          }).get();
+
+          var course =  data[2];
+          var id =  data[0]
+
+          Swal.fire({
+            title: `Are you sure you want to delete "${course}"?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // ajax post request to php to perform delete function
+              $.ajax({
+                type:"POST",
+                url: '../action/courses_action.php',
+                data: {
+                  delete_course:true,
+                  course_id: id
+                },
+                success: function(data){
+                  console.log(data);
+                  Swal.fire(
+                    'Deleted!',
+                    'Course has been deleted.',
+                    'success'
+                  ).then((result) => {
+                    if(result.isConfirmed){
+                      setTimeout(location.reload(), 5000);
+                    }
+                  })
+                },
+                error: function(xhr, status, error){
+                  console.error(xhr);
+                  Swal.fire(
+                    'Not deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                }
+              })
+            
+            }
+          })
+
+        });
+    });
+
+    </script>
+
+    
+
+
+
+
+<!-- EDIT  MODAL -->
+
+  <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+  <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+     class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <!-- Modal -->
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+      @keydown.escape="closeModal"
+      class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+      role="dialog" id="editmodal">
+      <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+      <header class="flex justify-end">
+        <button
+          class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded hover: hover:text-gray-700"
+          aria-label="close" @click="closeModal">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+            <path
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </header>
+      <!-- Modal body -->
+      <div class="mt-4 mb-6">
+        <!-- Modal title -->
+        <p class="mb-2 text-xl text-center font-semibold text-gray-700 ">
+          Edit course
+        </p>
+        <!-- Modal description -->
+        <form action="../action/courses_action.php" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" id="id">
+          <label class="block text-sm">
+            <span class="text-gray-700">Course name</span>
+            <input
+              class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+              placeholder="Enter course name"
+              name="course_name" id="course_name" />
+          </label>
+
+          <label class="block text-sm">
+            <span class="text-gray-700">Course code</span>
+            <input
+              class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+              placeholder="Enter course code"
+              name="course_code" id="course_code" />
+          </label>
+
+          <label class="block text-sm">
+            <span class="text-gray-700">Course passgrade</span>
+            <input
+              class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+              placeholder="Enter passgrade"
+              name="course_passgrade" id="course_passgrade" />
+          </label>
+          
+          <button name="edit_course" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-[#923] focus:outline-none focus:shadow-outline-[#923] rounded-full">
+              Submit
+          </button>
+        </form>
+      </div>
+      <footer
+        class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
+        <button @click="closeModal"
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+          Cancel
+        </button>
+        
+      </footer>
+    </div>
+  </div>
+  <!-- End of modal backdrop -->
+    
+
 </body>
 
 </html>

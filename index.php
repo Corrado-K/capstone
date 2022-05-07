@@ -43,7 +43,7 @@
                 </div>    
                 <div>
                     <h3 class="text-3xl font-bold text-red-700">
-                        Faculty and Advisors
+                        Advisors
                     </h3>
                     <p class="self-center mx-auto w-96">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis illum necessitatibus, labore eum rem molestiae vel placeat accusantium ipsa minus, voluptates laborum reprehenderit quasi ad architecto molestias eveniet. Culpa!

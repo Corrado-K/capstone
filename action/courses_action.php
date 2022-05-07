@@ -108,9 +108,86 @@
     }
 
 
-    
+?>
 
+
+<?php 
+
+
+// Update course 
+if (isset($_POST['edit_course'])) {
+    $course_id = $_POST['id'];
+    $course_code = $_POST['course_code'];
+    $course_name = $_POST['course_name'];
+    $course_passgrade = $_POST['course_passgrade'];
+
+    // echo $course_passgrade;
+
+    $result = update_course_controller($course_id, $course_code, $course_name, $course_passgrade);
+
+    var_dump($result);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "Course edited!",
+                    text: "Course edited successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/courses.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/courses.php";
+                });
+            </script>';
+    }
     
+}
+
+?>
+
+
+<?php 
+
+
+// Delete announcement 
+if (isset($_POST['delete_course'])) {
+    $id = $_POST['course_id'];
+
+    $result = delete_course_controller($id);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "Course deleted!",
+                    text: "Course deleted successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/courses.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/courses.php";
+                });
+            </script>';
+    }
+    
+}
 
 ?>
 

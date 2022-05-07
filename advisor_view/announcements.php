@@ -1,7 +1,8 @@
 <?php
   include_once '../controller/announcement_controller.php';
+  include '../settings/core.php';
 
-  session_start();
+  check_login();
 
   $announcements = select_all_announcements_controller();
 
@@ -50,7 +51,7 @@
 <body>
   <div x-date="{ open: false }" class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen}">
     <!-- Desktop sidebar -->
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block flex-shrink-0">
+    <aside class="z-20 hidden w-64 overflow-y-auto bg-[#923] md:block flex-shrink-0">
       <div class="py-4 text-gray-500">
       <img class="mx-auto w-1/2 mb-4" src="./assets/img/ashesiLogo.png" alt="">
         <a class="mt-16 ml-6 text-lg font-bold text-white" href="#">
@@ -168,13 +169,7 @@
               </template>
           </li>
         </ul>
-        <div class="px-6 my-6">
-          <button
-            class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-black transition-colors duration-150 bg-red-100 border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-            Create account
-            <span class="ml-2" aria-hidden="true">+</span>
-          </button>
-        </div>
+        
       </div>
     </aside>
     <!-- Mobile sidebar -->
@@ -222,7 +217,7 @@
               </a>
             </li>
             <li class="relative px-6 py-3">
-              <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
+              <span class="absolute inset-y-0 left-0 w-1 bg-[#923] rounded-tr-lg rounded-br-lg"
                 aria-hidden="true"></span>
               <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
                 href="./announcements.php">
@@ -329,20 +324,14 @@
               </template>
             </li>
           </ul>
-          <div class="px-6 my-6">
-            <button
-              class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-              Create account
-              <span class="ml-2" aria-hidden="true">+</span>
-            </button>
-          </div>
+          
         </div>
       </aside>
       
       <div class="flex flex-col flex-1">
         <header class="z-10 py-4 bg-white shadow-md">
           <div
-            class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c]">
+            class="container flex items-center justify-between h-full px-6 mx-auto text-[#923]">
             <!-- Mobile hamburger -->
             <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
               @click="toggleSideMenu" aria-label="Menu">
@@ -380,54 +369,7 @@
                 </button>
               </li>
               <!-- Notifications menu -->
-              <li class="relative">
-                <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-red"
-                  @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications"
-                  aria-haspopup="true">
-                  <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                    </path>
-                  </svg>
-                  <!-- Notification badge -->
-                  <span aria-hidden="true"
-                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full"></span>
-                </button>
-                <template x-if="isNotificationsMenuOpen">
-                  <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu"
-                    @keydown.escape="closeNotificationsMenu"
-                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
-                    aria-label="submenu">
-                    <li class="flex">
-                      <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                        href="#">
-                        <span>Messages</span>
-                        <span
-                          class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
-                          13
-                        </span>
-                      </a>
-                    </li>
-                    <li class="flex">
-                      <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                        href="#">
-                        <span>Sales</span>
-                        <span
-                          class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
-                          2
-                        </span>
-                      </a>
-                    </li>
-                    <li class="flex">
-                      <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                        href="#">
-                        <span>Alerts</span>
-                      </a>
-                    </li>
-                  </ul>
-                </template>
-              </li>
+              
               <!-- Profile menu -->
               <li class="relative">
                 <button class="align-middle rounded-full focus:shadow-outline-red focus:outline-none"
@@ -466,7 +408,7 @@
                     </li>
                     <li class="flex">
                       <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                        href="../action/login_action.php?logout=<?php $_SESSION['user_id']?>">
+                        href="../action/logout_action.php?logout=<?php $_SESSION['user_id']?>">
                         <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                           <path
@@ -534,7 +476,7 @@
                     class="block w-full mt-1 text-sm border-gray-200 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red rounded-2xl"
                     rows="3" name="desc" placeholder="Enter announcement"></textarea>
                 </label>
-                <button name="add_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+                <button name="add_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-[#923] focus:outline-none focus:shadow-outline-[#923] rounded-full">
                     Submit
                 </button>
               </form>
@@ -604,12 +546,7 @@
                                   <path d="M17.4406 6.23967C16.6556 6.23967 15.9796 5.68467 15.8256 4.91567L15.5826 3.69967C15.4326 3.13867 14.9246 2.75067 14.3456 2.75067H10.1126C9.53358 2.75067 9.02558 3.13867 8.87558 3.69967L8.63258 4.91567C8.47858 5.68467 7.80258 6.23967 7.01758 6.23967" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                   </svg>
                                   </button>
-                                  <button class="ml-8">
-                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                  </svg>
-                                  </button>
+                                  
                               </td>
                             </tr>
                             ';
@@ -858,7 +795,7 @@
               class="block w-full mt-1 text-sm border-gray-200 form-textarea focus:border-red-400 focus:outline-none focus:shadow-outline-red rounded-2xl"
               rows="8" name="desc" id="desc" placeholder="Enter announcement" ></textarea>
           </label>
-          <button name="edit_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-[#9b1c1c] focus:outline-none focus:shadow-outline-[#9b1c1c] rounded-full">
+          <button name="edit_announcement" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-[#923] focus:outline-none focus:shadow-outline-[#923] rounded-full">
               Submit
           </button>
         </form>

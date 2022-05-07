@@ -2,8 +2,9 @@
 
 include '../controller/announcement_controller.php';
 include '../controller/shared_files_controller.php';
+include '../settings/core.php';
 
-session_start();
+check_login();
 
 $announcement_count = count_announcement_controller();
 $announcements = select_all_announcements_controller();
@@ -33,8 +34,9 @@ $shared_files = select_all_shared_files_controller();
 <body>
   <div class="flex h-screen bg-zinc-200" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <!-- Desktop sidebar -->
-    <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-[#9b1c1c] md:block">
+    <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-[#923] md:block">
       <div class="py-4 text-gray-500">
+      <img class="mx-auto w-1/2 mb-4" src="./assets/img/ashesiLogo.png" alt="">
         <a class="mt-16 ml-6 text-lg font-bold text-white" href="#">
           Student Advising System
         </a>
@@ -142,13 +144,7 @@ $shared_files = select_all_shared_files_controller();
               </template>
           </li>
         </ul>
-        <div class="px-6 my-6">
-          <button
-            class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-gray-600 transition-colors duration-150 bg-red-100 border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-            Create account
-            <span class="ml-2" aria-hidden="true">+</span>
-          </button>
-        </div>
+        
       </div>
     </aside>
 
@@ -172,157 +168,144 @@ $shared_files = select_all_shared_files_controller();
       x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
       @keydown.escape="closeSideMenu">
       <div class="py-4 text-gray-500">
-        <a class="ml-6 text-lg font-bold text-gray-800" href="#">
-          Windmill
-        </a>
-        <ul class="mt-6">
-          <li class="relative px-6 py-3">
-            <span class="absolute inset-y-0 left-0 w-1 bg-[#9b1c1c] rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-400"
-              href="index.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                </path>
-              </svg>
-              <span class="ml-4">Home</span>
-            </a>
-          </li>
-        </ul>
-        <ul>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              href="forms.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                </path>
-              </svg>
-              <span class="ml-4">Forms</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              href="cards.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                </path>
-              </svg>
-              <span class="ml-4">Cards</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              href="charts.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-              </svg>
-              <span class="ml-4">Charts</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              href="buttons.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122">
-                </path>
-              </svg>
-              <span class="ml-4">Buttons</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              href="modals.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                </path>
-              </svg>
-              <span class="ml-4">Modals</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              href="tables.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-              </svg>
-              <span class="ml-4">Tables</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <button
-              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
-              @click="togglePagesMenu" aria-haspopup="true">
-              <span class="inline-flex items-center">
-                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
-                  </path>
-                </svg>
-                <span class="ml-4">Pages</span>
-              </span>
-              <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </button>
-            <template x-if="isPagesMenuOpen">
-              <ul x-transition:enter="transition-all ease-in-out duration-300"
-                x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                x-transition:leave="transition-all ease-in-out duration-300"
-                x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
-                aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
-                  <a class="w-full" href="pages/login.html">Login</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
-                  <a class="w-full" href="pages/create-account.html">
-                    Create account
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
-                  <a class="w-full" href="pages/forgot-password.html">
-                    Forgot password
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
-                  <a class="w-full" href="pages/404.html">404</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
-                  <a class="w-full" href="pages/blank.html">Blank</a>
-                </li>
-              </ul>
-            </template>
-          </li>
-        </ul>
-        <div class="px-6 my-6">
-          <button
-            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#9b1c1c] border border-transparent rounded-lg active:bg-[#9b1c1c] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-            Create account
-            <span class="ml-2" aria-hidden="true">+</span>
-          </button>
-        </div>
-      </div>
+                <a class="ml-6 text-lg font-bold text-gray-800" href="#">
+                    Student Advising System
+                </a>
+                <ul class="mt-6">
+                    <li class="relative px-6 py-3">
+                    <span class="absolute inset-y-0 left-0 w-1 bg-[#923] rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            href="./home.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                </path>
+                            </svg>
+                            <span class="ml-4">Home</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-400"
+                            href="./faq.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                </path>
+                            </svg>
+                            <span class="ml-4">FAQs</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            href="./announcements.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                </path>
+                            </svg>
+                            <span class="ml-4">Announcements</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            href="./shared_files.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                            </svg>
+                            <span class="ml-4">Shared files</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            href="./courses.php">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122">
+                                </path>
+                            </svg>
+                            <span class="ml-4">Courses</span>
+                        </a>
+                    </li>
+                    <!-- <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            href="modals.html">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <span class="ml-4">Modals</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            href="tables.html">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                            </svg>
+                            <span class="ml-4">Tables</span>
+                        </a>
+                    </li> -->
+                    <li class="relative px-6 py-3">
+                        <button
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-400"
+                            @click="togglePagesMenu" aria-haspopup="true">
+                            <span class="inline-flex items-center">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path
+                                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
+                                    </path>
+                                </svg>
+                                <span class="ml-4">Student-lecturer Pairing</span>
+                            </span>
+                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <template x-if="isPagesMenuOpen">
+                            <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                x-transition:enter-start="opacity-25 max-h-0"
+                                x-transition:enter-end="opacity-100 max-h-xl"
+                                x-transition:leave="transition-all ease-in-out duration-300"
+                                x-transition:leave-start="opacity-100 max-h-xl"
+                                x-transition:leave-end="opacity-0 max-h-0"
+                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
+                                aria-label="submenu">
+                                <li
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
+                                    <a class="w-full" href="./areas_of_interest.php">Areas of interest</a>
+                                </li>
+                                <li
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-400">
+                                    <a class="w-full" href="./student_lecturer_pairing.php">
+                                        Pairing and result simulator
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </template>
+                    </li>
+                </ul>
+            </div>
     </aside>
     <div class="flex flex-col flex-1 w-full">
       <header class="z-10 py-4 bg-white shadow-md">
         <div
-          class="container flex items-center justify-between h-full px-6 mx-auto text-[#9b1c1c]">
+          class="container flex items-center justify-between h-full px-6 mx-auto text-[#923]">
           <!-- Mobile hamburger -->
           <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-red"
             @click="toggleSideMenu" aria-label="Menu">
@@ -349,53 +332,7 @@ $shared_files = select_all_shared_files_controller();
           </div>
           <ul class="flex items-center flex-shrink-0 space-x-6">
             <!-- Notifications menu -->
-            <li class="relative">
-              <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-red"
-                @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications"
-                aria-haspopup="true">
-                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                  </path>
-                </svg>
-                <!-- Notification badge -->
-                <span aria-hidden="true"
-                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#9b1c1c] border-2 border-white rounded-full "></span>
-              </button>
-              <template x-if="isNotificationsMenuOpen">
-                <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu"
-                  @keydown.escape="closeNotificationsMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md ">
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                      href="#">
-                      <span>Messages</span>
-                      <span
-                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
-                        13
-                      </span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                      href="#">
-                      <span>Sales</span>
-                      <span
-                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#9b1c1c] bg-red-100 rounded-full">
-                        2
-                      </span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                      href="#">
-                      <span>Alerts</span>
-                    </a>
-                  </li>
-                </ul>
-              </template>
-            </li>
+            
             <!-- Profile menu -->
             <li class="relative">
               <button class="align-middle rounded-full focus:shadow-outline-red focus:outline-none"
@@ -434,7 +371,7 @@ $shared_files = select_all_shared_files_controller();
                   </li>
                   <li class="flex">
                     <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                      href="../action/login_action.php?logout=<?php echo $_SESSION['user_id']?>">
+                      href="../action/logout_action.php?logout=<?php echo $_SESSION['user_id']?>">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
@@ -474,8 +411,12 @@ $shared_files = select_all_shared_files_controller();
 
             <!-- Card -->
             <div  <?php if ($announcement_count > 0) {echo '@click="openModal"';} ?> class="flex items-center p-4 bg-white rounded-lg shadow-xs <?php if ($announcement_count > 0) {echo 'hover:bg-gray-100';} ?> ">
-              <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
-              <i class="fas fa-bullhorn fa-xl"></i>
+            <div class="p-3 mr-4 text-white bg-[#923D41] rounded-full">
+              <!-- <i class="fas fa-bullhorn fa-xl"></i> -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.9912 2.00201C19.8599 2.00194 19.7298 2.02775 19.6084 2.07798C19.4871 2.12821 19.3768 2.20187 19.2839 2.29474C19.1911 2.38761 19.1174 2.49788 19.0672 2.61924C19.017 2.7406 18.9911 2.87067 18.9912 3.00201V3.63873C18.1478 4.68444 17.0819 5.52893 15.871 6.11073C14.66 6.69254 13.3346 6.99702 11.9912 7.00201H5.99121C5.19583 7.00288 4.43327 7.31923 3.87085 7.88165C3.30843 8.44407 2.99208 9.20663 2.99121 10.002V12.002C2.99208 12.7974 3.30843 13.56 3.87085 14.1224C4.43327 14.6848 5.19583 15.0011 5.99121 15.002H6.475L4.07227 20.6084C4.00698 20.7605 3.98047 20.9264 3.99512 21.0912C4.00978 21.256 4.06514 21.4147 4.15624 21.5528C4.24734 21.691 4.37133 21.8043 4.51706 21.8827C4.6628 21.9611 4.82572 22.0021 4.99121 22.002H8.99121C9.18696 22.0021 9.37843 21.9447 9.54182 21.8369C9.7052 21.7291 9.83329 21.5756 9.91016 21.3956L12.6339 15.04C13.8646 15.1304 15.0636 15.472 16.157 16.0439C17.2505 16.6158 18.215 17.4058 18.9912 18.3651V19.002C18.9912 19.2672 19.0966 19.5216 19.2841 19.7091C19.4716 19.8967 19.726 20.002 19.9912 20.002C20.2564 20.002 20.5108 19.8967 20.6983 19.7091C20.8859 19.5216 20.9912 19.2672 20.9912 19.002V3.00201C20.9913 2.87067 20.9655 2.7406 20.9152 2.61924C20.865 2.49788 20.7914 2.38761 20.6985 2.29474C20.6056 2.20186 20.4953 2.12821 20.374 2.07798C20.2526 2.02775 20.1226 2.00194 19.9912 2.00201ZM5.99121 13.002C5.72605 13.0018 5.4718 12.8964 5.2843 12.7089C5.0968 12.5214 4.99139 12.2672 4.99121 12.002V10.002C4.99139 9.73685 5.09681 9.4826 5.2843 9.29511C5.4718 9.10761 5.72605 9.00219 5.99121 9.00201H6.99121V13.002H5.99121ZM8.33203 20.002H6.50781L8.65039 15.002H10.4746L8.33203 20.002ZM18.9912 15.5238C17.0195 13.8994 14.5459 13.0083 11.9912 13.002H8.99121V9.00196H11.9912C14.5459 8.99543 17.0195 8.10412 18.9912 6.47962V15.5238Z" fill="white"/>
+              </svg>
+
               </div>
               <div>
                 <p class="mb-2 text-xl font-medium text-gray-600">
@@ -496,78 +437,6 @@ $shared_files = select_all_shared_files_controller();
                 
           </div>
 
-          <!-- the card code is in take out -->
-
-          <!-- New Table -->
-          <!-- <div class="w-full overflow-hidden rounded-lg shadow-xs">
-              <div class="w-full overflow-x-auto">
-              <table class="w-full whitespace-no-wrap">
-                  <thead>
-                  <tr
-                      class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b uppercase bg-gray-50">
-                      <th class="px-12 py-3">File name</th>
-                      <th class="px-4 py-3">Description`</th>
-                      <th class="px-4 py-3"></th>
-                  </tr>
-                  </thead>
-
-                  <tbody class="bg-white divide-y">
-                  <?php if ($shared_files) {
-                      foreach ($shared_files as $shared_file) {
-                          echo '
-                          <tr class="text-gray-700">
-                              <td class="px-4 py-3">
-                                  <div class="flex items-center text-sm">
-                                      <!-- Avatar with inset shadow -->
-                                      <!-- <div class="hidden w-8 h-8 mr-3 rounded-full md:block"> -->
-                                          <i class="mr-3 fas fa-file fa-lg"></i>
-                                      <!-- </div> -->
-                                  <div>
-                                      <p class="font-semibold">' .
-                              $shared_file['file_name'] .
-                              '</p>
-                                      </div>
-                                  </div>
-                              </td>
-                              <td class="px-4 py-3 text-sm">';
-
-                          if (strlen($shared_file['file_desc'] < 50)) {
-                              echo substr($shared_file['file_desc'], 0, 50) .
-                                  '...';
-                          } else {
-                              echo $shared_file['file_desc'];
-                          }
-                          echo '</td>
-                              
-                              <td class="px-4 py-3">
-                                  <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
-                                  <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
-                                  <a href="' .
-                              $shared_file['file'] .
-                              '" download="' .
-                              basename($shared_file['file']) .
-                              PHP_EOL .
-                              '"><i class="ml-10 text-green-500 fas fa-download"></i></a>
-
-                              </td>
-                          </tr>
-                          ';
-                      }
-                  } else {
-                      echo '<td class="text-right">
-                              <div>
-                                  <p class="font-semibold">No file available</p>
-                              </div>
-                            </td>';
-                  } ?>
-
-                  </tbody>
-              </table>
-              </div>
-              <div
-                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-              </div>
-          </div> -->
           
         </div>
       </main>
@@ -642,7 +511,7 @@ $shared_files = select_all_shared_files_controller();
       <footer
         class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
         <button  @click="closeModal"
-          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+          class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-800 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
           Done
         </button>
       </footer>

@@ -3,7 +3,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <!-- component -->
-<!-- <div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
+<div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">
     <x-loading class="w-24 h-24">
       <svg viewBox="0 0 860.1 876.5">
@@ -40,7 +40,7 @@
     </x-loading>
     <div class="mt-3 text-gray-200 text-sm sm:text-xs">Loading...</div>
   </div>
-</div> -->
+</div>
 
 <?php 
 

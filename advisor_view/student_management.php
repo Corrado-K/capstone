@@ -1,9 +1,24 @@
 <?php
 require '../controller/student_controller.php';
+include '../settings/core.php';
 
-session_start();
+check_login();
 
 $students = select_all_students_controller();
+
+$results_per_page = 10;
+
+
+//determine the total number of pages available  
+$number_of_page = ceil (count($students) / $results_per_page);  
+
+//determine which page number visitor is currently on  
+
+if (!isset($_GET['page']) ) {  
+    $page = 1;  
+} else {  
+    $page = $_GET['page'];  
+}
 
 ?>
 
@@ -143,13 +158,7 @@ $students = select_all_students_controller();
                         </template>
                     </li>
                 </ul>
-                <div class="px-6 my-6">
-                    <button
-                        class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-black transition-colors duration-150 bg-red-100 border border-transparent rounded-lg active:bg-[#923] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                        Create account
-                        <span class="ml-2" aria-hidden="true">+</span>
-                    </button>
-                </div>
+                
             </div>
         </aside>
         <!-- Mobile sidebar -->
@@ -304,13 +313,7 @@ $students = select_all_students_controller();
               </template>
             </li>
           </ul>
-          <div class="px-6 my-6">
-            <button
-              class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-              Create account
-              <span class="ml-2" aria-hidden="true">+</span>
-            </button>
-          </div>
+          
         </div>
       </aside>
 
@@ -356,55 +359,7 @@ $students = select_all_students_controller();
                             </button>
                         </li>
                         <!-- Notifications menu -->
-                        <li class="relative">
-                            <button
-                                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-red"
-                                @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                aria-label="Notifications" aria-haspopup="true">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                                    </path>
-                                </svg>
-                                <!-- Notification badge -->
-                                <span aria-hidden="true"
-                                    class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-[#923] border-2 border-white rounded-full"></span>
-                            </button>
-                            <template x-if="isNotificationsMenuOpen">
-                                <ul x-transition:leave="transition ease-in duration-150"
-                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                    @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
-                                    aria-label="submenu">
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="#">
-                                            <span>Messages</span>
-                                            <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#923] bg-red-100 rounded-full">
-                                                13
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="#">
-                                            <span>Sales</span>
-                                            <span
-                                                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-[#923] bg-red-100 rounded-full">
-                                                2
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="#">
-                                            <span>Alerts</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </template>
-                        </li>
+                        
                         <!-- Profile menu -->
                         <li class="relative">
                             <button class="align-middle rounded-full focus:shadow-outline-red focus:outline-none"
@@ -449,7 +404,7 @@ $students = select_all_students_controller();
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="../action/login_action.php?logout=<?php $_SESSION[
+                                            href="../action/logout_action.php?logout=<?php $_SESSION[
                                                 'user_id'
                                             ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
@@ -563,8 +518,20 @@ $students = select_all_students_controller();
                                         '</p>
                                     </td>                    
                                     <td class="px-4 py-3">
-                                        <a href=""><i class="ml-10 text-blue-400 fas fa-edit"></i></a>
-                                        <a href=""><i class="ml-10 text-red-500 fas fa-trash-alt"></i></a>
+                                        <button class="ml-8 editbtn"  @click="openModal('.'editmodal'.')" data-modal-toggle="editmodal">
+                                        <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.4922 2.789H7.75324C4.67824 2.789 2.75024 4.966 2.75024 8.048V16.362C2.75024 19.444 4.66924 21.621 7.75324 21.621H16.5772C19.6622 21.621 21.5812 19.444 21.5812 16.362V12.334" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82763 10.9209L16.3006 3.44793C17.2316 2.51793 18.7406 2.51793 19.6716 3.44793L20.8886 4.66493C21.8196 5.59593 21.8196 7.10593 20.8886 8.03593L13.3796 15.5449C12.9726 15.9519 12.4206 16.1809 11.8446 16.1809H8.09863L8.19263 12.4009C8.20663 11.8449 8.43363 11.3149 8.82763 10.9209Z" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.165 4.60254L19.731 9.16854" stroke="#2885C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </button>
+                                        <button class="ml-8 deletebtn">
+                                        <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.325 9.4682C19.325 9.4682 18.782 16.2032 18.467 19.0402C18.317 20.3952 17.48 21.1892 16.109 21.2142C13.5 21.2612 10.888 21.2642 8.28003 21.2092C6.96103 21.1822 6.13803 20.3782 5.99103 19.0472C5.67403 16.1852 5.13403 9.4682 5.13403 9.4682" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M20.7082 6.23969H3.75024" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17.4406 6.23967C16.6556 6.23967 15.9796 5.68467 15.8256 4.91567L15.5826 3.69967C15.4326 3.13867 14.9246 2.75067 14.3456 2.75067H10.1126C9.53358 2.75067 9.02558 3.13867 8.87558 3.69967L8.63258 4.91567C8.47858 5.68467 7.80258 6.23967 7.01758 6.23967" stroke="#D02B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </button>
                                     </td>
                                     </tr>
                                     ';
@@ -576,67 +543,83 @@ $students = select_all_students_controller();
                         </div>
                         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
                             <span class="flex items-center col-span-3">
-                                Showing 1-10 of {}
+                                Showing <?php echo ($page*10)-(10-1)?> - <?php if($page*10 < count($students)){echo $page*10;}else{echo count($students);} ?> of <?php echo count($students);?>
                             </span>
                             <span class="col-span-2"></span>
                             <!-- Pagination -->
                             <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                                 <nav aria-label="Table navigation">
                                 <ul class="inline-flex items-center">
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Previous">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        1
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        2
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <button
-                                        class="px-3 py-1 text-white transition-colors duration-150 bg-[#923] border border-r-0 border-[#923] rounded-md focus:outline-none focus:shadow-outline-red">
-                                        3
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        4
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <span class="px-3 py-1">...</span>
-                                    </li>
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        8
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
-                                        9
-                                    </button>
-                                    </li>
-                                    <li>
-                                    <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Next">
-                                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                    </li>
+
+                                    <?php 
+                                    if ($page-1 != 0 ) {
+                                        echo '<li>
+                                        <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Previous"><a href="./announcements.php?page='.$page-1 .'">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                            </a>
+                                        </button>
+                                        </li>';
+
+                                    }else{
+                                        echo '<li>
+                                        <button disabled="disabled" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Previous">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        </li>';
+                                    }
+                                    ?>
+                                    
+                                    <?php 
+                                        for ($i=1; $i <= $number_of_page; $i++) { 
+                                        echo '<li>
+                                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-red">
+                                                    <a href="./announcements.php?page='.$i.'">'.$i.'</a>
+                                                    
+                                                </button>
+                                                </li>';
+                                        }
+                                    ?>
+                                    
+                                    <?php 
+                                    if ($page+1 <= $number_of_page ) {
+                                        echo '<li>
+                                        <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Next">
+                                            <a href="./announcements.php?page='.$page+1 .'">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                            </a>
+                                        </button>
+                                    </li> ';
+
+                                    }else{
+                                        echo '<li>
+                                        <button disabled="disabled" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-red"
+                                            aria-label="Next">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                            <path
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                            
+                                        </button>
+                                    </li> ';
+                                    }
+                                    ?>
+                                
                                 </ul>
                                 </nav>
                             </span>

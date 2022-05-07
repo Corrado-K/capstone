@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -44,6 +45,9 @@
 
 
 <?php
+
+
+session_start();
 
 require_once '../controller/student_controller.php';
 require_once '../controller/advisor_controller.php';
@@ -138,9 +142,12 @@ if (isset($_POST['loginButton'])) {
         $advisor_result = select_advisor_controller($email);
 
         if ($advisor_result['advisor_email'] == $email && password_verify($password, $advisor_result['advisor_pass']) ) {
+            // session_start();
             $_SESSION['user_id'] = $advisor_result['advisor_id'];
             $_SESSION['email'] = $advisor_result['advisor_email'];
             $_SESSION['name'] = $advisor_result['advisor_name'];
+
+            print_r($_SESSION);
     
             // Change to sweet alert
             echo '<script>
@@ -153,7 +160,8 @@ if (isset($_POST['loginButton'])) {
                 }).then(() => {
                     window.location = "../advisor_view/home.php";
                     });
-            </script>';
+                </script>';
+
         }else{
             echo '<script>
             swal({
@@ -171,6 +179,7 @@ if (isset($_POST['loginButton'])) {
         $student_result = select_student_controller($email);
 
         if($student_result['student_email'] == $email && password_verify($password, $student_result['student_pass']) ){
+            // session_start();
             $_SESSION['user_id'] = $student_result['student_id'];
             $_SESSION['email'] = $student_result['student_email'];
             $_SESSION['name'] = $student_result['student_name'];
@@ -207,15 +216,14 @@ if (isset($_POST['loginButton'])) {
 }
 
 
-// Logout
 
-if (isset($_GET['logout'])) {
-    session_destroy();
-    header('Location: ../index.php');
-    echo '<script>window.location = "../index.php";</script>';
 
-    
-}
+// if (isset($_GET['logout'])) {
+//     session_destroy();
+//     header('Location: ../index.php');
+//     echo '<script>window.location = "../index.php";</script>';
+
+// }
 
 
 
