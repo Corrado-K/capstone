@@ -2,7 +2,7 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
+<!-- 
 <div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">
     <x-loading class="w-24 h-24">
@@ -40,13 +40,13 @@
     </x-loading>
     <div class="mt-3 text-gray-200 text-sm sm:text-xs">Loading...</div>
   </div>
-</div>
+</div> -->
 
 
 
 <?php 
 
-require_once '../controller/lecturer_controller.php';
+require '../controller/lecturer_controller.php';
 
 
 if (isset($_POST['add_lecturer'])) {
@@ -79,5 +79,92 @@ if (isset($_POST['add_lecturer'])) {
 }
 
 
+
+?>
+
+
+
+<!-- Must doooooooooooooooooooooooooooooo -->
+
+
+<?php 
+
+include '../controller/lecturer_controller.php';
+
+
+// Update lecturer 
+if (isset($_POST['edit_lecturer'])) {
+    $lecturer_id = $_POST['id'];
+    $lecturer_name = $_POST['name'];
+    $lecturer_email = $_POST['email'];
+    $lecturer_contact = $_POST['contact'];
+
+    // echo $lecturer_contact;
+
+    $result = update_lecturer_controller($lecturer_id, $lecturer_name, $lecturer_email, $lecturer_contact);
+
+    var_dump($result);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "lecturer details edited!",
+                    text: "lecturer details edited successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/lecturer_management.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/lecturer_management.php";
+                });
+            </script>';
+    }
+    
+}
+
+?>
+
+
+<?php 
+
+
+// Delete announcement 
+if (isset($_POST['delete_lecturer'])) {
+    $id = $_POST['lecturer_id'];
+
+    $result = delete_lecturer_controller($id);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title:"lecturer deleted!",
+                    text: "lecturer deleted successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/lecturer_management.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/lecturer_management.php";
+                });
+            </script>';
+    }
+    
+}
 
 ?>

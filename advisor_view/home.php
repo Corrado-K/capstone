@@ -9,6 +9,7 @@ include '../settings/core.php';
 
 check_login();
 
+
 $number_of_students = count_students_controller();
 $number_of_faqs = number_of_faqs_controller();
 $number_of_shared_files = number_of_shared_files_controller();

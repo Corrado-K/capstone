@@ -53,7 +53,7 @@ class AOI extends Connection{
 	//create update and delete queries
 	function update_aoi($aoi_id, $name, $description){
 		// return true or false
-		return $this->query("update areas_of_interest set name = '$name' and description = '$description' where aoi_id = '$aoi_id'");
+		return $this->query("update areas_of_interest set aoi_name = '$name', aoi_description = '$description' where aoi_id = '$aoi_id'");
 	}
 
 	function delete_aoi($aoi_id){

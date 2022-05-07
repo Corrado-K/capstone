@@ -1,6 +1,6 @@
 <?php
 
-require('../settings/db_class.php');
+require '../settings/db_class.php';
 
 // inherit the methods from Connection
 class Lecturer extends Connection{

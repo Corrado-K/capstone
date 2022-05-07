@@ -3,7 +3,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-<!-- <div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
+<div class="inset-0 bg-red-900 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">
     <x-loading class="w-24 h-24">
       <svg viewBox="0 0 860.1 876.5">
@@ -40,7 +40,7 @@
     </x-loading>
     <div class="mt-3 text-gray-200 text-sm sm:text-xs">Loading...</div>
   </div>
-</div> -->
+</div>
 
 
 
@@ -85,44 +85,91 @@ if (isset($_POST['search_aoi'])) {
     $result = find_aoi_controller($aoi);
 
 
+}
 
+?>
+
+
+
+<!-- Must doooooooooooooooooooooooooooooo -->
+
+
+<?php 
+
+
+// Update aoi 
+if (isset($_POST['edit_aoi'])) {
+    $aoi_id = $_POST['id'];
+    $aoi_desc = $_POST['aoi_desc'];
+    $aoi_name = $_POST['aoi_name'];
+    // $aoi_passgrade = $_POST['aoi_passgrade'];
+
+    // echo $aoi_passgrade;
+
+    $result = update_aoi_controller($aoi_id, $aoi_name, $aoi_desc);
+
+    var_dump($result);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "Area of Interest edited!",
+                    text: "Area of Interest edited successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/areas_of_interest.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/areas_of_interest.php";
+                });
+            </script>';
+    }
     
+}
+
+?>
 
 
+<?php 
 
+
+// Delete announcement 
+if (isset($_POST['delete_aoi'])) {
+    $id = $_POST['aoi_id'];
+
+    $result = delete_aoi_controller($id);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "Area of interest deleted!",
+                    text: "Area of interest deleted successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/areas_of_interest.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/areas_of_interest.php";
+                });
+            </script>';
+    }
     
-    // foreach ($aoi as $aois) {
-    //   echo  $aois;
-    // }
-    // echo $aoi;
-
-    // $data_lect = select_all_lecturer_aoi_controller();
-
-    // $lect_count = 0;
-    // $lect_array = [];
-    
-
-    // foreach ($data_lect as $lect) {
-        
-    //       for ($i=0; $i < count($aoi); $i++) { 
-    //           for ($j=0; $j < count($lect->interest); $j++) { 
-    //               if ($aoi[$i] == $lect->interest[$j]) {
-    //                   $lect_count ++;
-    //                   echo "1 <br>";
-    //               }else{
-    //                   echo "0 <br>";
-    //               }
-    //           }
-    //       }
-    //     echo "Similarity: " . $lect_count . "<br> <br>";
-    //     array_push($lect_array, $lect_count);
-
-    //     $lect_count = 0;
-    // }
-
-    // print_r($lect_array);
-
-
 }
 
 ?>

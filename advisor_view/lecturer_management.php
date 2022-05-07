@@ -4,6 +4,7 @@ include '../settings/core.php';
 
 check_login();
 
+
 $lecturers = select_all_lecturers_controller();
 
 $results_per_page = 10;
@@ -35,6 +36,12 @@ if (!isset($_GET['page']) ) {
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="./assets/js/focus-trap.js"></script>
+
+    <!-- Sweet Alert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -404,9 +411,7 @@ if (!isset($_GET['page']) ) {
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="../action/logout_action.php?logout=<?php $_SESSION[
-                                                'user_id'
-                                            ]; ?>">
+                                            href="../action/logout_action.php?logout=<?php echo $_SESSION['user_id']; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -503,21 +508,10 @@ if (!isset($_GET['page']) ) {
                                 foreach ($lecturers as $lecturer) {
                                     echo '
                                     <tr class="text-gray-700">
-                                    <td class="px-4 py-3">
-                                        <p class="font-normal">' .
-                                            $lecturer['lecturer_name'] .
-                                        '</p>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <p class="font-normal">' .
-                                            $lecturer['lecturer_email'] .
-                                        '</p>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <p class="font-normal">' .
-                                            $lecturer['lecturer_contact'] .
-                                        '</p>
-                                    </td>                    
+                                    <td class="hidden">'.$lecturer['lecturer_id'].'</td>
+                                    <td class="px-4 py-3"><p class="font-normal">'.$lecturer['lecturer_name'].'</p></td>
+                                    <td class="px-4 py-3"><p class="font-normal">'.$lecturer['lecturer_email'].'</p></td>
+                                    <td class="px-4 py-3"><p class="font-normal">'.$lecturer['lecturer_contact'] .'</p></td>                    
                                     <td class="px-4 py-3">
                                         <button class="ml-8 editbtn"  @click="openModal('.'editmodal'.')" data-modal-toggle="editmodal">
                                         <svg class="hover:animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -627,14 +621,170 @@ if (!isset($_GET['page']) ) {
                         </div>
                     </div>
 
-                    
-
-                    
-
                 </div>
             </main>
         </div>
     </div>
+
+
+
+    <script>
+
+$(document).ready(function(){
+    $('.editbtn').on('click',function(){
+        $('#editModal').modal('show');
+
+        $tr = $(this).closest('tr');
+        var data = $tr.children('td').map(function(){
+            return $(this).text();
+        }).get();
+
+        $('#id').val(data[0]);
+        $('#name').val(data[1]);
+        $('#email').val(data[2]);
+        $('#contact').val(data[3]);
+
+    });
+});
+
+
+
+$(document).ready(function(){
+    $('.deletebtn').on('click',function(){
+      $tr = $(this).closest('tr');
+      var data = $tr.children('td').map(function(){
+          return $(this).text();
+      }).get();
+
+      var subject =  data[1];
+      var id =  data[0]
+
+      Swal.fire({
+        title: `Are you sure you want to delete "${subject}"?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // ajax post request to php to perform delete function
+          $.ajax({
+            type:"POST",
+            url: '../action/lecturer_action.php',
+            data: {
+              delete_lecturer:true,
+              lecturer_id: id
+            },
+            success: function(data){
+              console.log(data);
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              ).then((result) => {
+                if(result.isConfirmed){
+                  setTimeout(location.reload(), 5000);
+                }
+              })
+            },
+            error: function(xhr, status, error){
+              console.error(xhr);
+              Swal.fire(
+                'Not deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+        
+        }
+      })
+
+    });
+});
+</script>
+
+<!-- EDIT  MODAL -->
+
+<!-- Modal backdrop. This what you want to place close to the closing body tag -->
+<div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+<!-- Modal -->
+<div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+  x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+  x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+  x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+  @keydown.escape="closeModal"
+  class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+  role="dialog" id="editmodal">
+  <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+  <header class="flex justify-end">
+    <button
+      class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded hover: hover:text-gray-700"
+      aria-label="close" @click="closeModal">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+        <path
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          clip-rule="evenodd" fill-rule="evenodd"></path>
+      </svg>
+    </button>
+  </header>
+  <!-- Modal body -->
+  <div class="mt-4 mb-6">
+    <!-- Modal title -->
+    <p class="mb-2 text-xl text-center font-semibold text-gray-700 ">
+      Edit lecturer details
+    </p>
+    <!-- Modal description -->
+    <form action="../action/lecturer_action.php" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="id">
+      <label class="block text-sm">
+        <span class="text-gray-700">Name</span>
+        <input
+          class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+          placeholder="Enter name"
+          name="name" id="name" />
+      </label>
+      <label class="block text-sm">
+        <span class="text-gray-700">Email</span>
+        <input
+          class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+          placeholder="Enter email"
+          name="email" id="email" />
+      </label>
+      <label class="block text-sm">
+        <span class="text-gray-700">Contact</span>
+        <input
+          class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
+          placeholder="Enter contact"
+          name="contact" id="contact" />
+      </label>
+
+      <button name="edit_lecturer" class="px-4 mt-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-[#923] border border-transparent rounded-lg active:bg-[#923] hover:bg-[#923] focus:outline-none focus:shadow-outline-[#923] rounded-full">
+          Submit
+      </button>
+    </form>
+  </div>
+  <footer
+    class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50">
+    <button @click="closeModal"
+      class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+      Cancel
+    </button>
+    <!-- <button
+      class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+      Accept
+    </button> -->
+  </footer>
+</div>
+</div>
+<!-- End of modal backdrop -->
+
+
 </body>
 
 </html>

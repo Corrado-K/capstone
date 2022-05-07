@@ -390,7 +390,7 @@ if (!isset($_GET['page']) ) {
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-400"
-                                            href="../action/logout_action.php?logout=<?php $_SESSION[
+                                            href="../action/logout_action.php?logout=<?php echo $_SESSION[
                                                 'user_id'
                                             ]; ?>">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
