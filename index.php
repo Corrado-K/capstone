@@ -27,34 +27,30 @@
 <div class="w-full h-screen bg-center bg-no-repeat bg-cover ">
     <div class="w-full h-screen bg-opacity-50">
         <div class="mx-4 ">
-            <h1 class="font-semibold text-black text-6xl ml-10 mb-15 mt-8">SaS</h1>
+        <img class="mx-auto w-48 mt-8 mb-8" src="./login/assets/img/ashesiLogo1.png" alt="">
+            <!-- <h1 class="font-semibold text-black text-6xl ml-10 mb-15 mt-8">SaS</h1> -->
             <h2 class="font-semibold text-5xl text-center mt-5 mb-12">Student Advising System</h2>
             <div class="grid grid-cols-2 gap-4 text-center">
                 <div class="border-r border-r-red-900">
                     <h3 class="text-3xl font-bold text-red-700">
                         Student
                     </h3>
-                    <p class="self-center mx-auto w-96">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni dolor dicta ex maxime eum, ab quam officia tenetur porro obcaecati voluptate reiciendis dolores voluptatem facere saepe nisi qui, accusamus dolore.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni dolor dicta ex maxime eum, ab quam officia tenetur porro obcaecati voluptate reiciendis dolores voluptatem facere saepe nisi qui, accusamus dolore.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni dolor dicta ex maxime eum, ab quam officia tenetur porro obcaecati voluptate reiciendis dolores voluptatem facere saepe nisi qui, accusamus dolore.
-
+                    <p class="self-center text-justify mx-auto w-96">
+                        Student who wish to have access to information
+                       
                     </p>
                 </div>    
                 <div>
                     <h3 class="text-3xl font-bold text-red-700">
                         Advisors
                     </h3>
-                    <p class="self-center mx-auto w-96">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis illum necessitatibus, labore eum rem molestiae vel placeat accusantium ipsa minus, voluptates laborum reprehenderit quasi ad architecto molestias eveniet. Culpa!
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni dolor dicta ex maxime eum, ab quam officia tenetur porro obcaecati voluptate reiciendis dolores voluptatem facere saepe nisi qui, accusamus dolore.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni dolor dicta ex maxime eum, ab quam officia tenetur porro obcaecati voluptate reiciendis dolores voluptatem facere saepe nisi qui, accusamus dolore.
-
+                    <p class="self-center text-justify mx-auto w-96">
+                        The Academic Advisor 
                     </p>
                 </div>            
                 
             </div>
-            <div class="mt-10 text-center">
+            <div class="text-center absolute inset-x-5 bottom-32 mb-0">
                 <a href="./login/login.html" class="rounded-full text-white bg-red-900 px-10 py-3">Get started</a>
  
             </div>

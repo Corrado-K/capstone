@@ -22,6 +22,18 @@ class Lecturer extends Connection{
 		return $this->fetchOne("select * from lecturers where lecturer_email='$email'");
 	}
 
+	//create update and delete queries
+	function update_lecturer($lecturer_id, $name, $email, $contact){
+		// return true or false
+		return $this->query("update lecturers set lecturer_name = '$name', lecturer_email = '$email', lecturer_contact = '$contact' where lecturer_id = '$lecturer_id'");
+	}
+
+	function delete_lecturer($lecturer_id){
+		// return true or false
+		return $this->query("delete from lecturers where lecturer_id='$lecturer_id'");
+
+	}
+
 }
 
 ?>

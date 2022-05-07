@@ -27,7 +27,7 @@ function select_all_lecturers_controller(){
 
 }
 
-/* function delete_lecturer_controller($lecturer_id){
+function delete_lecturer_controller($lecturer_id){
     // create an instance of the lecturer class
     $lecturer_instance = new Lecturer();
     // call the method from the class
@@ -42,7 +42,7 @@ function update_lecturer_controller($name,$email,$password,$contact, $image){
     return $lecturer_instance->update_lecturer($name,$email,$password,$contact, $image);
 
 } 
-
+/*
 function count_lecturer_controller(){
     // create an instance of the lecturer class
     $lecturer_instance = new Lecturer();

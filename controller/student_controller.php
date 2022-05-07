@@ -27,7 +27,7 @@ function select_all_students_controller(){
 
 }
 
-/* function delete_student_controller($student_id){
+ function delete_student_controller($student_id){
     // create an instance of the student class
     $student_instance = new Student();
     // call the method from the class
@@ -35,14 +35,14 @@ function select_all_students_controller(){
 
 }
 
-function update_student_controller($name,$email,$password,$contact, $image){
+function update_student_controller($student_id, $name, $email, $contact){
     // create an instance of the student class
     $student_instance = new Student();
     // call the method from the class
-    return $student_instance->update_student($name,$email,$password,$contact, $image);
+    return $student_instance->update_student($student_id, $name, $email, $contact);
 
 } 
-*/
+
 
 function count_students_controller(){
     // create an instance of the student class
