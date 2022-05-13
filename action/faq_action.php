@@ -187,16 +187,40 @@ if(isset($_POST['process_faq_csv'])){
 
 
 
-
 <?php 
 
 
 // Update faq 
-if (isset($_POST['update_faq'])) {
-    $question = '';
-    $response = '';
+if (isset($_POST['edit_faq'])) {
+    $faq_id = $_POST['id'];
+    $faq_question = $_POST['question'];
+    $faq_answer = $_POST['answer'];
 
-    $result = '';
+    $result = update_faq_controller($faq_id, $faq_question, $faq_answer);
+
+    var_dump($result);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title: "FAQ details edited!",
+                    text: "FAQ details edited successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/faq.php";
+                    });
+            </script>';
+
+    }else{
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/faq.php";
+                });
+            </script>';
+    }
     
 }
 
@@ -206,12 +230,34 @@ if (isset($_POST['update_faq'])) {
 <?php 
 
 
-// Delete faq 
+// Delete announcement 
 if (isset($_POST['delete_faq'])) {
-    $question = '';
-    $response = '';
+    $id = $_POST['faq_id'];
 
-    $result = '';
+    $result = delete_faq_controller($id);
+
+    if ($result) {
+
+        echo '<script>
+                swal({
+                    title:"FAQ deleted!",
+                    text: "FAQ deleted successfully!",
+                    icon: "success",
+                    button: "Ok",
+                    timer: 2000
+                }).then(() => {
+                    window.location = "../advisor_view/faq.php";
+                    });
+            </script>';
+
+    }else{
+        // echo $subject.$message.$file.$date;
+        echo '<script>
+                swal("Failed").then(() => {
+                    window.location = "../advisor_view/faq.php";
+                });
+            </script>';
+    }
     
 }
 

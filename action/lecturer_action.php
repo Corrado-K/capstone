@@ -78,18 +78,13 @@ if (isset($_POST['add_lecturer'])) {
     }
 }
 
-
-
 ?>
-
 
 
 <!-- Must doooooooooooooooooooooooooooooo -->
 
 
 <?php 
-
-include '../controller/lecturer_controller.php';
 
 
 // Update lecturer 
@@ -109,8 +104,8 @@ if (isset($_POST['edit_lecturer'])) {
 
         echo '<script>
                 swal({
-                    title: "lecturer details edited!",
-                    text: "lecturer details edited successfully!",
+                    title: "Lecturer details edited!",
+                    text: "Lecturer details edited successfully!",
                     icon: "success",
                     button: "Ok",
                     timer: 2000
@@ -146,8 +141,8 @@ if (isset($_POST['delete_lecturer'])) {
 
         echo '<script>
                 swal({
-                    title:"lecturer deleted!",
-                    text: "lecturer deleted successfully!",
+                    title:"Lecturer deleted!",
+                    text: "Lecturer deleted successfully!",
                     icon: "success",
                     button: "Ok",
                     timer: 2000

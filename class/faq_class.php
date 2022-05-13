@@ -7,8 +7,7 @@ class FAQ extends Connection{
 	
 	function add_faq($question, $answer){
 		// return true or false
-		return $this->query("insert into faq(faq_question, faq_answer ) 
-							values('$question', '$answer')");
+		return $this->query("insert into faq(faq_question, faq_answer )values('$question', '$answer')");
 	}
 
 	function select_all_faqs(){
@@ -19,8 +18,13 @@ class FAQ extends Connection{
 	//create update and delete queries
 	function update_faq($faq_id, $question, $answer){
 		// return true or false
-		return $this->query("update faq set question = '$question' 
-							and answer = '$answer' where faq_id = '$faq_id'");
+		return $this->query("update faq set faq_question = '$question', faq_answer = '$answer' where faq_id = '$faq_id'");
+	}
+
+	function delete_faq($faq_id){
+		// return true or false
+		return $this->query("delete from faq where faq_id='$faq_id'");
+
 	}
 
 	public function number_of_faqs()

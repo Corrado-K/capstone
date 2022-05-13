@@ -453,7 +453,7 @@
                   <span class="text-gray-700">Subject</span>
                   <input
                     class="block w-full mt-1 text-sm border-gray-200 rounded-full focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-                    placeholder="Jane Doe"
+                    placeholder="Subject"
                     name="subject" />
                 </label>
 
